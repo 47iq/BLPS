@@ -10,11 +10,12 @@ import org.iq47.service.CityService;
 import org.iq47.service.TicketService;
 import org.iq47.validate.TicketValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.common.exceptions.InvalidRequestException;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,9 +40,9 @@ public class TicketController {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);
             if(error.isPresent())
-                throw new InvalidRequestException(error.get());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseWrapper(error.get()));
             return save(req);
-        } catch (TicketSaveException | InvalidRequestException ex) {
+        } catch (TicketSaveException ex) {
             return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
         } catch (Exception e) {
             return reportError(req, e);
@@ -56,7 +57,7 @@ public class TicketController {
                 throw new TicketSaveException("Ticket has not been deleted.");
             }
             return ResponseEntity.ok().body(null);
-        } catch (TicketSaveException | InvalidRequestException ex) {
+        } catch (TicketSaveException ex) {
             return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
         } catch (Exception e) {
             log.error(String.format("Got %s while deleting seller ticket %s", e.getClass(), id));
@@ -69,9 +70,9 @@ public class TicketController {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);
             if(error.isPresent())
-                throw new InvalidRequestException(error.get());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseWrapper(error.get()));
             return edit(req);
-        } catch (TicketSaveException | InvalidRequestException ex) {
+        } catch (TicketSaveException ex) {
             return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
         } catch (Exception e) {
             return reportError(req, e);
@@ -106,7 +107,7 @@ public class TicketController {
     public ResponseEntity<?> get(
             @RequestParam String departureCity,
             @RequestParam String arrivalCity,
-            @RequestParam LocalDateTime flightDate
+            @RequestParam Date flightDate
     ) {
         try {
             List<Ticket> tickets = ticketService.averageTicketsPrice(departureCity, arrivalCity, flightDate);
@@ -133,7 +134,6 @@ public class TicketController {
             }
             return ResponseEntity.ok().body(ticketOptional.get());
         }
-
         return ResponseEntity.badRequest().body("City not found.");
     }
 

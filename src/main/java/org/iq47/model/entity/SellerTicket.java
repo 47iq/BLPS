@@ -1,5 +1,6 @@
 package org.iq47.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class SellerTicket {
 
     @ManyToOne
     @JoinColumn(name = "ticket_id", nullable = false)
+    @JsonBackReference
     private Ticket ticket;
 
     @Column(name = "price")
@@ -52,11 +54,6 @@ public class SellerTicket {
 
         public SellerTicket.Builder setLink(String link) {
             SellerTicket.this.link = link;
-            return this;
-        }
-
-        public SellerTicket.Builder setTicketId(Long ticketId) {
-            SellerTicket.this.ticket.setId(ticketId);
             return this;
         }
 

@@ -2,36 +2,34 @@ package org.iq47.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iq47.exception.TicketSaveException;
-import org.iq47.model.entity.City;
 import org.iq47.model.entity.SellerTicket;
 import org.iq47.model.entity.Ticket;
-import org.iq47.network.request.CityRequest;
 import org.iq47.network.request.SellerTicketRequest;
-import org.iq47.network.request.TicketRequest;
 import org.iq47.network.response.ResponseWrapper;
 import org.iq47.service.SellerTicketService;
 import org.iq47.service.TicketService;
 import org.iq47.validate.SellerTicketValidator;
-import org.iq47.validate.TicketValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.common.exceptions.InvalidRequestException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/seller_ticket")
+@RequestMapping("api/seller_tickets")
 @Slf4j
 public class SellerTicketController {
 
-    private final SellerTicketService ticketService;
+    private final SellerTicketService sellerTicketService;
     private final SellerTicketValidator ticketValidator;
+    private final TicketService ticketService;
 
     @Autowired
-    public SellerTicketController(SellerTicketService ticketService, SellerTicketValidator ticketValidator) {
-        this.ticketService = ticketService;
+    public SellerTicketController(SellerTicketService sellerTicketService, SellerTicketValidator ticketValidator, TicketService ticketService) {
+        this.sellerTicketService = sellerTicketService;
         this.ticketValidator = ticketValidator;
+        this.ticketService = ticketService;
     }
 
     @PostMapping("/create")
@@ -39,9 +37,9 @@ public class SellerTicketController {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);
             if(error.isPresent())
-                throw new InvalidRequestException(error.get());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseWrapper(error.get()));
             return save(req);
-        } catch (TicketSaveException | InvalidRequestException ex) {
+        } catch (TicketSaveException ex) {
             return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
         } catch (Exception e) {
             return reportError(req, e);
@@ -51,12 +49,12 @@ public class SellerTicketController {
     @PostMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
-            boolean isDeleted = ticketService.deleteTicket(id);
+            boolean isDeleted = sellerTicketService.deleteTicket(id);
             if (!isDeleted) {
                 throw new TicketSaveException("Ticket has not been deleted.");
             }
             return ResponseEntity.ok().body(null);
-        } catch (TicketSaveException | InvalidRequestException ex) {
+        } catch (TicketSaveException ex) {
             return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
         } catch (Exception e) {
             log.error(String.format("Got %s while deleting seller ticket %s", e.getClass(), id));
@@ -69,19 +67,23 @@ public class SellerTicketController {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);
             if(error.isPresent())
-                throw new InvalidRequestException(error.get());
-            SellerTicket ticket = SellerTicket.newBuilder()
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseWrapper(error.get()));
+            Optional<Ticket> ticket = ticketService.getTicketById(req.getTicketId());
+            if(!ticket.isPresent()) {
+                throw new TicketSaveException("Ticket with the given id doesn't exist.");
+            }
+            SellerTicket sellerTicket = SellerTicket.newBuilder()
                     .setId(req.getId())
                     .setLink(req.getLink())
                     .setPrice(req.getPrice())
-                    .setTicketId(req.getTicketId())
+                    .setTicket(ticket.get())
                     .build();
-            Optional<SellerTicket> ticketOptional = ticketService.editSellerTicket(ticket);
+            Optional<SellerTicket> ticketOptional = sellerTicketService.editSellerTicket(sellerTicket);
             if (!ticketOptional.isPresent()) {
                 throw new TicketSaveException("Ticket has not been saved.");
             }
             return ResponseEntity.ok().body(ticketOptional.get());
-        } catch (TicketSaveException | InvalidRequestException ex) {
+        } catch (TicketSaveException ex) {
             return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
         } catch (Exception e) {
             return reportError(req, e);
@@ -98,19 +100,23 @@ public class SellerTicketController {
 
     @GetMapping("/{id}")
     private ResponseEntity<?> getTicket(@PathVariable long id) {
-        Optional<SellerTicket> item = ticketService.getTicketById(id);
+        Optional<SellerTicket> item = sellerTicketService.getTicketById(id);
         if (item.isPresent()) {
             return ResponseEntity.ok().body(item.get());
         } else return ResponseEntity.notFound().build();
     }
 
     private ResponseEntity<?> save(SellerTicketRequest req) throws TicketSaveException {
-        SellerTicket ticket = SellerTicket.newBuilder()
+        Optional<Ticket> ticket = ticketService.getTicketById(req.getTicketId());
+        if(!ticket.isPresent()) {
+            throw new TicketSaveException("Ticket with the given id doesn't exist.");
+        }
+        SellerTicket sellerTicket = SellerTicket.newBuilder()
                 .setLink(req.getLink())
                 .setPrice(req.getPrice())
-                .setTicketId(req.getTicketId())
+                .setTicket(ticket.get())
                 .build();
-        Optional<SellerTicket> ticketOptional = ticketService.saveSellerTicket(ticket);
+        Optional<SellerTicket> ticketOptional = sellerTicketService.saveSellerTicket(sellerTicket);
         if (!ticketOptional.isPresent()) {
             throw new TicketSaveException("Ticket has not been saved.");
         }

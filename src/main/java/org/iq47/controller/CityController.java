@@ -11,8 +11,8 @@ import org.iq47.network.response.ResponseWrapper;
 import org.iq47.service.CityService;
 import org.iq47.validate.CityValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.common.exceptions.InvalidRequestException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -41,15 +41,15 @@ public class CityController {
         try {
             Optional<String> error = cityValidator.getErrorMessage(req.getName());
             if(error.isPresent())
-                throw new InvalidRequestException(error.get());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseWrapper(error.get()));
             City city = new City(req.getName());
             Optional<City> cityOptional = cityService.saveCity(city);
             if (!cityOptional.isPresent()) {
                 throw new TicketSaveException("City has not been saved.");
             }
             return ResponseEntity.ok().body(cityOptional.get());
-        } catch (TicketSaveException | InvalidRequestException ex) {
-            return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
+        } catch (TicketSaveException e) {
+            return ResponseEntity.badRequest().body(new ResponseWrapper(e.getMessage()));
         } catch (Exception e) {
             return reportError(req, e);
         }
@@ -63,8 +63,8 @@ public class CityController {
                 throw new TicketSaveException("City has not been saved.");
             }
             return ResponseEntity.ok().body(null);
-        } catch (TicketSaveException | InvalidRequestException ex) {
-            return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
+        } catch (TicketSaveException e) {
+            return ResponseEntity.badRequest().body(new ResponseWrapper(e.getMessage()));
         } catch (Exception e) {
             log.error(String.format("Got %s while deleting seller ticket %s", e.getClass(), id));
             return ResponseEntity.internalServerError().body(new ResponseWrapper("Something went wrong"));

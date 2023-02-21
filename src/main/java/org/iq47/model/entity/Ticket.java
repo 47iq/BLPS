@@ -1,5 +1,7 @@
 package org.iq47.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +29,7 @@ public class Ticket {
     private Long id;
 
     @OneToMany(mappedBy = "ticket")
+    @JsonManagedReference
     private List<SellerTicket> sellerTickets;
 
     @Column(name = "departure")
@@ -43,10 +46,12 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "departure_city", nullable = false)
+    @JsonBackReference
     private City departureCity;
 
     @ManyToOne
     @JoinColumn(name = "arrival_city", nullable = false)
+    @JsonBackReference
     private City arrivalCity;
 
     public static Builder newBuilder() {

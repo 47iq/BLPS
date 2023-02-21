@@ -9,6 +9,7 @@ import org.iq47.model.TicketRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,7 +60,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<Ticket> averageTicketsPrice(String departureCity, String arrivalCity, LocalDateTime flightDate) {
+    public List<Ticket> averageTicketsPrice(String departureCity, String arrivalCity, Date flightDate) {
         if (departureCity != null && arrivalCity != null) {
             Optional<City> arrCity = cityRepository.getCityByName(arrivalCity);
             Optional<City> depCity = cityRepository.getCityByName(departureCity);
