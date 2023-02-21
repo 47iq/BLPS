@@ -4,16 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.iq47.model.CityRepository;
 import org.iq47.model.entity.City;
-import org.iq47.model.entity.SellerTicket;
 import org.iq47.model.entity.Ticket;
 import org.iq47.model.TicketRepository;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -47,21 +45,35 @@ public class TicketServiceImpl implements TicketService {
         }
 
         if (departureDate == null) {
-            Optional<List<Ticket>> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCityAndArrivalDate(
+            List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCityAndArrivalDate(
                     depCity.get(), arrCity.get(), arrivalDate
             );
-            return tickets.orElse(null);
+            return tickets;
         }
 
-        Optional<List<Ticket>> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCityAndArrivalDateAndDepartureDate(
+        List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCityAndArrivalDateAndDepartureDate(
                 depCity.get(), arrCity.get(), arrivalDate, departureDate
         );
-        return tickets.orElse(null);
+        return tickets;
 
     }
 
     @Override
     public List<Ticket> averageTicketsPrice(String departureCity, String arrivalCity, LocalDateTime flightDate) {
+        if (departureCity != null && arrivalCity != null) {
+            Optional<City> arrCity = cityRepository.getCityByName(arrivalCity);
+            Optional<City> depCity = cityRepository.getCityByName(departureCity);
+
+            if (arrCity.isPresent() && depCity.isPresent()) {
+                List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCity(depCity.get(), arrCity.get());
+                return tickets.stream()
+                        .filter(t -> t.getDepartureDate().getMonthValue() == flightDate.getMonthValue())
+                        .filter(t -> t.getDepartureDate().getDayOfMonth() == flightDate.getDayOfMonth())
+                        .collect(Collectors.toList());
+            }
+            return null;
+        }
+
         return null;
     }
 

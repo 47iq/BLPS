@@ -26,7 +26,7 @@ public class Ticket {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(mappedBy = "ticketId")
+    @OneToMany(mappedBy = "ticket")
     private List<SellerTicket> sellerTickets;
 
     @Column(name = "departure")
