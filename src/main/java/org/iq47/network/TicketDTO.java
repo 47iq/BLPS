@@ -2,6 +2,7 @@ package org.iq47.network;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -11,14 +12,19 @@ import java.util.Objects;
 @NoArgsConstructor
 public class TicketDTO {
 
-    private Long userId;
-    private double coordinateX;
-    private double coordinateY;
-    private double radius;
-    private Boolean hit;
-    private LocalDateTime ldt;
-    private String time;
-    private Long pointId;
+    private Long id;
+
+    private LocalDateTime departureDate;
+
+    private LocalDateTime arrivalDate;
+
+    private String airlineName;
+
+    private String flightCode;
+
+    private String departureCity;
+
+    private String arrivalCity;
 
     public static Builder newBuilder() {
         return new TicketDTO().new Builder();
@@ -28,13 +34,13 @@ public class TicketDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TicketDTO that = (TicketDTO) o;
-        return Double.compare(that.pointId, pointId) == 0 && Double.compare(that.coordinateX, coordinateX) == 0 && Double.compare(that.coordinateY, coordinateY) == 0 && Double.compare(that.radius, radius) == 0;
+        TicketDTO ticketDTO = (TicketDTO) o;
+        return flightCode == ticketDTO.flightCode && Objects.equals(id, ticketDTO.id) && Objects.equals(departureDate, ticketDTO.departureDate) && Objects.equals(arrivalDate, ticketDTO.arrivalDate) && Objects.equals(departureCity, ticketDTO.departureCity) && Objects.equals(arrivalCity, ticketDTO.arrivalCity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pointId, coordinateX, coordinateY, radius);
+        return Objects.hash(id, departureDate, arrivalDate, flightCode, departureCity, arrivalCity);
     }
 
     //builder
@@ -42,42 +48,41 @@ public class TicketDTO {
         private Builder() {
         }
 
-        public Builder setCoordinateX(double coordinateX) {
-            TicketDTO.this.coordinateX = coordinateX;
+        public Builder setDepartureDate(LocalDateTime departureDate) {
+            TicketDTO.this.departureDate = departureDate;
             return this;
         }
 
-        public Builder setCoordinateY(double coordinateY) {
-            TicketDTO.this.coordinateY = coordinateY;
+        public Builder setArrivalDate(LocalDateTime arrivalDate) {
+            TicketDTO.this.arrivalDate = arrivalDate;
             return this;
         }
 
-        public Builder setRadius(double radius) {
-            TicketDTO.this.radius = radius;
+        public Builder setAirlineName(String airlineName) {
+            TicketDTO.this.airlineName = airlineName;
             return this;
         }
 
-        public Builder setHit(Boolean hit) {
-            TicketDTO.this.hit = hit;
+        public Builder setFlightCode(String flightCode) {
+            TicketDTO.this.flightCode = flightCode;
             return this;
         }
 
-        public Builder setLocalTime(LocalDateTime ldt) {
-            TicketDTO.this.ldt = ldt;
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            time = ldt.format(formatter);
+        public Builder setDepartureCity(String departureCity) {
+            TicketDTO.this.departureCity = departureCity;
             return this;
         }
 
-        public Builder setUserId(Long userId) {
-            TicketDTO.this.userId = userId;
+        public Builder setArrivalCity(String arrivalCity) {
+            TicketDTO.this.arrivalCity = arrivalCity;
             return this;
         }
 
-        public Builder setPointId(Long pointId) {
-            TicketDTO.this.pointId = pointId;
+        public Builder setId(Long id) {
+            TicketDTO.this.id = id;
             return this;
         }
+
 
         public TicketDTO build() {
             return TicketDTO.this;

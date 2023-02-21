@@ -1,5 +1,6 @@
 package org.iq47.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "ticket")
 public class Ticket {
@@ -29,12 +31,15 @@ public class Ticket {
     @Column(name = "arrival")
     private LocalDateTime arrivalDate;
 
+    @Column(name = "airline_name")
+    private String airlineName;
+
     @Column(name = "code")
-    private boolean flightCode;
+    private String flightCode;
 
     @Column(name = "departure_city")
-    private boolean departureCity;
+    private String departureCity;
 
     @Column(name = "arrival_city")
-    private boolean arrivalCity;
+    private String arrivalCity;
 }

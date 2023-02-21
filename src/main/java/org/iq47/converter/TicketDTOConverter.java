@@ -5,16 +5,21 @@ import org.iq47.network.TicketDTO;
 
 public class TicketDTOConverter {
     public static Ticket dtoToEntity(TicketDTO ticketDto) {
-        return new Ticket(ticketDto.getCoordinateX(), ticketDto.getCoordinateY(), ticketDto.getRadius());
+        return new Ticket(ticketDto.getId(), ticketDto.getDepartureDate(),
+                ticketDto.getArrivalDate(), ticketDto.getAirlineName(),
+                ticketDto.getFlightCode(), ticketDto.getDepartureCity(),
+                ticketDto.getArrivalCity());
     }
 
     public static TicketDTO entityToDto(Ticket ticketEntity) {
         return TicketDTO.newBuilder()
-                .setCoordinateX(ticketEntity.getDepartureDate())
-                .setCoordinateY(ticketEntity.getArrivalDate())
-                .setLocalTime(ticketEntity.getLdt())
-                .setHit(ticketEntity.getPrice())
-                .setRadius(ticketEntity.getLink())
-                .setPointId(ticketEntity.getId()).build();
+                .setId(ticketEntity.getId())
+                .setDepartureDate(ticketEntity.getDepartureDate())
+                .setArrivalDate(ticketEntity.getArrivalDate())
+                .setAirlineName(ticketEntity.getAirlineName())
+                .setFlightCode(ticketEntity.getFlightCode())
+                .setDepartureCity(ticketEntity.getDepartureCity())
+                .setArrivalCity(ticketEntity.getArrivalCity())
+                .build();
     }
 }

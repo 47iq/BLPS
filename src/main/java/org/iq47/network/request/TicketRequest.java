@@ -14,7 +14,9 @@ import java.time.LocalDateTime;
 public class TicketRequest implements Serializable {
     LocalDateTime departureDate;
     LocalDateTime arrivalDate;
-    boolean flightCode;
-    boolean departureCity;
-    boolean arrivalCity;
+
+    String airlineName;
+    String flightCode;
+    String departureCity;
+    String arrivalCity;
 }
