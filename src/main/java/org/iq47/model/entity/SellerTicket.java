@@ -27,6 +27,9 @@ public class SellerTicket {
     @Column(name = "link")
     private String link;
 
+    @OneToOne(mappedBy = "sellerTicket")
+    private TicketStats ticketStats;
+
 
     public static SellerTicket.Builder newBuilder() {
         return new SellerTicket().new Builder();

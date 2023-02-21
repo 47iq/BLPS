@@ -18,7 +18,9 @@ public class TicketStats {
     private Long id;
 
     //TODO Foreign key
-    private Long sellerTicketId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "seller_ticker_id", referencedColumnName = "id")
+    private SellerTicket sellerTicket;
 
     @Column(name = "clicks")
     private int clickCount;
