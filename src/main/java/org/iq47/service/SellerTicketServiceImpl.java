@@ -25,9 +25,7 @@ public class SellerTicketServiceImpl implements SellerTicketService {
 
     @Override
     public Optional<SellerTicket> getTicketById(long id) {
-        SellerTicket sellerTicket = sellerTicketRepository.getById(id);
-        if (sellerTicket == null) return Optional.empty();
-        return Optional.of(sellerTicket);
+        return sellerTicketRepository.findById(id);
     }
 
     @Override

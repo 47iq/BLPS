@@ -60,7 +60,7 @@ public class CityController {
         try {
             boolean isDeleted = cityService.deleteCity(name);
             if (!isDeleted) {
-                throw new TicketSaveException("City has not been saved.");
+                throw new TicketSaveException("City doesn't exist.");
             }
             return ResponseEntity.ok().body(null);
         } catch (TicketSaveException e) {

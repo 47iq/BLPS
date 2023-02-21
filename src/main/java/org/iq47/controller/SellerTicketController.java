@@ -63,7 +63,7 @@ public class SellerTicketController {
     }
 
     @PostMapping("/edit")
-    public ResponseEntity<?> delete(@RequestBody SellerTicketRequest req) {
+    public ResponseEntity<?> edit(@RequestBody SellerTicketRequest req) {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);
             if(error.isPresent())
@@ -80,7 +80,7 @@ public class SellerTicketController {
                     .build();
             Optional<SellerTicket> ticketOptional = sellerTicketService.editSellerTicket(sellerTicket);
             if (!ticketOptional.isPresent()) {
-                return ResponseEntity.badRequest().body(new ResponseWrapper("Ticket has not been saved."));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
             return ResponseEntity.ok().body(ticketOptional.get());
         } catch (TicketSaveException ex) {

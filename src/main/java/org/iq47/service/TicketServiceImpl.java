@@ -107,13 +107,13 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Optional<Ticket> getTicketById(long id) {
-        Ticket ticket = ticketRepo.getById(id);
-        if (ticket == null) return Optional.empty();
-        return Optional.of(ticket);
+        return ticketRepo.findById(id);
     }
 
     @Override
     public boolean deleteTicket(long id) {
+        if (!ticketRepo.existsById(id))
+            return false;
         ticketRepo.deleteById(id);
         return true;
     }
