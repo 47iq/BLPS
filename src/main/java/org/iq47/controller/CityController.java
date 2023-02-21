@@ -55,10 +55,10 @@ public class CityController {
         }
     }
 
-    @PostMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> delete(@RequestParam String name) {
         try {
-            boolean isDeleted = cityService.deleteCity(id);
+            boolean isDeleted = cityService.deleteCity(name);
             if (!isDeleted) {
                 throw new TicketSaveException("City has not been saved.");
             }
@@ -66,7 +66,7 @@ public class CityController {
         } catch (TicketSaveException e) {
             return ResponseEntity.badRequest().body(new ResponseWrapper(e.getMessage()));
         } catch (Exception e) {
-            log.error(String.format("Got %s while deleting seller ticket %s", e.getClass(), id));
+            log.error(String.format("Got %s while deleting city %s", e.getClass(), name));
             return ResponseEntity.internalServerError().body(new ResponseWrapper("Something went wrong"));
         }
     }

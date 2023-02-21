@@ -11,7 +11,7 @@ public interface CityService {
 
     Optional<City> saveCity(City city);
 
-    boolean deleteCity(String id);
+    boolean deleteCity(String name);
 
     Optional<City> getCityByName(String cityName);
 }
