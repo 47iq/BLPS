@@ -99,6 +99,20 @@ public class TicketController {
         }
     }
 
+    @GetMapping("/average_price")
+    public ResponseEntity<?> get(
+            @RequestParam String departureCity,
+            @RequestParam String arrivalCity,
+            @RequestParam LocalDateTime flightDate
+    ) {
+        try {
+            List<Ticket> tickets = ticketService.averageTicketsPrice(departureCity, arrivalCity, flightDate);
+            return ResponseEntity.ok().body(tickets);
+        } catch (Exception e) {
+            return reportError(null, e);
+        }
+    }
+
     private ResponseEntity<ResponseWrapper> reportError(Object req, Exception e) {
         if(req != null)
             log.error(String.format("Got %s while processing %s", e.getClass(), req));

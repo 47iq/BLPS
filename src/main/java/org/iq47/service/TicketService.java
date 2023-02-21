@@ -16,4 +16,6 @@ public interface TicketService {
     Optional<Ticket> editTicket(Ticket ticket);
 
     List<Ticket> findTickets(String departureCity, String arrivalCity, LocalDateTime departureDate, LocalDateTime arrivalDate);
+
+    List<Ticket> averageTicketsPrice(String departureCity, String arrivalCity, LocalDateTime flightDate);
 }
