@@ -31,7 +31,7 @@ public class SellerTicket {
         return new SellerTicket().new Builder();
     }
 
-    private class Builder {
+    public class Builder {
 
         private Builder() {
         }
@@ -48,6 +48,11 @@ public class SellerTicket {
 
         public SellerTicket.Builder setLink(String link) {
             SellerTicket.this.link = link;
+            return this;
+        }
+
+        public SellerTicket.Builder setTicketId(Long ticketId) {
+            SellerTicket.this.ticketId = ticketId;
             return this;
         }
 
