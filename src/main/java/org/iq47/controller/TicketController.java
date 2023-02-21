@@ -6,6 +6,7 @@ import org.iq47.model.entity.City;
 import org.iq47.model.entity.Ticket;
 import org.iq47.network.request.TicketRequest;
 import org.iq47.network.response.ResponseWrapper;
+import org.iq47.service.CityService;
 import org.iq47.service.TicketService;
 import org.iq47.validate.TicketValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,13 @@ public class TicketController {
 
     private final TicketService ticketService;
     private final TicketValidator ticketValidator;
+    private final CityService cityService;
 
     @Autowired
-    public TicketController(TicketService ticketService, TicketValidator ticketValidator) {
+    public TicketController(TicketService ticketService, TicketValidator ticketValidator, CityService cityService) {
         this.ticketService = ticketService;
         this.ticketValidator = ticketValidator;
+        this.cityService = cityService;
     }
 
     @PostMapping("/create")
@@ -126,6 +129,8 @@ public class TicketController {
     }
 
     private Ticket buildTicket(TicketRequest req) {
+        City depCity = cityService.
+
         return Ticket.newBuilder()
                 .setId(req.getId())
                 .setDepartureCity(new City(req.getDepartureCity()))

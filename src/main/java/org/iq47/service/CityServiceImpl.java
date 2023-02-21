@@ -25,6 +25,11 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
+    public Optional<City> getCityByName(String cityName) {
+        return null;
+    }
+
+    @Override
     public Optional<City> saveCity(City city) {
         return Optional.empty();
     }
