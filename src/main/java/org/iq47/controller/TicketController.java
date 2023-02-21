@@ -50,7 +50,7 @@ public class TicketController {
         }
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
             boolean isDeleted = ticketService.deleteTicket(id);

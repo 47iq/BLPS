@@ -46,7 +46,7 @@ public class SellerTicketController {
         }
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
             boolean isDeleted = sellerTicketService.deleteTicket(id);
