@@ -36,8 +36,10 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public boolean deleteCity(Long id) {
-        cityRepository.deleteById(id);
+    public boolean deleteCity(String id) {
+        if (cityRepository.existsById(id)) {
+            cityRepository.deleteById(id);
+        }
         return false;
     }
 }

@@ -56,7 +56,7 @@ public class CityController {
     }
 
     @PostMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable long id) {
+    public ResponseEntity<?> delete(@PathVariable String id) {
         try {
             boolean isDeleted = cityService.deleteCity(id);
             if (!isDeleted) {
