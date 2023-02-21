@@ -9,4 +9,5 @@ public class SellerTicketRequest {
     Long ticketId;
     Integer price;
     String link;
+    Long id;
 }

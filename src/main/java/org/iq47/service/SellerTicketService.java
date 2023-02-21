@@ -11,4 +11,6 @@ public interface SellerTicketService {
     Optional<SellerTicket> getTicketById(long id);
 
     boolean deleteTicket(long id);
+
+    Optional<SellerTicket> editSellerTicket(SellerTicket ticket);
 }

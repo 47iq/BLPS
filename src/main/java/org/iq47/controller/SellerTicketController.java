@@ -64,6 +64,30 @@ public class SellerTicketController {
         }
     }
 
+    @PostMapping("/edit")
+    public ResponseEntity<?> delete(@RequestBody SellerTicketRequest req) {
+        try {
+            Optional<String> error = ticketValidator.getErrorMessage(req);
+            if(error.isPresent())
+                throw new InvalidRequestException(error.get());
+            SellerTicket ticket = SellerTicket.newBuilder()
+                    .setId(req.getId())
+                    .setLink(req.getLink())
+                    .setPrice(req.getPrice())
+                    .setTicketId(req.getTicketId())
+                    .build();
+            Optional<SellerTicket> ticketOptional = ticketService.editSellerTicket(ticket);
+            if (!ticketOptional.isPresent()) {
+                throw new TicketSaveException("Ticket has not been saved.");
+            }
+            return ResponseEntity.ok().body(ticketOptional.get());
+        } catch (TicketSaveException | InvalidRequestException ex) {
+            return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
+        } catch (Exception e) {
+            return reportError(req, e);
+        }
+    }
+
     private ResponseEntity<ResponseWrapper> reportError(Object req, Exception e) {
         if(req != null)
             log.error(String.format("Got %s while processing %s", e.getClass(), req));
