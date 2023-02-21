@@ -31,7 +31,8 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public Optional<City> saveCity(City city) {
-        return Optional.empty();
+        City cityRes = cityRepository.save(city);
+        return Optional.of(cityRes);
     }
 
     @Override
