@@ -10,6 +10,7 @@ import org.iq47.model.TicketRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +40,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<Ticket> findTickets(String departureCity, String arrivalCity, LocalDateTime departureDate, LocalDateTime arrivalDate) {
+    public List<Ticket> findTickets(String departureCity, String arrivalCity, Date departureDate, Date arrivalDate) {
         Optional<City> depCity = cityRepository.getCityByName(departureCity);
         Optional<City> arrCity = cityRepository.getCityByName(arrivalCity);
 
@@ -47,15 +48,24 @@ public class TicketServiceImpl implements TicketService {
             return null;
         }
 
-        if (departureDate == null) {
+        LocalDateTime departureDateTime = departureDate.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+
+        if (arrivalDate == null) {
             List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCityAndArrivalDate(
-                    depCity.get(), arrCity.get(), arrivalDate
+                    depCity.get(), arrCity.get(), departureDateTime
             );
             return tickets;
         }
 
+        LocalDateTime arrivalDateTime = arrivalDate.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+        arrivalDateTime = arrivalDateTime.plusHours(23).plusMinutes(59).plusSeconds(59);
+
         List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCityAndArrivalDateAndDepartureDate(
-                depCity.get(), arrCity.get(), arrivalDate, departureDate
+                depCity.get(), arrCity.get(), arrivalDateTime, departureDateTime
         );
         return tickets;
 
