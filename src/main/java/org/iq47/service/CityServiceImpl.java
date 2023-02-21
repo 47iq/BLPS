@@ -8,6 +8,7 @@ import org.iq47.model.entity.City;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,5 +22,15 @@ public class CityServiceImpl implements CityService {
     @Override
     public List<City> getAutocompleteEntries(String query) {
         return cityRepository.getTop5ItemsByNameContainsIgnoreCase(query);
+    }
+
+    @Override
+    public Optional<City> saveCity(City city) {
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean deleteCity(Long id) {
+        return false;
     }
 }

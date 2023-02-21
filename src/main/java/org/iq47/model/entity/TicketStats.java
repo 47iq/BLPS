@@ -22,4 +22,8 @@ public class TicketStats {
 
     @Column(name = "clicks")
     private int clickCount;
+
+    public void incrementClickCountByOne() {
+        clickCount++;
+    }
 }

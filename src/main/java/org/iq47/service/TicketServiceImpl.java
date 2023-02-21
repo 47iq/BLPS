@@ -2,6 +2,7 @@ package org.iq47.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.iq47.model.entity.SellerTicket;
 import org.iq47.model.entity.Ticket;
 import org.iq47.model.TicketRepository;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,14 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Optional<Ticket> saveTicket(Ticket ticket) {
-        //validation
-        return Optional.of(pointRepo.save(ticket));
+        Ticket ticket1 = ticketRepo.save(ticket);
+        return Optional.of(ticket1);
     }
 
     @Override
     public Optional<Ticket> getTicketById(long id) {
-        return Optional.empty();
+        Ticket ticket = ticketRepo.getById(id);
+        if (ticket == null) return Optional.empty();
+        return Optional.of(ticket);
     }
 }
