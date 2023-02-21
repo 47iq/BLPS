@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.exceptions.InvalidRequestException;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -81,6 +83,22 @@ public class TicketController {
         } else return ResponseEntity.notFound().build();
     }
 
+
+    @GetMapping("/find")
+    public ResponseEntity<?> get(
+            @RequestParam String departureCity,
+            @RequestParam String arrivalCity,
+            @RequestParam LocalDateTime departureDate,
+            @RequestParam LocalDateTime arrivalDate
+    ) {
+        try {
+            List<Ticket> tickets = ticketService.findTickets(departureCity, arrivalCity, departureDate, arrivalDate);
+            return ResponseEntity.ok().body(tickets);
+        } catch (Exception e) {
+            return reportError(null, e);
+        }
+    }
+
     private ResponseEntity<ResponseWrapper> reportError(Object req, Exception e) {
         if(req != null)
             log.error(String.format("Got %s while processing %s", e.getClass(), req));
@@ -117,17 +135,5 @@ public class TicketController {
                 .setAirlineName(req.getAirlineName())
                 .setFlightCode(req.getFlightCode())
                 .build();
-    }
-
-    @GetMapping("/get")
-    public ResponseEntity<?> get() {
-        try {
-            //TODO
-            return ResponseEntity.ok().body(null);
-        } catch (ClassCastException e) {
-            return ResponseEntity.badRequest().body(new ResponseWrapper("Access denied"));
-        } catch (Exception e) {
-            return reportError(null, e);
-        }
     }
 }

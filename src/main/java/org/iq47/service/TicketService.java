@@ -2,6 +2,8 @@ package org.iq47.service;
 
 import org.iq47.model.entity.Ticket;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public interface TicketService {
@@ -12,4 +14,6 @@ public interface TicketService {
     boolean deleteTicket(long id);
 
     Optional<Ticket> editTicket(Ticket ticket);
+
+    List<Ticket> findTickets(String departureCity, String arrivalCity, LocalDateTime departureDate, LocalDateTime arrivalDate);
 }
