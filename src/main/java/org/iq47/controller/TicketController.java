@@ -43,6 +43,36 @@ public class TicketController {
         }
     }
 
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable long id) {
+        try {
+            boolean isDeleted = ticketService.deleteTicket(id);
+            if (!isDeleted) {
+                throw new TicketSaveException("Ticket has not been deleted.");
+            }
+            return ResponseEntity.ok().body(null);
+        } catch (TicketSaveException | InvalidRequestException ex) {
+            return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
+        } catch (Exception e) {
+            log.error(String.format("Got %s while deleting seller ticket %s", e.getClass(), id));
+            return ResponseEntity.internalServerError().body(new ResponseWrapper("Something went wrong"));
+        }
+    }
+
+    @PostMapping("/edit")
+    public ResponseEntity<?> delete(@RequestBody TicketRequest req) {
+        try {
+            Optional<String> error = ticketValidator.getErrorMessage(req);
+            if(error.isPresent())
+                throw new InvalidRequestException(error.get());
+            return edit(req);
+        } catch (TicketSaveException | InvalidRequestException ex) {
+            return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
+        } catch (Exception e) {
+            return reportError(req, e);
+        }
+    }
+
     @GetMapping("/{id}")
     private ResponseEntity<?> getTicket(@PathVariable long id) {
         Optional<Ticket> item = ticketService.getTicketById(id);
@@ -60,7 +90,26 @@ public class TicketController {
     }
 
     private ResponseEntity<?> save(TicketRequest req) throws TicketSaveException {
-        Ticket ticket = Ticket.newBuilder()
+        Ticket ticket = buildTicket(req);
+        Optional<Ticket> ticketOptional = ticketService.saveTicket(ticket);
+        if (!ticketOptional.isPresent()) {
+            throw new TicketSaveException("Ticket has not been saved.");
+        }
+        return ResponseEntity.ok().body(ticketOptional.get());
+    }
+
+    private ResponseEntity<?> edit(TicketRequest req) throws TicketSaveException {
+        Ticket ticket = buildTicket(req);
+        Optional<Ticket> ticketOptional = ticketService.editTicket(ticket);
+        if (!ticketOptional.isPresent()) {
+            throw new TicketSaveException("Ticket has not been edited.");
+        }
+        return ResponseEntity.ok().body(ticketOptional.get());
+    }
+
+    private Ticket buildTicket(TicketRequest req) {
+        return Ticket.newBuilder()
+                .setId(req.getId())
                 .setDepartureCity(new City(req.getDepartureCity()))
                 .setArrivalCity(new City(req.getArrivalCity()))
                 .setDepartureDate(req.getDepartureDate())
@@ -68,11 +117,6 @@ public class TicketController {
                 .setAirlineName(req.getAirlineName())
                 .setFlightCode(req.getFlightCode())
                 .build();
-        Optional<Ticket> ticketOptional = ticketService.saveTicket(ticket);
-        if (!ticketOptional.isPresent()) {
-            throw new TicketSaveException("Ticket has not been saved.");
-        }
-        return ResponseEntity.ok().body(ticketOptional.get());
     }
 
     @GetMapping("/get")

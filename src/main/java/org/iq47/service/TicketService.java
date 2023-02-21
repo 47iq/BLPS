@@ -8,4 +8,8 @@ public interface TicketService {
     Optional<Ticket> saveTicket(Ticket ticket);
 
     Optional<Ticket> getTicketById(long id);
+
+    boolean deleteTicket(long id);
+
+    Optional<Ticket> editTicket(Ticket ticket);
 }

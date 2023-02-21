@@ -15,6 +15,7 @@ public class TicketRequest implements Serializable {
     LocalDateTime departureDate;
     LocalDateTime arrivalDate;
 
+    Long id;
     String airlineName;
     String flightCode;
     String departureCity;

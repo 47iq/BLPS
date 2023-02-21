@@ -29,4 +29,9 @@ public class TicketServiceImpl implements TicketService {
         if (ticket == null) return Optional.empty();
         return Optional.of(ticket);
     }
+
+    @Override
+    public boolean deleteTicket(long id) {
+        return false;
+    }
 }
