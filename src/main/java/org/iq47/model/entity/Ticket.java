@@ -47,12 +47,10 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "departure_city", nullable = false)
-    @JsonBackReference
     private City departureCity;
 
     @ManyToOne
     @JoinColumn(name = "arrival_city", nullable = false)
-    @JsonBackReference
     private City arrivalCity;
 
     public static Builder newBuilder() {
