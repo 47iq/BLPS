@@ -19,7 +19,7 @@ public class TicketStats {
 
     //TODO Foreign key
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "seller_ticker_id", referencedColumnName = "id")
+    @JoinColumn(name = "seller_ticket_id", referencedColumnName = "id")
     private SellerTicket sellerTicket;
 
     @Column(name = "clicks")

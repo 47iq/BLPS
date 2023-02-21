@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.iq47.model.CityRepository;
 import org.iq47.model.entity.City;
+import org.iq47.model.entity.SellerTicket;
 import org.iq47.model.entity.Ticket;
 import org.iq47.model.TicketRepository;
 import org.springframework.stereotype.Service;
@@ -61,16 +62,29 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<Ticket> averageTicketsPrice(String departureCity, String arrivalCity, Date flightDate) {
+    public Double averageTicketsPrice(String departureCity, String arrivalCity, Date flightDate) {
         if (departureCity != null && arrivalCity != null) {
             Optional<City> arrCity = cityRepository.getCityByName(arrivalCity);
             Optional<City> depCity = cityRepository.getCityByName(departureCity);
 
             if (arrCity.isPresent() && depCity.isPresent()) {
                 List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCity(depCity.get(), arrCity.get());
-                return tickets.stream()
+                tickets = tickets.stream()
                         .filter(t -> Date.from(t.getDepartureDate().toInstant(ZoneOffset.ofHours(0))).equals(flightDate))
                         .collect(Collectors.toList());
+
+                int sum = 0;
+                int count = 0;
+
+                for (Ticket t : tickets) {
+                    for (SellerTicket st : t.getSellerTickets()) {
+                        sum += st.getPrice();
+                        count++;
+                    }
+                }
+                if (count == 0) return -1.;
+
+                return (double) sum / count;
             }
             return null;
         }

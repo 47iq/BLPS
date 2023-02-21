@@ -111,8 +111,8 @@ public class TicketController {
             @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam Date flightDate
     ) {
         try {
-            List<Ticket> tickets = ticketService.averageTicketsPrice(departureCity, arrivalCity, flightDate);
-            return ResponseEntity.ok().body(tickets);
+            Double price = ticketService.averageTicketsPrice(departureCity, arrivalCity, flightDate);
+            return ResponseEntity.ok().body(price);
         } catch (Exception e) {
             return reportError(null, e);
         }
