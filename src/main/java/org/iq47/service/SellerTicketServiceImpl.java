@@ -1,4 +1,4 @@
 package org.iq47.service;
 
-public class SellerTicketServiceImpl {
+public class SellerTicketServiceImpl implements SellerTicketService {
 }

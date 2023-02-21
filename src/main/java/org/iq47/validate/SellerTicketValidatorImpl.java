@@ -1,4 +1,4 @@
 package org.iq47.validate;
 
-public class SellerTicketValidatorImpl {
+public class SellerTicketValidatorImpl implements SellerTicketValidator {
 }

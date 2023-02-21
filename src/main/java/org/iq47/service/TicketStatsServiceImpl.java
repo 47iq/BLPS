@@ -1,4 +1,4 @@
 package org.iq47.service;
 
-public class TicketStatsServiceImpl {
+public class TicketStatsServiceImpl implements TicketStatsService {
 }
