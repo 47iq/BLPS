@@ -82,7 +82,7 @@ public class TicketServiceImpl implements TicketService {
                         count++;
                     }
                 }
-                if (count == 0) return -1.;
+                if (count == 0) return null;
 
                 return (double) sum / count;
             }
