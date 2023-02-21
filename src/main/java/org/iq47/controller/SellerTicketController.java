@@ -5,6 +5,7 @@ import org.iq47.exception.TicketSaveException;
 import org.iq47.model.entity.City;
 import org.iq47.model.entity.SellerTicket;
 import org.iq47.model.entity.Ticket;
+import org.iq47.network.request.CityRequest;
 import org.iq47.network.request.SellerTicketRequest;
 import org.iq47.network.request.TicketRequest;
 import org.iq47.network.response.ResponseWrapper;
@@ -44,6 +45,22 @@ public class SellerTicketController {
             return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
         } catch (Exception e) {
             return reportError(req, e);
+        }
+    }
+
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable long id) {
+        try {
+            boolean isDeleted = ticketService.deleteTicket(id);
+            if (!isDeleted) {
+                throw new TicketSaveException("Ticket has not been deleted.");
+            }
+            return ResponseEntity.ok().body(null);
+        } catch (TicketSaveException | InvalidRequestException ex) {
+            return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
+        } catch (Exception e) {
+            log.error(String.format("Got %s while deleting seller ticket %s", e.getClass(), id));
+            return ResponseEntity.internalServerError().body(new ResponseWrapper("Something went wrong"));
         }
     }
 
