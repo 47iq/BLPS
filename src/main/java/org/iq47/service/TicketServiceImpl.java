@@ -6,6 +6,7 @@ import org.iq47.model.entity.Ticket;
 import org.iq47.model.TicketRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Slf4j
 public class TicketServiceImpl implements TicketService {
 
-    private final TicketRepository pointRepo;
+    private final TicketRepository ticketRepo;
 
     @Override
     public Optional<Ticket> saveTicket(Ticket ticket) {
