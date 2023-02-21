@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.iq47.model.SellerTicketRepository;
 import org.iq47.model.entity.SellerTicket;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -34,5 +35,13 @@ public class SellerTicketServiceImpl implements SellerTicketService {
     public boolean deleteTicket(long id) {
         sellerTicketRepository.deleteById(id);
         return true;
+    }
+
+    @Override
+    public Optional<SellerTicket> editSellerTicket(SellerTicket ticket) {
+        if (sellerTicketRepository.existsById(ticket.getId())) {
+            return Optional.of(sellerTicketRepository.save(ticket));
+        }
+        return Optional.empty();
     }
 }

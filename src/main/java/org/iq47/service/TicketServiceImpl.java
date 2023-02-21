@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.iq47.model.entity.SellerTicket;
 import org.iq47.model.entity.Ticket;
 import org.iq47.model.TicketRepository;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -24,6 +25,14 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public Optional<Ticket> editTicket(Ticket ticket) {
+        if (ticketRepo.existsById(ticket.getId())) {
+            return Optional.of(ticketRepo.save(ticket));
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<Ticket> getTicketById(long id) {
         Ticket ticket = ticketRepo.getById(id);
         if (ticket == null) return Optional.empty();
@@ -32,6 +41,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public boolean deleteTicket(long id) {
-        return false;
+        ticketRepo.deleteById(id);
+        return true;
     }
 }

@@ -17,8 +17,9 @@ public class SellerTicket {
     @GeneratedValue
     private Long id;
 
-    //TODO Foreign key
-    private Long ticketId;
+    @ManyToOne
+    @JoinColumn(name = "ticket_id", nullable = false)
+    private Ticket ticket;
 
     @Column(name = "price")
     private Integer price;
@@ -52,7 +53,12 @@ public class SellerTicket {
         }
 
         public SellerTicket.Builder setTicketId(Long ticketId) {
-            SellerTicket.this.ticketId = ticketId;
+            SellerTicket.this.ticket.setId(ticketId);
+            return this;
+        }
+
+        public SellerTicket.Builder setTicket(Ticket ticket) {
+            SellerTicket.this.ticket = ticket;
             return this;
         }
 

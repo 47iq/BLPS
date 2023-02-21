@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -25,6 +26,9 @@ public class Ticket {
     @GeneratedValue
     private Long id;
 
+    @OneToMany(mappedBy = "ticketId")
+    private List<SellerTicket> sellerTickets;
+
     @Column(name = "departure")
     private LocalDateTime departureDate;
 
@@ -37,10 +41,12 @@ public class Ticket {
     @Column(name = "code")
     private String flightCode;
 
-    @Column(name = "departure_city")
+    @ManyToOne
+    @JoinColumn(name = "departure_city", nullable = false)
     private City departureCity;
 
-    @Column(name = "arrival_city")
+    @ManyToOne
+    @JoinColumn(name = "arrival_city", nullable = false)
     private City arrivalCity;
 
     public static Builder newBuilder() {
