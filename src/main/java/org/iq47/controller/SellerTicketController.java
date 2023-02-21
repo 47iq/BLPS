@@ -51,7 +51,7 @@ public class SellerTicketController {
         try {
             boolean isDeleted = sellerTicketService.deleteTicket(id);
             if (!isDeleted) {
-                throw new TicketSaveException("Ticket has not been deleted.");
+                return ResponseEntity.badRequest().body(new ResponseWrapper("Ticket has not been deleted."));
             }
             return ResponseEntity.ok().body(null);
         } catch (TicketSaveException ex) {
@@ -70,7 +70,7 @@ public class SellerTicketController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseWrapper(error.get()));
             Optional<Ticket> ticket = ticketService.getTicketById(req.getTicketId());
             if(!ticket.isPresent()) {
-                throw new TicketSaveException("Ticket with the given id doesn't exist.");
+                return ResponseEntity.badRequest().body(new ResponseWrapper("Ticket with the given id doesn't exist."));
             }
             SellerTicket sellerTicket = SellerTicket.newBuilder()
                     .setId(req.getId())
@@ -80,7 +80,7 @@ public class SellerTicketController {
                     .build();
             Optional<SellerTicket> ticketOptional = sellerTicketService.editSellerTicket(sellerTicket);
             if (!ticketOptional.isPresent()) {
-                throw new TicketSaveException("Ticket has not been saved.");
+                return ResponseEntity.badRequest().body(new ResponseWrapper("Ticket has not been saved."));
             }
             return ResponseEntity.ok().body(ticketOptional.get());
         } catch (TicketSaveException ex) {
@@ -109,7 +109,7 @@ public class SellerTicketController {
     private ResponseEntity<?> save(SellerTicketRequest req) throws TicketSaveException {
         Optional<Ticket> ticket = ticketService.getTicketById(req.getTicketId());
         if(!ticket.isPresent()) {
-            throw new TicketSaveException("Ticket with the given id doesn't exist.");
+            return ResponseEntity.badRequest().body(new ResponseWrapper("Ticket with the given id doesn't exist."));
         }
         SellerTicket sellerTicket = SellerTicket.newBuilder()
                 .setLink(req.getLink())
@@ -118,7 +118,7 @@ public class SellerTicketController {
                 .build();
         Optional<SellerTicket> ticketOptional = sellerTicketService.saveSellerTicket(sellerTicket);
         if (!ticketOptional.isPresent()) {
-            throw new TicketSaveException("Ticket has not been saved.");
+            return ResponseEntity.badRequest().body(new ResponseWrapper("Ticket has not been saved."));
         }
         return ResponseEntity.ok().body(ticketOptional.get());
     }

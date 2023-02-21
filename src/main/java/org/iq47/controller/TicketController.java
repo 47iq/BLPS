@@ -112,7 +112,7 @@ public class TicketController {
     ) {
         try {
             Double price = ticketService.averageTicketsPrice(departureCity, arrivalCity, flightDate);
-            return ResponseEntity.ok().body(price);
+            return ResponseEntity.ok().body(new ResponseWrapper(price.toString()));
         } catch (Exception e) {
             return reportError(null, e);
         }
@@ -131,11 +131,11 @@ public class TicketController {
         if (ticket.isPresent()) {
             Optional<Ticket> ticketOptional = ticketService.saveTicket(ticket.get());
             if (!ticketOptional.isPresent()) {
-                throw new TicketSaveException("Ticket has not been saved.");
+                return ResponseEntity.badRequest().body(new ResponseWrapper("Ticket has not been saved."));
             }
             return ResponseEntity.ok().body(ticketOptional.get());
         }
-        return ResponseEntity.badRequest().body("City not found.");
+        return ResponseEntity.badRequest().body(new ResponseWrapper("City not found."));
     }
 
     private ResponseEntity<?> edit(TicketRequest req) throws TicketSaveException {
@@ -143,12 +143,12 @@ public class TicketController {
         if (ticket.isPresent()) {
             Optional<Ticket> ticketOptional = ticketService.editTicket(ticket.get());
             if (!ticketOptional.isPresent()) {
-                throw new TicketSaveException("Ticket has not been edited.");
+                return ResponseEntity.badRequest().body(new ResponseWrapper("Ticket has not been edited."));
             }
             return ResponseEntity.ok().body(ticketOptional.get());
         }
 
-        return ResponseEntity.badRequest().body("Ticket/city not found.");
+        return ResponseEntity.badRequest().body(new ResponseWrapper("Ticket/city not found."));
     }
 
     private Optional<Ticket> buildTicket(TicketRequest req) {
