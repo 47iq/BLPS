@@ -82,7 +82,8 @@ public class TicketServiceImpl implements TicketService {
             if (arrCity.isPresent() && depCity.isPresent()) {
                 List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCity(depCity.get(), arrCity.get());
                 tickets = tickets.stream()
-                        .filter(t -> Date.from(t.getDepartureDate().toInstant(ZoneOffset.ofHours(0))).equals(flightDate))
+                        //.filter(t -> Date.from(t.getDepartureDate().toInstant(ZoneOffset.ofHours(0))).equals(flightDate))
+                        .filter(t ->  t.getDepartureDate().toLocalDate().equals(flightDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()))
                         .collect(Collectors.toList());
 
                 int sum = 0;
