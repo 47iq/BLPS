@@ -5,5 +5,7 @@ import org.iq47.model.entity.Ticket;
 import java.util.Optional;
 
 public interface TicketService {
-    Optional<Ticket> savePoint(Ticket ticket);
+    Optional<Ticket> saveTicket(Ticket ticket);
+
+    Optional<Ticket> getTicketById(long id);
 }

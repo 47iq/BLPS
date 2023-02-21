@@ -68,7 +68,7 @@ public class TicketController {
                 .setAirlineName(req.getAirlineName())
                 .setFlightCode(req.getFlightCode())
                 .build();
-        Optional<Ticket> ticketOptional = ticketService.savePoint(ticket);
+        Optional<Ticket> ticketOptional = ticketService.saveTicket(ticket);
         if (!ticketOptional.isPresent()) {
             throw new TicketSaveException("Ticket has not been saved.");
         }

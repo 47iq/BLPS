@@ -16,8 +16,13 @@ public class TicketServiceImpl implements TicketService {
     private final TicketRepository pointRepo;
 
     @Override
-    public Optional<Ticket> savePoint(Ticket ticket) {
+    public Optional<Ticket> saveTicket(Ticket ticket) {
         //validation
         return Optional.of(pointRepo.save(ticket));
+    }
+
+    @Override
+    public Optional<Ticket> getTicketById(long id) {
+        return Optional.empty();
     }
 }
