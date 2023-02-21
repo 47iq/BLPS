@@ -38,6 +38,7 @@ public class Ticket {
     @Column(name = "arrival")
     private LocalDateTime arrivalDate;
 
+
     @Column(name = "airline_name")
     private String airlineName;
 

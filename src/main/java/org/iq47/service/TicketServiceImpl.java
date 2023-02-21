@@ -64,10 +64,12 @@ public class TicketServiceImpl implements TicketService {
                 .toLocalDateTime();
         arrivalDateTime = arrivalDateTime.plusHours(23).plusMinutes(59).plusSeconds(59);
 
-        List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCityAndArrivalDateAndDepartureDate(
-                depCity.get(), arrCity.get(), arrivalDateTime, departureDateTime
-        );
-        return tickets;
+        List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCity(depCity.get(), arrCity.get());
+
+        LocalDateTime finalArrivalDateTime = arrivalDateTime;
+        return tickets.stream()
+                .filter(t -> t.getDepartureDate().isAfter(departureDateTime) && t.getArrivalDate().isBefore(finalArrivalDateTime))
+                .collect(Collectors.toList());
 
     }
 

@@ -32,7 +32,9 @@ public class SellerTicketServiceImpl implements SellerTicketService {
 
     @Override
     public boolean deleteTicket(long id) {
-        sellerTicketRepository.deleteById(id);
+        if (sellerTicketRepository.existsById(id)) {
+            sellerTicketRepository.deleteById(id);
+        }
         return true;
     }
 
