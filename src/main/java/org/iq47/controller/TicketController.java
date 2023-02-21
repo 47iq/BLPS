@@ -10,6 +10,7 @@ import org.iq47.service.CityService;
 import org.iq47.service.TicketService;
 import org.iq47.validate.TicketValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -107,7 +108,7 @@ public class TicketController {
     public ResponseEntity<?> get(
             @RequestParam String departureCity,
             @RequestParam String arrivalCity,
-            @RequestParam Date flightDate
+            @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam Date flightDate
     ) {
         try {
             List<Ticket> tickets = ticketService.averageTicketsPrice(departureCity, arrivalCity, flightDate);

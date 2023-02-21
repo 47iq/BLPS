@@ -9,6 +9,7 @@ import org.iq47.model.TicketRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -68,8 +69,7 @@ public class TicketServiceImpl implements TicketService {
             if (arrCity.isPresent() && depCity.isPresent()) {
                 List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCity(depCity.get(), arrCity.get());
                 return tickets.stream()
-                        .filter(t -> t.getDepartureDate().getMonthValue() == flightDate.getMonthValue())
-                        .filter(t -> t.getDepartureDate().getDayOfMonth() == flightDate.getDayOfMonth())
+                        .filter(t -> Date.from(t.getDepartureDate().toInstant(ZoneOffset.ofHours(0))).equals(flightDate))
                         .collect(Collectors.toList());
             }
             return null;
