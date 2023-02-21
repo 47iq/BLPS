@@ -93,8 +93,8 @@ public class TicketController {
     public ResponseEntity<?> get(
             @RequestParam String departureCity,
             @RequestParam String arrivalCity,
-            @RequestParam LocalDateTime departureDate,
-            @RequestParam LocalDateTime arrivalDate
+            @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam Date departureDate,
+            @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam Date arrivalDate
     ) {
         try {
             List<Ticket> tickets = ticketService.findTickets(departureCity, arrivalCity, departureDate, arrivalDate);
