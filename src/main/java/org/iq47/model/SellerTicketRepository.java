@@ -1,4 +1,11 @@
 package org.iq47.model;
 
-public interface SellerTicketRepository {
+import org.iq47.model.entity.SellerTicket;
+import org.iq47.model.entity.Ticket;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface SellerTicketRepository extends JpaRepository<SellerTicket, Long> {
+
 }
