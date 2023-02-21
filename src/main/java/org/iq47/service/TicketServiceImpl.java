@@ -2,10 +2,8 @@ package org.iq47.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.iq47.converter.TicketDTOConverter;
 import org.iq47.model.entity.Ticket;
 import org.iq47.model.TicketRepository;
-import org.iq47.network.TicketDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

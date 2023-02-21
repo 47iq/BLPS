@@ -21,7 +21,7 @@ public class SellerTicket {
     private Long ticketId;
 
     @Column(name = "price")
-    private boolean price;
+    private Integer price;
 
     @Column(name = "link")
     private String link;

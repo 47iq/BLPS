@@ -7,6 +7,6 @@ import lombok.ToString;
 @ToString
 public class SellerTicketRequest {
     Long ticketId;
-    boolean price;
+    Integer price;
     String link;
 }

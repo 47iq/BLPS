@@ -2,7 +2,6 @@ package org.iq47.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iq47.exception.TicketSaveException;
-import org.iq47.network.TicketDTO;
 import org.iq47.network.request.TicketRequest;
 import org.iq47.network.response.ResponseWrapper;
 import org.iq47.service.TicketService;
