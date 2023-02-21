@@ -26,4 +26,7 @@ public class City {
     @OneToMany(mappedBy = "departureCity")
     private List<Ticket> departureTickets;
 
+    public City(String name) {
+        this.name = name;
+    }
 }

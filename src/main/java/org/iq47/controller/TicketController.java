@@ -125,34 +125,45 @@ public class TicketController {
     }
 
     private ResponseEntity<?> save(TicketRequest req) throws TicketSaveException {
-        Ticket ticket = buildTicket(req);
-        Optional<Ticket> ticketOptional = ticketService.saveTicket(ticket);
-        if (!ticketOptional.isPresent()) {
-            throw new TicketSaveException("Ticket has not been saved.");
+        Optional<Ticket> ticket = buildTicket(req);
+        if (ticket.isPresent()) {
+            Optional<Ticket> ticketOptional = ticketService.saveTicket(ticket.get());
+            if (!ticketOptional.isPresent()) {
+                throw new TicketSaveException("Ticket has not been saved.");
+            }
+            return ResponseEntity.ok().body(ticketOptional.get());
         }
-        return ResponseEntity.ok().body(ticketOptional.get());
+
+        return ResponseEntity.badRequest().body("City not found.");
     }
 
     private ResponseEntity<?> edit(TicketRequest req) throws TicketSaveException {
-        Ticket ticket = buildTicket(req);
-        Optional<Ticket> ticketOptional = ticketService.editTicket(ticket);
-        if (!ticketOptional.isPresent()) {
-            throw new TicketSaveException("Ticket has not been edited.");
+        Optional<Ticket> ticket = buildTicket(req);
+        if (ticket.isPresent()) {
+            Optional<Ticket> ticketOptional = ticketService.editTicket(ticket.get());
+            if (!ticketOptional.isPresent()) {
+                throw new TicketSaveException("Ticket has not been edited.");
+            }
+            return ResponseEntity.ok().body(ticketOptional.get());
         }
-        return ResponseEntity.ok().body(ticketOptional.get());
+
+        return ResponseEntity.badRequest().body("Ticket/city not found.");
     }
 
-    private Ticket buildTicket(TicketRequest req) {
-        City depCity = cityService.
+    private Optional<Ticket> buildTicket(TicketRequest req) {
+        Optional<City> depCity = cityService.getCityByName(req.getDepartureCity());
+        if (!depCity.isPresent()) return Optional.empty();
+        Optional<City> arrCity = cityService.getCityByName(req.getArrivalCity());
+        if (!arrCity.isPresent()) return Optional.empty();
 
-        return Ticket.newBuilder()
+        return Optional.of(Ticket.newBuilder()
                 .setId(req.getId())
-                .setDepartureCity(new City(req.getDepartureCity()))
-                .setArrivalCity(new City(req.getArrivalCity()))
+                .setDepartureCity(depCity.get())
+                .setArrivalCity(arrCity.get())
                 .setDepartureDate(req.getDepartureDate())
                 .setArrivalDate(req.getArrivalDate())
                 .setAirlineName(req.getAirlineName())
                 .setFlightCode(req.getFlightCode())
-                .build();
+                .build());
     }
 }

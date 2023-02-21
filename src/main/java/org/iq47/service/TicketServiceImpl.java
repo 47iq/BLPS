@@ -61,6 +61,11 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public List<Ticket> averageTicketsPrice(String departureCity, String arrivalCity, LocalDateTime flightDate) {
+        return null;
+    }
+
+    @Override
     public Optional<Ticket> getTicketById(long id) {
         Ticket ticket = ticketRepo.getById(id);
         if (ticket == null) return Optional.empty();

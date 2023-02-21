@@ -26,7 +26,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public Optional<City> getCityByName(String cityName) {
-        return null;
+        return cityRepository.getCityByName(cityName);
     }
 
     @Override
