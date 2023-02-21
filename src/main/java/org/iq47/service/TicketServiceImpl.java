@@ -74,7 +74,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Double averageTicketsPrice(String departureCity, String arrivalCity, Date flightDate) {
+    public Optional<Double> averageTicketsPrice(String departureCity, String arrivalCity, Date flightDate) {
         if (departureCity != null && arrivalCity != null) {
             Optional<City> arrCity = cityRepository.getCityByName(arrivalCity);
             Optional<City> depCity = cityRepository.getCityByName(departureCity);
@@ -95,25 +95,24 @@ public class TicketServiceImpl implements TicketService {
                         count++;
                     }
                 }
-                if (count == 0) return null;
+                if (count == 0)
+                    return Optional.empty();
 
-                return (double) sum / count;
+                return Optional.of((double) sum / count);
             }
-            return null;
         }
-
-        return null;
+        return Optional.empty();
     }
 
     @Override
     public Optional<Ticket> getTicketById(long id) {
-        Ticket ticket = ticketRepo.getById(id);
-        if (ticket == null) return Optional.empty();
-        return Optional.of(ticket);
+        return ticketRepo.findById(id);
     }
 
     @Override
     public boolean deleteTicket(long id) {
+        if (!ticketRepo.existsById(id))
+            return false;
         ticketRepo.deleteById(id);
         return true;
     }

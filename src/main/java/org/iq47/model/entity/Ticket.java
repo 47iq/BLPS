@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.annotations.OnDelete;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,7 +29,7 @@ public class Ticket {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(mappedBy = "ticket")
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<SellerTicket> sellerTickets;
 
@@ -45,11 +46,11 @@ public class Ticket {
     @Column(name = "code")
     private String flightCode;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "departure_city", nullable = false)
     private City departureCity;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "arrival_city", nullable = false)
     private City arrivalCity;
 

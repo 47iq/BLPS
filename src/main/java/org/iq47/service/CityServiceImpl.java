@@ -39,6 +39,7 @@ public class CityServiceImpl implements CityService {
     public boolean deleteCity(String id) {
         if (cityRepository.existsById(id)) {
             cityRepository.deleteById(id);
+            return true;
         }
         return false;
     }

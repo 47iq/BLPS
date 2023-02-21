@@ -55,7 +55,7 @@ public class TicketController {
         try {
             boolean isDeleted = ticketService.deleteTicket(id);
             if (!isDeleted) {
-                throw new TicketSaveException("Ticket has not been deleted.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
             return ResponseEntity.ok().body(null);
         } catch (TicketSaveException ex) {
@@ -74,7 +74,7 @@ public class TicketController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseWrapper(error.get()));
             return edit(req);
         } catch (TicketSaveException ex) {
-            return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } catch (Exception e) {
             return reportError(req, e);
         }
@@ -94,10 +94,10 @@ public class TicketController {
             @RequestParam String departureCity,
             @RequestParam String arrivalCity,
             @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam Date departureDate,
-            @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam Date arrivalDate
+            @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam(required = false) Date returnBackDate
     ) {
         try {
-            List<Ticket> tickets = ticketService.findTickets(departureCity, arrivalCity, departureDate, arrivalDate);
+            List<Ticket> tickets = ticketService.findTickets(departureCity, arrivalCity, departureDate, returnBackDate);
             return ResponseEntity.ok().body(tickets);
         } catch (Exception e) {
             return reportError(null, e);
@@ -111,8 +111,11 @@ public class TicketController {
             @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam Date flightDate
     ) {
         try {
-            Double price = ticketService.averageTicketsPrice(departureCity, arrivalCity, flightDate);
-            return ResponseEntity.ok().body(new ResponseWrapper(price.toString()));
+            Optional<Double> price = ticketService.averageTicketsPrice(departureCity, arrivalCity, flightDate);
+            if (!price.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+            return ResponseEntity.ok().body(new ResponseWrapper(price.get().toString()));
         } catch (Exception e) {
             return reportError(null, e);
         }
