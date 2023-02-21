@@ -38,8 +38,58 @@ public class Ticket {
     private String flightCode;
 
     @Column(name = "departure_city")
-    private String departureCity;
+    private City departureCity;
 
     @Column(name = "arrival_city")
-    private String arrivalCity;
+    private City arrivalCity;
+
+    public static Builder newBuilder() {
+        return new Ticket().new Builder();
+    }
+
+    public class Builder {
+
+        private Builder() {
+        }
+
+        public Builder setId(Long id) {
+            Ticket.this.id = id;
+            return this;
+        }
+
+        public Builder setDepartureDate(LocalDateTime departureDate) {
+            Ticket.this.departureDate = departureDate;
+            return this;
+        }
+
+        public Builder setAirlineName(String airlineName) {
+            Ticket.this.airlineName = airlineName;
+            return this;
+        }
+
+        public Builder setArrivalDate(LocalDateTime arrivalDate) {
+            Ticket.this.arrivalDate = arrivalDate;
+            return this;
+        }
+
+        public Builder setFlightCode(String flightCode) {
+            Ticket.this.flightCode = flightCode;
+            return this;
+        }
+
+        public Builder setDepartureCity(City departureCity) {
+            Ticket.this.departureCity = departureCity;
+            return this;
+        }
+
+        public Builder setArrivalCity(City arrivalCity) {
+            Ticket.this.arrivalCity = arrivalCity;
+            return this;
+        }
+
+        public Ticket build() {
+            return Ticket.this;
+        }
+
+    }
 }

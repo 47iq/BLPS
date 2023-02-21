@@ -1,7 +1,9 @@
 package org.iq47.service;
 
+import org.iq47.model.entity.Ticket;
+
 import java.util.Optional;
 
 public interface TicketService {
-    Optional<TicketDTO> savePoint(TicketDTO point);
+    Optional<Ticket> savePoint(Ticket ticket);
 }

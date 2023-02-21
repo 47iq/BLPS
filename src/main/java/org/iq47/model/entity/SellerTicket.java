@@ -25,4 +25,35 @@ public class SellerTicket {
 
     @Column(name = "link")
     private String link;
+
+
+    public static SellerTicket.Builder newBuilder() {
+        return new SellerTicket().new Builder();
+    }
+
+    private class Builder {
+
+        private Builder() {
+        }
+
+        public SellerTicket.Builder setId(Long id) {
+            SellerTicket.this.id = id;
+            return this;
+        }
+
+        public SellerTicket.Builder setPrice(Integer price) {
+            SellerTicket.this.price = price;
+            return this;
+        }
+
+        public SellerTicket.Builder setLink(String link) {
+            SellerTicket.this.link = link;
+            return this;
+        }
+
+        public SellerTicket build() {
+            return SellerTicket.this;
+        }
+
+    }
 }

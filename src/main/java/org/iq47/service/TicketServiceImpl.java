@@ -16,9 +16,8 @@ public class TicketServiceImpl implements TicketService {
     private final TicketRepository pointRepo;
 
     @Override
-    public Optional<TicketDTO> savePoint(TicketDTO point) {
+    public Optional<Ticket> savePoint(Ticket ticket) {
         //validation
-        Ticket ticketEntity = TicketDTOConverter.dtoToEntity(point);
-        return Optional.of(TicketDTOConverter.entityToDto(pointRepo.save(ticketEntity)));
+        return Optional.of(pointRepo.save(ticket));
     }
 }
