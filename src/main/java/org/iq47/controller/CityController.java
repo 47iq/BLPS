@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/cities")
+@RequestMapping("api/v1/cities")
 @Slf4j
 public class CityController {
 
@@ -36,7 +36,7 @@ public class CityController {
         return ResponseEntity.ok().body(cityService.getAutocompleteEntries(query));
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<?> create(@RequestBody CityRequest req) {
         try {
             Optional<String> error = cityValidator.getErrorMessage(req.getName());
@@ -55,7 +55,7 @@ public class CityController {
         }
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/")
     public ResponseEntity<?> delete(@RequestParam String name) {
         try {
             boolean isDeleted = cityService.deleteCity(name);

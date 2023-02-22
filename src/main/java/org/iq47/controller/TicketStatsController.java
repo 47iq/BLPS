@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/stats")
+@RequestMapping("api/v1/stats")
 @Slf4j
 public class TicketStatsController {
 

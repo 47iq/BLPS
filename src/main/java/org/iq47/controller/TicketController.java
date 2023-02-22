@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/tickets")
+@RequestMapping("api/v1/tickets")
 @Slf4j
 public class TicketController {
 
@@ -36,7 +36,7 @@ public class TicketController {
         this.cityService = cityService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<?> create(@RequestBody TicketRequest req) {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);
@@ -50,7 +50,7 @@ public class TicketController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
             boolean isDeleted = ticketService.deleteTicket(id);
@@ -66,13 +66,13 @@ public class TicketController {
         }
     }
 
-    @PostMapping("/edit")
-    public ResponseEntity<?> delete(@RequestBody TicketRequest req) {
+    @PutMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable long id, @RequestBody TicketRequest req) {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);
             if(error.isPresent())
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseWrapper(error.get()));
-            return edit(req);
+            return edit(req, id);
         } catch (TicketSaveException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } catch (Exception e) {
@@ -130,7 +130,7 @@ public class TicketController {
     }
 
     private ResponseEntity<?> save(TicketRequest req) throws TicketSaveException {
-        Optional<Ticket> ticket = buildTicket(req);
+        Optional<Ticket> ticket = buildTicket(req, null);
         if (ticket.isPresent()) {
             Optional<Ticket> ticketOptional = ticketService.saveTicket(ticket.get());
             if (!ticketOptional.isPresent()) {
@@ -141,8 +141,8 @@ public class TicketController {
         return ResponseEntity.badRequest().body(new ResponseWrapper("City not found."));
     }
 
-    private ResponseEntity<?> edit(TicketRequest req) throws TicketSaveException {
-        Optional<Ticket> ticket = buildTicket(req);
+    private ResponseEntity<?> edit(TicketRequest req, Long id) throws TicketSaveException {
+        Optional<Ticket> ticket = buildTicket(req, id);
         if (ticket.isPresent()) {
             Optional<Ticket> ticketOptional = ticketService.editTicket(ticket.get());
             if (!ticketOptional.isPresent()) {
@@ -154,14 +154,14 @@ public class TicketController {
         return ResponseEntity.badRequest().body(new ResponseWrapper("Ticket/city not found."));
     }
 
-    private Optional<Ticket> buildTicket(TicketRequest req) {
+    private Optional<Ticket> buildTicket(TicketRequest req, Long id) {
         Optional<City> depCity = cityService.getCityByName(req.getDepartureCity());
         if (!depCity.isPresent()) return Optional.empty();
         Optional<City> arrCity = cityService.getCityByName(req.getArrivalCity());
         if (!arrCity.isPresent()) return Optional.empty();
 
         return Optional.of(Ticket.newBuilder()
-                .setId(req.getId())
+                .setId(id)
                 .setDepartureCity(depCity.get())
                 .setArrivalCity(arrCity.get())
                 .setDepartureDate(req.getDepartureDate())

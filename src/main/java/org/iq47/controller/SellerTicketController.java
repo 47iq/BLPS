@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/seller_tickets")
+@RequestMapping("api/v1/seller_tickets")
 @Slf4j
 public class SellerTicketController {
 
@@ -32,7 +32,7 @@ public class SellerTicketController {
         this.ticketService = ticketService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<?> create(@RequestBody SellerTicketRequest req) {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);
@@ -46,7 +46,7 @@ public class SellerTicketController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
             boolean isDeleted = sellerTicketService.deleteTicket(id);
@@ -62,8 +62,8 @@ public class SellerTicketController {
         }
     }
 
-    @PostMapping("/edit")
-    public ResponseEntity<?> edit(@RequestBody SellerTicketRequest req) {
+    @PutMapping("/{id}")
+    public ResponseEntity<?> edit(@RequestBody SellerTicketRequest req, @PathVariable long id) {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);
             if(error.isPresent())
@@ -73,7 +73,7 @@ public class SellerTicketController {
                 return ResponseEntity.badRequest().body(new ResponseWrapper("Ticket with the given id doesn't exist."));
             }
             SellerTicket sellerTicket = SellerTicket.newBuilder()
-                    .setId(req.getId())
+                    .setId(id)
                     .setLink(req.getLink())
                     .setPrice(req.getPrice())
                     .setTicket(ticket.get())
