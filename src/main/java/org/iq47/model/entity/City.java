@@ -22,11 +22,11 @@ public class City {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "arrivalCity", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "arrivalCity", cascade={CascadeType.ALL})
     @JsonIgnore
     private List<Ticket> arrivalTickets;
 
-    @OneToMany(mappedBy = "departureCity", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "departureCity", cascade={CascadeType.ALL})
     @JsonIgnore
     private List<Ticket> departureTickets;
 

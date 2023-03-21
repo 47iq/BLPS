@@ -36,7 +36,7 @@ public class TicketController {
         this.cityService = cityService;
     }
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<?> create(@RequestBody TicketRequest req) {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);

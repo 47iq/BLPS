@@ -46,11 +46,11 @@ public class Ticket {
     @Column(name = "code")
     private String flightCode;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name = "departure_city", nullable = false)
     private City departureCity;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name = "arrival_city", nullable = false)
     private City arrivalCity;
 

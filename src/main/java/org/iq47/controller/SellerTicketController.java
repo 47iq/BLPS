@@ -32,7 +32,7 @@ public class SellerTicketController {
         this.ticketService = ticketService;
     }
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<?> create(@RequestBody SellerTicketRequest req) {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);

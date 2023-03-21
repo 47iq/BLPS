@@ -36,7 +36,7 @@ public class CityController {
         return ResponseEntity.ok().body(cityService.getAutocompleteEntries(query));
     }
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<?> create(@RequestBody CityRequest req) {
         try {
             Optional<String> error = cityValidator.getErrorMessage(req.getName());
@@ -55,12 +55,12 @@ public class CityController {
         }
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping()
     public ResponseEntity<?> delete(@RequestParam String name) {
         try {
             boolean isDeleted = cityService.deleteCity(name);
             if (!isDeleted) {
-                throw new TicketSaveException("City doesn't exist.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseWrapper("City does not exist."));
             }
             return ResponseEntity.ok().body(null);
         } catch (TicketSaveException e) {
