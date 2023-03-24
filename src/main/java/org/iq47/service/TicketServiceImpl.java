@@ -40,7 +40,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<Ticket> findTickets(String departureCity, String arrivalCity, Date departureDate, Date arrivalDate) {
+    public List<Ticket> findTickets(String departureCity, String arrivalCity, Date departureDate, Date arrivalDate, ZoneId zoneId) {
         Optional<City> depCity = cityRepository.getCityByName(departureCity);
         Optional<City> arrCity = cityRepository.getCityByName(arrivalCity);
 
@@ -49,7 +49,7 @@ public class TicketServiceImpl implements TicketService {
         }
 
         LocalDateTime departureDateTime = departureDate.toInstant()
-                .atZone(ZoneId.systemDefault())
+                .atZone(zoneId)
                 .toLocalDateTime();
 
         if (arrivalDate == null) {
@@ -60,7 +60,7 @@ public class TicketServiceImpl implements TicketService {
         }
 
         LocalDateTime arrivalDateTime = arrivalDate.toInstant()
-                .atZone(ZoneId.systemDefault())
+                .atZone(zoneId)
                 .toLocalDateTime();
         arrivalDateTime = arrivalDateTime.plusHours(23).plusMinutes(59).plusSeconds(59);
 
@@ -74,7 +74,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Optional<Double> averageTicketsPrice(String departureCity, String arrivalCity, Date flightDate) {
+    public Optional<Double> averageTicketsPrice(String departureCity, String arrivalCity, Date flightDate, ZoneId zoneId) {
         if (departureCity != null && arrivalCity != null) {
             Optional<City> arrCity = cityRepository.getCityByName(arrivalCity);
             Optional<City> depCity = cityRepository.getCityByName(departureCity);
@@ -83,7 +83,7 @@ public class TicketServiceImpl implements TicketService {
                 List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCity(depCity.get(), arrCity.get());
                 tickets = tickets.stream()
                         //.filter(t -> Date.from(t.getDepartureDate().toInstant(ZoneOffset.ofHours(0))).equals(flightDate))
-                        .filter(t ->  t.getDepartureDate().toLocalDate().equals(flightDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()))
+                        .filter(t ->  t.getDepartureDate().toLocalDate().equals(flightDate.toInstant().atZone(zoneId).toLocalDate()))
                         .collect(Collectors.toList());
 
                 int sum = 0;

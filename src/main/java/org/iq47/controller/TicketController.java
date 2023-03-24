@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -94,10 +96,12 @@ public class TicketController {
             @RequestParam String departureCity,
             @RequestParam String arrivalCity,
             @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam Date departureDate,
-            @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam(required = false) Date returnBackDate
+            @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam(required = false) Date returnBackDate,
+            @RequestParam int zoneOffsetHoursGMT
     ) {
         try {
-            List<Ticket> tickets = ticketService.findTickets(departureCity, arrivalCity, departureDate, returnBackDate);
+            ZoneId zoneId = ZoneId.ofOffset("GMT", ZoneOffset.ofHours(zoneOffsetHoursGMT));
+            List<Ticket> tickets = ticketService.findTickets(departureCity, arrivalCity, departureDate, returnBackDate, zoneId);
             return ResponseEntity.ok().body(tickets);
         } catch (Exception e) {
             return reportError(null, e);
@@ -108,10 +112,12 @@ public class TicketController {
     public ResponseEntity<?> get(
             @RequestParam String departureCity,
             @RequestParam String arrivalCity,
-            @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam Date flightDate
+            @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam Date flightDate,
+            @RequestParam int zoneOffsetHoursGMT
     ) {
         try {
-            Optional<Double> price = ticketService.averageTicketsPrice(departureCity, arrivalCity, flightDate);
+            ZoneId zoneId = ZoneId.ofOffset("GMT", ZoneOffset.ofHours(zoneOffsetHoursGMT));
+            Optional<Double> price = ticketService.averageTicketsPrice(departureCity, arrivalCity, flightDate, zoneId);
             if (!price.isPresent()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
