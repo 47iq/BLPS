@@ -101,7 +101,7 @@ public class TicketController {
             @RequestParam int pageNum
     ) {
         try {
-            ZoneId zoneId = ZoneOffset.systemDefault();
+            ZoneId zoneId = ZoneId.ofOffset("GMT", ZoneOffset.ofHours(zoneOffsetHoursGMT));
             List<Ticket> tickets = ticketService.findTickets(departureCity, arrivalCity, departureDate, returnBackDate, zoneId, pageNum);
             return ResponseEntity.ok().body(tickets);
         } catch (Exception e) {
