@@ -1,6 +1,6 @@
 package org.iq47;
 
-import org.iq47.security.ApiKeyFilter;
+//import org.iq47.security.ApiKeyFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -18,7 +18,7 @@ public class ServingWebContentApplication {
         SpringApplication.run(ServingWebContentApplication.class, args);
     }
 
-    @Bean
+    /*@Bean
     public FilterRegistrationBean<ApiKeyFilter> loggingFilter(){
         FilterRegistrationBean<ApiKeyFilter> registrationBean
                 = new FilterRegistrationBean<>();
@@ -35,5 +35,5 @@ public class ServingWebContentApplication {
         registrationBean.setOrder(2);
 
         return registrationBean;
-    }
+    }*/
 }

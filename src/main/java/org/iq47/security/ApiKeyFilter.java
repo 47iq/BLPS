@@ -1,3 +1,4 @@
+/*
 package org.iq47.security;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -31,4 +32,4 @@ public class ApiKeyFilter implements Filter {
         }
         chain.doFilter(request, response);
     }
-}
+}*/
