@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TicketRepository extends JpaRepository<Ticket, Long> {
+public interface TicketRepository extends JpaRepository<Ticket, Long>, CustomTicketRepository{
     List<Ticket> getTicketsByDepartureCityAndArrivalCityAndArrivalDate(
             City departureCity, City arrivalCity, LocalDateTime arrivalDate);
 
