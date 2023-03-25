@@ -7,6 +7,8 @@ import org.iq47.model.entity.City;
 import org.iq47.model.entity.SellerTicket;
 import org.iq47.model.entity.Ticket;
 import org.iq47.model.TicketRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -40,7 +42,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<Ticket> findTickets(String departureCity, String arrivalCity, Date departureDate, Date arrivalDate, ZoneId zoneId) {
+    public List<Ticket> findTickets(String departureCity, String arrivalCity, Date departureDate, Date arrivalDate, ZoneId zoneId, int pageNum) {
         Optional<City> depCity = cityRepository.getCityByName(departureCity);
         Optional<City> arrCity = cityRepository.getCityByName(arrivalCity);
 
@@ -62,14 +64,9 @@ public class TicketServiceImpl implements TicketService {
         LocalDateTime arrivalDateTime = arrivalDate.toInstant()
                 .atZone(zoneId)
                 .toLocalDateTime();
-        arrivalDateTime = arrivalDateTime.plusHours(23).plusMinutes(59).plusSeconds(59);
 
-        List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCity(depCity.get(), arrCity.get());
-
-        LocalDateTime finalArrivalDateTime = arrivalDateTime;
-        return tickets.stream()
-                .filter(t -> t.getDepartureDate().isAfter(departureDateTime) && t.getArrivalDate().isBefore(finalArrivalDateTime))
-                .collect(Collectors.toList());
+        Page<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCity(PageRequest.of(pageNum, 20), depCity.get(), arrCity.get(), departureDateTime, arrivalDateTime);
+        return tickets.toList();
 
     }
 

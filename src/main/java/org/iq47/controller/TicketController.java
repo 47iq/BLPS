@@ -97,11 +97,12 @@ public class TicketController {
             @RequestParam String arrivalCity,
             @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam Date departureDate,
             @DateTimeFormat(pattern="yyyy-MM-dd") @RequestParam(required = false) Date returnBackDate,
-            @RequestParam int zoneOffsetHoursGMT
+            @RequestParam int zoneOffsetHoursGMT,
+            @RequestParam int pageNum
     ) {
         try {
-            ZoneId zoneId = ZoneId.ofOffset("GMT", ZoneOffset.ofHours(zoneOffsetHoursGMT));
-            List<Ticket> tickets = ticketService.findTickets(departureCity, arrivalCity, departureDate, returnBackDate, zoneId);
+            ZoneId zoneId = ZoneOffset.systemDefault();
+            List<Ticket> tickets = ticketService.findTickets(departureCity, arrivalCity, departureDate, returnBackDate, zoneId, pageNum);
             return ResponseEntity.ok().body(tickets);
         } catch (Exception e) {
             return reportError(null, e);
