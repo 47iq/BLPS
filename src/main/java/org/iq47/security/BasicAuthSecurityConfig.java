@@ -34,10 +34,6 @@ public class BasicAuthSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/**").hasAnyRole("ADMIN", "USER").and().httpBasic()
                 .and().authorizeRequests().anyRequest().permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                /*.and()
-                .formLogin()
-                .and()
-                .httpBasic();*/
     }
 
     @Override
@@ -50,24 +46,3 @@ public class BasicAuthSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(10);
     }
 }
-
-/*
-http
-        .csrf().disable()
-        .authorizeRequests()
-        .antMatchers("/api/v1/**").hasAnyRole("ROLE_ADMIN", "ROLE_USER")
-        .antMatchers("/api/v1/users/create").permitAll()
-        .antMatchers("/api/v1/cities/create").hasAuthority("ROLE_ADMIN")
-        .antMatchers("/api/v1/cities/delete").hasAuthority("ROLE_ADMIN")
-        .antMatchers("/api/v1/cities/**").permitAll()
-        .antMatchers("/api/v1/seller_tickets/**").hasAuthority("ROLE_ADMIN")
-        .antMatchers("/api/v1/tickets/find").permitAll()
-        .antMatchers("/api/v1/tickets/average_price").permitAll()
-        .antMatchers("/api/v1/tickets/**").hasAuthority("ROLE_ADMIN")
-        .antMatchers("/api/v1/stats").hasAuthority("ROLE_ADMIN")
-        .antMatchers("/admin").hasAuthority("ROLE_ADMIN")
-        .anyRequest().authenticated()
-        .and()
-        .formLogin()
-        .and()
-        .httpBasic();*/
