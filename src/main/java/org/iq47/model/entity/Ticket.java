@@ -28,7 +28,6 @@ public class Ticket {
     @Id
     @GeneratedValue
     private Long id;
-
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<SellerTicket> sellerTickets;
