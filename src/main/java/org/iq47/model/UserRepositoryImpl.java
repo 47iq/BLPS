@@ -3,13 +3,14 @@ package org.iq47.model;
 import org.iq47.model.entity.User;
 import org.iq47.model.entity.Users;
 import org.iq47.utils.XMLUtils;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
 public class UserRepositoryImpl implements UserRepository{
     private final XMLUtils xmlUtil;
-    private final String xmlPath = "C:\\Users\\user\\IdeaProjects\\BL_lab1\\src\\main\\resources\\users.xml";
+    private final String xmlPath = "./auth.xml";
 
     public UserRepositoryImpl(XMLUtils xmlUtil) {
         this.xmlUtil = xmlUtil;

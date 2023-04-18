@@ -13,6 +13,7 @@ import org.iq47.validate.CityValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -37,6 +38,7 @@ public class CityController {
     }
 
     @PostMapping()
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> create(@RequestBody CityRequest req) {
         try {
             Optional<String> error = cityValidator.getErrorMessage(req.getName());
@@ -56,6 +58,7 @@ public class CityController {
     }
 
     @DeleteMapping()
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> delete(@RequestParam String name) {
         try {
             boolean isDeleted = cityService.deleteCity(name);

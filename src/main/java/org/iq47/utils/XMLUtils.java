@@ -21,6 +21,7 @@ public class XMLUtils {
         xstream.alias(aliasName, convertClass);
         try {
             File file = new File(xmlPath);
+            file.createNewFile();
             FileReader reader = new FileReader(file);
             if (reader.read() > 0) {
                 JAXBContext jaxbContext = JAXBContext.newInstance(convertClass);
