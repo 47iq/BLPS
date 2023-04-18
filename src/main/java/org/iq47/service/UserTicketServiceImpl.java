@@ -1,12 +1,11 @@
 package org.iq47.service;
 
-import org.iq47.model.UserBalanceRepository;
+import org.iq47.model.repo2.UserBalanceRepository;
 import org.iq47.model.UserTicketRepository;
 import org.iq47.model.entity.User;
 import org.iq47.model.entity.UserBalance;
 import org.iq47.model.entity.UserTicket;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

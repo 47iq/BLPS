@@ -1,4 +1,4 @@
-package org.iq47.model;
+package org.iq47.model.repo2;
 
 import org.iq47.model.entity.UserBalance;
 import org.springframework.data.jpa.repository.JpaRepository;
