@@ -29,7 +29,6 @@ public class XMLUtils {
                 return jaxbUnmarshaller.unmarshal(file);
             }
         } catch (JAXBException | IOException e) {
-            //System.err.println("Failed to load entity from "+xmlPath);
             e.printStackTrace();
         }
         return null;
@@ -41,7 +40,6 @@ public class XMLUtils {
         try {
             xstream.toXML(saveEntity, new FileWriter(xmlPath, false));
         } catch (IOException e) {
-            //System.err.println("Failed to save entity into file "+xmlPath);
             e.printStackTrace();
         }
     }
