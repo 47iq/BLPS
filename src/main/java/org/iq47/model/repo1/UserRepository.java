@@ -1,4 +1,4 @@
-package org.iq47.model;
+package org.iq47.model.repo1;
 
 import org.iq47.model.entity.User;
 import org.springframework.stereotype.Repository;

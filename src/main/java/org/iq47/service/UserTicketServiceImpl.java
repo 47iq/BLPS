@@ -1,7 +1,7 @@
 package org.iq47.service;
 
-import org.iq47.model.repo2.UserBalanceRepository;
-import org.iq47.model.UserTicketRepository;
+import org.iq47.exception.ExchangeException;
+import org.iq47.model.repo1.UserTicketRepository;
 import org.iq47.model.entity.User;
 import org.iq47.model.entity.UserBalance;
 import org.iq47.model.entity.UserTicket;
@@ -16,27 +16,32 @@ public class UserTicketServiceImpl implements UserTicketService {
 
     private final UserTicketRepository userTicketRepository;
 
-    private final UserBalanceRepository userBalanceRepository;
+    private final UserBalanceService userBalanceService;
 
     @Autowired
-    public UserTicketServiceImpl(UserTicketRepository userTicketRepository, UserBalanceRepository userBalanceRepository) {
+    public UserTicketServiceImpl(UserTicketRepository userTicketRepository, UserBalanceService userBalanceService) {
         this.userTicketRepository = userTicketRepository;
-        this.userBalanceRepository = userBalanceRepository;
+        this.userBalanceService = userBalanceService;
     }
 
     @Transactional
-    public void exchangeTickets(UserTicket prevUserTicket, UserTicket newUserTicket, int price, User current) {
-        prevUserTicket.setUser(null);
+    public void exchangeTickets(UserTicket prevUserTicket, UserTicket newUserTicket, int price, User current) throws ExchangeException {
+        prevUserTicket.setUsername(null);
         userTicketRepository.save(prevUserTicket);
-        newUserTicket.setUser(current);
+        newUserTicket.setUsername(current.getUsername());
         userTicketRepository.save(newUserTicket);
-        UserBalance userBalance = userBalanceRepository.getByUserId(current.getId());
-        userBalance.setBalance(userBalance.getBalance() + price);
-        userBalanceRepository.editUserBalance(userBalance);
+        Optional<UserBalance> userBalanceOpt = userBalanceService.getByUsername(current.getUsername());
+        if (!userBalanceOpt.isPresent())
+            throw new ExchangeException("User balance doesn't exist");
+        UserBalance userBalance = userBalanceOpt.get();
+        if (userBalance.getBalance() < price)
+            throw new ExchangeException("User doesn't have enough money for this operation");
+        userBalance.setBalance(userBalance.getBalance() - price);
+        userBalanceService.editUserBalance(userBalance);
     }
 
     @Override
     public Optional<UserTicket> getUserTicketById(long ticketId) {
-        return Optional.empty();
+        return userTicketRepository.findById(ticketId);
     }
 }

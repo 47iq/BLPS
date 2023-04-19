@@ -19,13 +19,11 @@ public class UserTicket {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "seller_ticket_id", nullable = false)
     private SellerTicket sellerTicket;
 
     private Long seatNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "username")
-    private User user;
+    private String username;
 
 }

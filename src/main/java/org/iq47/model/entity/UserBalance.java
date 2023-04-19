@@ -1,17 +1,18 @@
 package org.iq47.model.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Data
+@Entity
+@NoArgsConstructor
 public class UserBalance {
 
-    @OneToOne
-    @JoinColumn(name = "username")
-    private User user;
+    private String username;
 
     private int balance;
+    @Id
+    private Long id;
 }

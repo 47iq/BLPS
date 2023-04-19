@@ -1,4 +1,4 @@
-package org.iq47.model;
+package org.iq47.model.repo1;
 
 import org.iq47.model.entity.City;
 import org.iq47.model.entity.Ticket;
@@ -8,10 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long>, CustomTicketRepository{

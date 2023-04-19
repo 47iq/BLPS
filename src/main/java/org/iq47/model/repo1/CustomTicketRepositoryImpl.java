@@ -1,11 +1,10 @@
-package org.iq47.model;
+package org.iq47.model.repo1;
 
 import org.iq47.model.entity.City;
 import org.iq47.model.entity.Ticket;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

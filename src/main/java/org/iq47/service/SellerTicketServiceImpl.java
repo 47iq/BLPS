@@ -2,7 +2,7 @@ package org.iq47.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.iq47.model.SellerTicketRepository;
+import org.iq47.model.repo1.SellerTicketRepository;
 import org.iq47.model.entity.SellerTicket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
