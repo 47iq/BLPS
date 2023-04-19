@@ -22,6 +22,7 @@ import java.util.Optional;
 @Slf4j
 public class SellerTicketController {
 
+    @Autowired
     private final SellerTicketService sellerTicketService;
     private final SellerTicketValidator ticketValidator;
     private final TicketService ticketService;

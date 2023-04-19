@@ -9,5 +9,4 @@ public class UserTicketRequest {
     Long sellerTicketId;
     Long seatNumber;
     String username;
-    Long id;
 }

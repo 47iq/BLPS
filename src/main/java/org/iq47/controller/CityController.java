@@ -33,19 +33,22 @@ public class CityController {
     }
 
     @GetMapping("/autocomplete")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     private ResponseEntity<?> autocompleteCity(@RequestParam String query) {
-        return ResponseEntity.ok().body(cityService.getAutocompleteEntries(query));
+        System.out.println(cityService);
+        return ResponseEntity.ok().body(this.cityService.getAutocompleteEntries(query));
     }
 
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> create(@RequestBody CityRequest req) {
         try {
+            System.out.println(cityService);
             Optional<String> error = cityValidator.getErrorMessage(req.getName());
             if(error.isPresent())
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseWrapper(error.get()));
             City city = new City(req.getName());
-            Optional<City> cityOptional = cityService.saveCity(city);
+            Optional<City> cityOptional = this.cityService.saveCity(city);
             if (!cityOptional.isPresent()) {
                 throw new TicketSaveException("City has not been saved.");
             }

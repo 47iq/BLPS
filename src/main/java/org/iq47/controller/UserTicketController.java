@@ -29,11 +29,11 @@ import java.util.Optional;
 @Slf4j
 public class UserTicketController {
 
-    UserTicketService userTicketService;
+    private UserTicketService userTicketService;
 
-    SellerTicketService sellerTicketService;
+    private SellerTicketService sellerTicketService;
 
-    AuthService userService;
+    private AuthService userService;
 
     @Autowired
     public UserTicketController(UserTicketService userTicketService, AuthService userService, SellerTicketService sellerTicketService) {

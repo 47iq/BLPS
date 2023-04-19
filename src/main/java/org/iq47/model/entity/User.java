@@ -28,6 +28,10 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
+    public String getUsername() {
+        return username;
+    }
+
     private String role;
 
     public User(String username, String password) {
