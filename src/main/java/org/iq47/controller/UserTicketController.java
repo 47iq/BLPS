@@ -36,8 +36,9 @@ public class UserTicketController {
     AuthService userService;
 
     @Autowired
-    public UserTicketController(UserTicketService userTicketService, AuthService userService) {
+    public UserTicketController(UserTicketService userTicketService, AuthService userService, SellerTicketService sellerTicketService) {
         this.userTicketService = userTicketService;
+        this.sellerTicketService = sellerTicketService;
         this.userService = userService;
     }
 
@@ -112,7 +113,7 @@ public class UserTicketController {
     @PostMapping()
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> create(@RequestBody UserTicketRequest req) {
-        try {
+//        try {
             Optional<SellerTicket> ticket = sellerTicketService.getTicketById(req.getSellerTicketId());
             if(!ticket.isPresent()) {
                 return ResponseEntity.badRequest().body(new ResponseWrapper("Seller ticket with the given id doesn't exist."));
@@ -130,11 +131,11 @@ public class UserTicketController {
                 return ResponseEntity.badRequest().body(new ResponseWrapper("Ticket has not been saved."));
             }
             return ResponseEntity.ok().body(ticketOptional.get());
-        } catch (TicketSaveException ex) {
-            return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
-        } catch (Exception e) {
-            return reportError(req, e);
-        }
+//        } catch (TicketSaveException ex) {
+//            return ResponseEntity.badRequest().body(new ResponseWrapper(ex.getMessage()));
+//        } catch (Exception e) {
+//            return reportError(req, e);
+//        }
     }
 
     @GetMapping("/{id}")
