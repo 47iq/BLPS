@@ -47,10 +47,10 @@ public class UserTicketController {
             Optional<UserTicket> newTicket = userTicketService.getUserTicketById(req.getNewTicketId());
             UserDetails user = userService.loadUserByUsername(req.getUsername());
             if (user == null) {
-                return ResponseEntity.badRequest().body(new ResponseWrapper("User with the given username doesn't exist."));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseWrapper("User with the given username doesn't exist."));
             }
             if (!oldTicket.isPresent() || !newTicket.isPresent()) {
-                return ResponseEntity.badRequest().body(new ResponseWrapper("User ticket with the given id doesn't exist."));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseWrapper("User ticket with the given id doesn't exist."));
             }
             userTicketService.exchangeTickets(oldTicket.get(), newTicket.get(), req.getPrice(), (User) user);
             return ResponseEntity.ok().body(null);
