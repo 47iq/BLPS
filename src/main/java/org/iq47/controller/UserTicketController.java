@@ -81,6 +81,7 @@ public class UserTicketController {
             userTicket.setSellerTicket(ticket.get());
             userTicket.setUsername(req.getUsername());
             userTicket.setSeatNumber(req.getSeatNumber());
+            userTicket.setId(id);
             Optional<UserTicket> ticketOptional = userTicketService.edit(userTicket);
             if (!ticketOptional.isPresent()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
