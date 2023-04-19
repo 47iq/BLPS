@@ -1,5 +1,6 @@
 package org.iq47.service;
 
+import org.iq47.model.entity.SellerTicket;
 import org.iq47.model.entity.User;
 import org.iq47.model.entity.UserBalance;
 import org.iq47.model.repo2.UserBalanceRepository;
@@ -33,5 +34,32 @@ public class UserBalanceServiceImpl implements UserBalanceService {
             return Optional.empty();
         else
             return Optional.of(userBalance);
+    }
+
+    @Override
+    public boolean delete(long id) {
+        if (userBalanceRepository.existsById(id)) {
+            userBalanceRepository.deleteById(id);
+        }
+        return true;
+    }
+
+    @Override
+    public Optional<UserBalance> save(UserBalance userBalance) {
+        UserBalance ticket1 = userBalanceRepository.save(userBalance);
+        return Optional.of(ticket1);
+    }
+
+    @Override
+    public Optional<UserBalance> getById(long id) {
+        return userBalanceRepository.findById(id);
+    }
+
+    @Override
+    public Optional<UserBalance> edit(UserBalance userBalance) {
+        if (userBalanceRepository.existsById(userBalance.getId())) {
+            return Optional.of(userBalanceRepository.save(userBalance));
+        }
+        return Optional.empty();
     }
 }

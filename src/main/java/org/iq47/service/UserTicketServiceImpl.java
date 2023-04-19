@@ -1,6 +1,7 @@
 package org.iq47.service;
 
 import org.iq47.exception.ExchangeException;
+import org.iq47.model.entity.SellerTicket;
 import org.iq47.model.repo1.UserTicketRepository;
 import org.iq47.model.entity.User;
 import org.iq47.model.entity.UserBalance;
@@ -38,6 +39,33 @@ public class UserTicketServiceImpl implements UserTicketService {
             throw new ExchangeException("User doesn't have enough money for this operation");
         userBalance.setBalance(userBalance.getBalance() - price);
         userBalanceService.editUserBalance(userBalance);
+    }
+
+    @Override
+    public Optional<UserTicket> save(UserTicket userTicket) {
+        UserTicket ticket1 = userTicketRepository.save(userTicket);
+        return Optional.of(ticket1);
+    }
+
+    @Override
+    public Optional<UserTicket> edit(UserTicket userTicket) {
+        if (userTicketRepository.existsById(userTicket.getId())) {
+            return Optional.of(userTicketRepository.save(userTicket));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean delete(long id) {
+        if (userTicketRepository.existsById(id)) {
+            userTicketRepository.deleteById(id);
+        }
+        return true;
+    }
+
+    @Override
+    public Optional<UserTicket> getTicketById(long id) {
+        return userTicketRepository.findById(id);
     }
 
     @Override

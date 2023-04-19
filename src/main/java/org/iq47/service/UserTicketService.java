@@ -12,4 +12,12 @@ public interface UserTicketService {
     void exchangeTickets(UserTicket prevUserTicket, UserTicket newUserTicket, int price, User current) throws ExchangeException, ExchangeException;
 
     Optional<UserTicket> getUserTicketById(long ticketId);
+
+    Optional<UserTicket> save(UserTicket userTicket);
+
+    Optional<UserTicket> edit(UserTicket userTicket);
+
+    boolean delete(long id);
+
+    Optional<UserTicket> getTicketById(long id);
 }
