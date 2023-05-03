@@ -104,7 +104,7 @@ public class SellerTicketController {
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<?> getTicket(@PathVariable long id) {
+    public ResponseEntity<?> getTicket(@PathVariable long id) {
         Optional<SellerTicket> item = sellerTicketService.getTicketById(id);
         if (item.isPresent()) {
             return ResponseEntity.ok().body(item.get());

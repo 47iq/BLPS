@@ -33,7 +33,6 @@ public class CityController {
     }
 
     @GetMapping("/autocomplete")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     private ResponseEntity<?> autocompleteCity(@RequestParam String query) {
         System.out.println(cityService);
         return ResponseEntity.ok().body(this.cityService.getAutocompleteEntries(query));
