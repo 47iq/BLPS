@@ -1,10 +1,12 @@
 package org.iq47.producer;
 
+import lombok.SneakyThrows;
 import org.iq47.message.MessageConverter;
 import org.iq47.message.TicketReportMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Queue;
 
@@ -12,19 +14,22 @@ import javax.jms.Queue;
 public class JMSMessageSender implements MessageSender {
 
     private Queue queue;
-    private JMSContext context;
+    private ConnectionFactory connectionFactory;
     private MessageConverter messageConverter;
+    private JMSContext jmsContext;
 
+    @SneakyThrows
     @Autowired
-    public JMSMessageSender(Queue queue, JMSContext context, MessageConverter messageConverter) {
+    public JMSMessageSender(Queue queue, ConnectionFactory connectionFactory, MessageConverter messageConverter) {
         this.queue = queue;
-        this.context = context;
+        this.connectionFactory = connectionFactory;
         this.messageConverter = messageConverter;
+        this.jmsContext = connectionFactory.createContext();
     }
 
 
     @Override
     public void sendTicketReportMessage(TicketReportMessage reportMessage) {
-        context.createProducer().send(queue, messageConverter.convertTicketReportMessage(reportMessage));
+        jmsContext.createProducer().send(queue, messageConverter.convertTicketReportMessage(reportMessage));
     }
 }
