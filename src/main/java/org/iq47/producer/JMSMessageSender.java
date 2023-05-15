@@ -6,6 +6,7 @@ import org.iq47.message.TicketReportMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Queue;
@@ -25,6 +26,12 @@ public class JMSMessageSender implements MessageSender {
         this.connectionFactory = connectionFactory;
         this.messageConverter = messageConverter;
         this.jmsContext = connectionFactory.createContext();
+        connectionFactory.createConnection();
+    }
+
+    @PostConstruct
+    public void test() {
+        sendTicketReportMessage(new TicketReportMessage());
     }
 
 
