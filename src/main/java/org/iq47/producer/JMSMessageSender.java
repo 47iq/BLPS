@@ -22,11 +22,6 @@ public class JMSMessageSender implements MessageSender {
         this.messageConverter = messageConverter;
     }
 
-    @Autowired
-    public JMSMessageSender(Queue queue, JMSContext context) {
-        this.queue = queue;
-        this.context = context;
-    }
 
     @Override
     public void sendTicketReportMessage(TicketReportMessage reportMessage) {
