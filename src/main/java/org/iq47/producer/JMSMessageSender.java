@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSContext;
-import javax.jms.Queue;
+import javax.jms.*;
 
 @Component
 public class JMSMessageSender implements MessageSender {
@@ -19,24 +17,28 @@ public class JMSMessageSender implements MessageSender {
     private MessageConverter messageConverter;
     private JMSContext jmsContext;
 
+    private MessageProducer publisher;
+    private Session session;
+
     @SneakyThrows
     @Autowired
     public JMSMessageSender(Queue queue, ConnectionFactory connectionFactory, MessageConverter messageConverter) {
         this.queue = queue;
         this.connectionFactory = connectionFactory;
         this.messageConverter = messageConverter;
-        this.jmsContext = connectionFactory.createContext();
-        connectionFactory.createConnection();
     }
 
     @PostConstruct
-    public void test() {
-        sendTicketReportMessage(new TicketReportMessage());
+    void init() throws JMSException {
+        Connection connection = connectionFactory.createConnection();
+        this.session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        this.publisher = session.createProducer(queue);
+        connection.start();
     }
 
 
     @Override
-    public void sendTicketReportMessage(TicketReportMessage reportMessage) {
-        jmsContext.createProducer().send(queue, messageConverter.convertTicketReportMessage(reportMessage));
+    public void sendTicketReportMessage(TicketReportMessage reportMessage) throws JMSException {
+        publisher.send(queue, session.createTextMessage(messageConverter.convertTicketReportMessage(reportMessage)));
     }
 }
