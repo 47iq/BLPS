@@ -9,21 +9,20 @@ import javax.jms.*;
 @Component
 public class JMSMessageListener implements MessageListener {
 
-    QueueConnection qConnect;
+    private JMSContext jmsContext;
 
-    Queue queue;
+    private Queue queue;
 
     @Autowired
-    public JMSMessageListener(QueueConnection qConnect, Queue queue) {
-        this.qConnect = qConnect;
+    public JMSMessageListener(ConnectionFactory connectionFactory, Queue queue) throws JMSException {
+        this.jmsContext = connectionFactory.createContext();
         this.queue = queue;
     }
 
     @SneakyThrows
     @PostConstruct
     void init() {
-        QueueSession qSession = (QueueSession) qConnect.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        QueueReceiver consumer = (QueueReceiver) qSession.createConsumer(queue);
+        JMSConsumer consumer = jmsContext.createConsumer(queue);
         consumer.setMessageListener(this);
     }
 
