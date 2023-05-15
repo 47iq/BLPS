@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserTicketServiceImpl implements UserTicketService {
@@ -76,6 +77,7 @@ public class UserTicketServiceImpl implements UserTicketService {
 
     @Override
     public List<UserTicket> collectAirlineTicketsData(String airline) {
-        return userTicketRepository.collectAirlineTicketsData(airline);
+        return userTicketRepository.findAll().stream().filter(x -> x.getSellerTicket().getTicket().getAirlineName().equals(airline)).collect(Collectors.toList());
+//        return userTicketRepository.collectAirlineTicketsData(airline);
     }
 }
