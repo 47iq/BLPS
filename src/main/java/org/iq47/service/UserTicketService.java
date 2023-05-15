@@ -6,6 +6,7 @@ import org.iq47.model.entity.User;
 import org.iq47.model.entity.UserTicket;
 
 import java.rmi.NoSuchObjectException;
+import java.util.List;
 import java.util.Optional;
 
 public interface UserTicketService {
@@ -20,4 +21,6 @@ public interface UserTicketService {
     boolean delete(long id);
 
     Optional<UserTicket> getTicketById(long id);
+
+    List<UserTicket> collectAirlineTicketsData(String airline);
 }

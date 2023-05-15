@@ -1,11 +1,15 @@
 package org.iq47;
 
 //import org.iq47.security.ApiKeyFilter;
+import org.iq47.job.TicketReportJob;
+import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.autoconfigure.quartz.QuartzDataSource;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -27,6 +31,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
+
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "org.iq47.model.repo1",
@@ -41,9 +47,38 @@ public class ServingWebContentApplication extends SpringBootServletInitializer {
 
     @Autowired
     private Environment env;
+//
+//    @Bean
+//    public JobDetail jobDetail() {
+//        return JobBuilder.newJob().ofType(TicketReportJob.class)
+//                .storeDurably()
+//                .withIdentity("Quartz_job_details")
+//                .withDescription("Invoke ticket report service")
+//                .build();
+//    }
+//
+//    @Bean
+//    public Trigger trigger(JobDetail job) {
+//        return TriggerBuilder.newTrigger().forJob(job)
+//                .withIdentity("Quartz_trigger")
+//                .withDescription("Trigger for ticket report service")
+//                .withSchedule(simpleSchedule().repeatForever().withIntervalInHours(24))
+//                .build();
+//    }
+//
+//
+//    @Bean
+//    public Scheduler scheduler(Trigger trigger, JobDetail job, SchedulerFactoryBean factory)
+//            throws SchedulerException {
+//        Scheduler scheduler = factory.getScheduler();
+//        scheduler.scheduleJob(job, trigger);
+//        scheduler.start();
+//        return scheduler;
+//    }
 
     @Bean
     @Primary
+    @QuartzDataSource
     public DataSource defaultDataSource() {
         DriverManagerDataSource dataSource
                 = new DriverManagerDataSource();

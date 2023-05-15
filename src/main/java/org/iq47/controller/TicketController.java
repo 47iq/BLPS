@@ -2,10 +2,12 @@ package org.iq47.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iq47.exception.TicketSaveException;
+import org.iq47.message.TicketReportMessage;
 import org.iq47.model.entity.City;
 import org.iq47.model.entity.Ticket;
 import org.iq47.network.request.TicketRequest;
 import org.iq47.network.response.ResponseWrapper;
+import org.iq47.producer.JMSMessageSender;
 import org.iq47.service.CityService;
 import org.iq47.service.TicketService;
 import org.iq47.validate.TicketValidator;
@@ -16,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import javax.jms.JMSException;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -32,11 +34,14 @@ public class TicketController {
     private final TicketValidator ticketValidator;
     private final CityService cityService;
 
+    private final JMSMessageSender sender;
+
     @Autowired
-    public TicketController(TicketService ticketService, TicketValidator ticketValidator, CityService cityService) {
+    public TicketController(TicketService ticketService, TicketValidator ticketValidator, CityService cityService, JMSMessageSender sender) {
         this.ticketService = ticketService;
         this.ticketValidator = ticketValidator;
         this.cityService = cityService;
+        this.sender = sender;
     }
 
     @PostMapping()
@@ -92,6 +97,18 @@ public class TicketController {
         if (item.isPresent()) {
             return ResponseEntity.ok().body(item.get());
         } else return ResponseEntity.notFound().build();
+    }
+
+
+    @PostMapping("generate_report/{airline_name}")
+    public ResponseEntity<?> generateReport(@PathVariable String airline_name) {
+        try {
+            sender.sendTicketReportMessage(new TicketReportMessage(airline_name));
+        } catch (JMSException e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(new ResponseWrapper("Something went wrong"));
+        }
+        return ResponseEntity.ok().body("Report generation has been started.");
     }
 
 

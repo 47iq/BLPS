@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -71,5 +72,10 @@ public class UserTicketServiceImpl implements UserTicketService {
     @Override
     public Optional<UserTicket> getUserTicketById(long ticketId) {
         return userTicketRepository.findById(ticketId);
+    }
+
+    @Override
+    public List<UserTicket> collectAirlineTicketsData(String airline) {
+        return userTicketRepository.collectAirlineTicketsData(airline);
     }
 }
