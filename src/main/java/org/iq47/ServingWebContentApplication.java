@@ -24,6 +24,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Queue;
@@ -110,7 +111,7 @@ public class ServingWebContentApplication extends SpringBootServletInitializer {
     @Bean
     public ConnectionFactory jmsConnectionFactory() throws NamingException {
         InitialContext context = new InitialContext();
-        ConnectionFactory factory = (ConnectionFactory) context.lookup("java:/ConnectionFactory");
+        ConnectionFactory factory = (ConnectionFactory) context.lookup("java:/PizdecConnectionFactory");
         System.out.println(factory);
         return factory;
     }
@@ -118,7 +119,7 @@ public class ServingWebContentApplication extends SpringBootServletInitializer {
     @Bean
     public Queue ticketQueue() throws NamingException {
         InitialContext context = new InitialContext();
-        Queue queue = (Queue) context.lookup("queue/test");
+        Queue queue = (Queue) context.lookup("queue/ticketQueue");
         System.out.println(queue);
         return queue;
     }

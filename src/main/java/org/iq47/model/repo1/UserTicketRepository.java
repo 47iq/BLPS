@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface UserTicketRepository extends JpaRepository<UserTicket, Long> {
 
-//    @Query(value = "SELECT u FROM UserTicket as u where u.sellerTicket.ticket.airlineName = :airline_name")
-//    List<UserTicket> collectAirlineTicketsData(@Param("airline_name") String airline_name);
+    @Query(value = "SELECT u FROM UserTicket as u where u.sellerTicket.ticket.airlineName = :airline_name")
+    List<UserTicket> collectAirlineTicketsData(@Param("airline_name") String airline_name);
 
 }

@@ -52,7 +52,9 @@ public class CSVGenerationServiceImpl implements CSVGenerationService {
             }
             tickets.put(ticket, ticketData);
         }
-        BufferedWriter writer = Files.newBufferedWriter(Paths.get(String.format("~/%s-%s.csv", airline_name, LocalDate.now().toString())));
+
+        File file = new File(String.format("%s-%s.csv", airline_name, LocalDate.now().toString()));
+        BufferedWriter writer = Files.newBufferedWriter(Paths.get(String.format("%s-%s.csv", airline_name, LocalDate.now().toString())));
         CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("id", "departureDate", "arrivalDate", "flightCode", "departureCity", "arrivalCity", "sold_quantity", "left_quantity"));
         for(Ticket ticket: tickets.keySet()) {
             csvPrinter.printRecord(ticket.getId(), ticket.getDepartureDate(), ticket.getArrivalDate(), ticket.getFlightCode(),

@@ -19,7 +19,7 @@ public class JMSMessageListener implements MessageListener {
     private CSVGenerationService generationService;
 
     @Autowired
-    public JMSMessageListener(ConnectionFactory connectionFactory, Queue queue, CSVGenerationService generationService) throws JMSException {
+    public JMSMessageListener(ConnectionFactory connectionFactory, CSVGenerationService generationService, Queue queue) throws JMSException {
         this.queue = queue;
         this.generationService = generationService;
         this.connectionFactory = connectionFactory;
@@ -32,6 +32,7 @@ public class JMSMessageListener implements MessageListener {
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         MessageConsumer consumer = session.createConsumer(queue);
         consumer.setMessageListener(this);
+        connection.start();
     }
 
     @Override

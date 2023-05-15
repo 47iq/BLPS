@@ -77,7 +77,7 @@ public class UserTicketServiceImpl implements UserTicketService {
 
     @Override
     public List<UserTicket> collectAirlineTicketsData(String airline) {
-        return userTicketRepository.findAll().stream().filter(x -> x.getSellerTicket().getTicket().getAirlineName().equals(airline)).collect(Collectors.toList());
-//        return userTicketRepository.collectAirlineTicketsData(airline);
+//        return userTicketRepository.findAll().stream().filter(x -> x.getSellerTicket().getTicket().getAirlineName().equals(airline)).collect(Collectors.toList());
+        return userTicketRepository.collectAirlineTicketsData(airline);
     }
 }
