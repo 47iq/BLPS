@@ -15,12 +15,15 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -48,34 +51,6 @@ public class ServingWebContentApplication extends SpringBootServletInitializer {
 
     @Autowired
     private Environment env;
-//
-//    @Bean
-//    public JobDetail jobDetail() {
-//        return JobBuilder.newJob().ofType(TicketReportJob.class)
-//                .storeDurably()
-//                .withIdentity("Quartz_job_details")
-//                .withDescription("Invoke ticket report service")
-//                .build();
-//    }
-//
-//    @Bean
-//    public Trigger trigger(JobDetail job) {
-//        return TriggerBuilder.newTrigger().forJob(job)
-//                .withIdentity("Quartz_trigger")
-//                .withDescription("Trigger for ticket report service")
-//                .withSchedule(simpleSchedule().repeatForever().withIntervalInHours(24))
-//                .build();
-//    }
-//
-//
-//    @Bean
-//    public Scheduler scheduler(Trigger trigger, JobDetail job, SchedulerFactoryBean factory)
-//            throws SchedulerException {
-//        Scheduler scheduler = factory.getScheduler();
-//        scheduler.scheduleJob(job, trigger);
-//        scheduler.start();
-//        return scheduler;
-//    }
 
     @Bean
     @Primary
