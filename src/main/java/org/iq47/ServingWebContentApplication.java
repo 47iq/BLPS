@@ -6,6 +6,8 @@ import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.quartz.QuartzDataSource;
@@ -15,6 +17,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.context.annotation.Primary;
@@ -37,7 +40,11 @@ import javax.sql.DataSource;
 
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 
-@SpringBootApplication
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan(includeFilters = {
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern="org.iq47.config.*"),
+})
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "org.iq47.model.repo1",
         entityManagerFactoryRef = "defaultManagerFactory",
