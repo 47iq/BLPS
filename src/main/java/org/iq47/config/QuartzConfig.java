@@ -68,7 +68,7 @@ public class QuartzConfig {
         return factoryBean;
     }
 
-    static CronTriggerFactoryBean createCronTrigger(JobDetail jobDetail, String cronExpression, String triggerName) {
+    public static CronTriggerFactoryBean createCronTrigger(JobDetail jobDetail, String cronExpression, String triggerName) {
         log.debug("createCronTrigger(jobDetail={}, cronExpression={}, triggerName={})", jobDetail.toString(), cronExpression, triggerName);
         // To fix an issue with time-based cron jobs
         Calendar calendar = Calendar.getInstance();
@@ -84,7 +84,7 @@ public class QuartzConfig {
         return factoryBean;
     }
 
-    static JobDetailFactoryBean createJobDetail(Class jobClass, String jobName) {
+    public static JobDetailFactoryBean createJobDetail(Class jobClass, String jobName) {
         log.debug("createJobDetail(jobClass={}, jobName={})", jobClass.getName(), jobName);
         JobDetailFactoryBean factoryBean = new JobDetailFactoryBean();
         factoryBean.setName(jobName);
