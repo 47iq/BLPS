@@ -11,6 +11,7 @@ import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 @Configuration
 public class QuartzJobsConfig {
     private static final String CRON_EVERY_DAY_12PM = "0 0 12 * * ?";
+    private static final String CRON_EVERY_FIVE_MINUTES = "0 0/5 * ? * * *";
 
     @Bean(name = "ticketsReport")
     public JobDetailFactoryBean jobTicketReport() {

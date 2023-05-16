@@ -5,8 +5,11 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.iq47.model.entity.Ticket;
 import org.iq47.model.entity.UserTicket;
+import org.iq47.network.FileDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -20,6 +23,8 @@ import java.util.stream.Stream;
 public class CSVGenerationServiceImpl implements CSVGenerationService {
 
     UserTicketService userTicketService;
+
+    MinioService minioService;
 
     @Data
     private static class TicketData {

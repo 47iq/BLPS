@@ -6,10 +6,9 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("worker")
-@ComponentScan(basePackages = "org.iq47", excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern="org.iq47.controller.*"),
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern="org.iq47.job.*")
-})
+@Profile({"worker", "!web"})
+@ComponentScan(basePackages = "org.iq47", includeFilters = {
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern="org.iq47.consumer.*")
+}, useDefaultFilters = false)
 public class WorkerConfiguration {
 }

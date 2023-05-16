@@ -1,5 +1,6 @@
 package org.iq47.job;
 
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.iq47.message.TicketReportMessage;
 import org.iq47.producer.JMSMessageSender;
@@ -13,8 +14,10 @@ import javax.jms.JMSException;
 
 @Component
 @Slf4j
+@NoArgsConstructor
 public class TicketReportJob implements Job {
 
+    @Autowired
     JMSMessageSender jmsMessageSender;
 
     @Autowired

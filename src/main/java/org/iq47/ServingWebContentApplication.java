@@ -42,8 +42,10 @@ import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 
 @SpringBootConfiguration
 @EnableAutoConfiguration
-@ComponentScan(includeFilters = {
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern="org.iq47.config.*"),
+@ComponentScan(excludeFilters = {
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern="org.iq47.controller.*"),
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern="org.iq47.job.*"),
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern="org.iq47.consumer.*"),
 })
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "org.iq47.model.repo1",
