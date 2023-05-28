@@ -29,7 +29,7 @@ public class TicketReportJob implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         try {
             log.info("Job ** {} ** starting @ {}", jobExecutionContext.getJobDetail().getKey().getName(), jobExecutionContext.getFireTime());
-            jmsMessageSender.sendTicketReportMessage(new TicketReportMessage("pobeda"));
+            jmsMessageSender.sendTicketReportMessage(new TicketReportMessage(null, "pobeda"));
             log.info("Job ** {} ** completed.  Next job scheduled @ {}", jobExecutionContext.getJobDetail().getKey().getName(), jobExecutionContext.getNextFireTime());
         } catch (JMSException e) {
             throw new RuntimeException(e);
