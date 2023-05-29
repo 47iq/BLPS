@@ -28,11 +28,12 @@ public class BasicAuthSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                //.authorizeRequests()
-                //.antMatchers("/api/v1/**").hasAnyRole("ADMIN", "USER").and().httpBasic()
-                //.and().authorizeRequests()
-                //.antMatchers("/api/v1/users/**").permitAll()
-                /*.and()*/.authorizeRequests().anyRequest().permitAll()
+                .authorizeRequests()
+                .antMatchers("/api/v1/users/**").permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/api/v1/**").hasAnyRole("ADMIN", "USER").and().httpBasic()
+                .and().authorizeRequests().anyRequest().permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
