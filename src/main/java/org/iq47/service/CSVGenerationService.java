@@ -1,7 +1,9 @@
 package org.iq47.service;
 
+import org.apache.commons.csv.CSVPrinter;
+
 import java.io.IOException;
 
 public interface CSVGenerationService {
-    void generateAirlineReport(String airline_name) throws IOException;
+    CSVPrinter prepareAirlineReport(String airline_name) throws IOException;
 }

@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TicketReportMessage {
+    Long taskId;
     String airline_name;
 }

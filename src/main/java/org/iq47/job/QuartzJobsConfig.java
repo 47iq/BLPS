@@ -18,6 +18,16 @@ public class QuartzJobsConfig {
         return QuartzConfig.createJobDetail(TicketReportJob.class, "Tickets Report Job");
     }
 
+    @Bean(name = "taskMonitor")
+    public JobDetailFactoryBean jobTaskMonitor() {
+        return QuartzConfig.createJobDetail(TaskMonitorJob.class, "Task Monitor Job");
+    }
+
+    @Bean(name = "taskMonitorTrigger")
+    public CronTriggerFactoryBean triggerTaskMonitor(@Qualifier("taskMonitor") JobDetail jobDetail) {
+        return QuartzConfig.createCronTrigger(jobDetail, CRON_EVERY_FIVE_MINUTES, "Task Monitor Trigger");
+    }
+
     @Bean(name = "ticketsReportTrigger")
     public CronTriggerFactoryBean triggerTicketReport(@Qualifier("ticketsReport") JobDetail jobDetail) {
         return QuartzConfig.createCronTrigger(jobDetail, CRON_EVERY_DAY_12PM, "Member Statistics Trigger");

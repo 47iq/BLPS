@@ -5,26 +5,19 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.iq47.model.entity.Ticket;
 import org.iq47.model.entity.UserTicket;
-import org.iq47.network.FileDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 public class CSVGenerationServiceImpl implements CSVGenerationService {
 
     UserTicketService userTicketService;
-
-    MinioService minioService;
 
     @Data
     private static class TicketData {
@@ -38,7 +31,7 @@ public class CSVGenerationServiceImpl implements CSVGenerationService {
     }
 
     @Override
-    public void generateAirlineReport(String airline_name) throws IOException {
+    public CSVPrinter prepareAirlineReport(String airline_name) throws IOException {
         List<UserTicket> userTickets = userTicketService.collectAirlineTicketsData(airline_name);
         Map<Ticket, TicketData> tickets = new HashMap<>();
 
@@ -65,6 +58,6 @@ public class CSVGenerationServiceImpl implements CSVGenerationService {
             csvPrinter.printRecord(ticket.getId(), ticket.getDepartureDate(), ticket.getArrivalDate(), ticket.getFlightCode(),
                     ticket.getDepartureCity(), ticket.getArrivalCity(), tickets.get(ticket).getOccupied(), tickets.get(ticket).getFree());
         }
-        csvPrinter.flush();
+        return csvPrinter;
     }
 }
