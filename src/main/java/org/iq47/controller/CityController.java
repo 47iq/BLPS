@@ -1,7 +1,6 @@
 package org.iq47.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.units.qual.C;
 import org.iq47.exception.TicketSaveException;
 import org.iq47.model.entity.City;
 import org.iq47.model.entity.Ticket;

@@ -11,7 +11,7 @@ import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 @Configuration
 public class QuartzJobsConfig {
     private static final String CRON_EVERY_DAY_12PM = "0 0 12 * * ?";
-    private static final String CRON_EVERY_FIVE_MINUTES = "0 0/5 * ? * * *";
+    private static final String CRON_EVERY_MINUTE = "0 0/1 * ? * * *";
 
     @Bean(name = "ticketsReport")
     public JobDetailFactoryBean jobTicketReport() {
@@ -25,7 +25,7 @@ public class QuartzJobsConfig {
 
     @Bean(name = "taskMonitorTrigger")
     public CronTriggerFactoryBean triggerTaskMonitor(@Qualifier("taskMonitor") JobDetail jobDetail) {
-        return QuartzConfig.createCronTrigger(jobDetail, CRON_EVERY_FIVE_MINUTES, "Task Monitor Trigger");
+        return QuartzConfig.createCronTrigger(jobDetail, CRON_EVERY_MINUTE, "Task Monitor Trigger");
     }
 
     @Bean(name = "ticketsReportTrigger")

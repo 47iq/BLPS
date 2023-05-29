@@ -8,6 +8,7 @@ import org.iq47.service.AsyncTaskService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,18 +19,16 @@ import java.util.List;
 public class TaskMonitorJob implements Job {
 
 
-    private AsyncTaskService asyncTaskService;
-    private JMSMessageSender jmsMessageSender;
+    @Autowired
+    AsyncTaskService asyncTaskService;
 
-    public TaskMonitorJob(AsyncTaskService asyncTaskService, JMSMessageSender jmsMessageSender) {
-        this.asyncTaskService = asyncTaskService;
-        this.jmsMessageSender = jmsMessageSender;
-    }
+    @Autowired
+    JMSMessageSender jmsMessageSender;
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         log.info("Job ** {} ** starting @ {}", jobExecutionContext.getJobDetail().getKey().getName(), jobExecutionContext.getFireTime());
-        List<AsyncTask> taskList = asyncTaskService.getApplicableTimedOutTasks();
+        List<AsyncTask> taskList = this.asyncTaskService.getApplicableTimedOutTasks();
         for(AsyncTask task: taskList) {
             try {
                 jmsMessageSender.sendTicketReportMessage(task);
@@ -40,7 +39,7 @@ public class TaskMonitorJob implements Job {
             }
         }
 
-        List<AsyncTask> timeoutTaskList = asyncTaskService.timeoutAllExpiredTasks();
+        List<AsyncTask> timeoutTaskList = this.asyncTaskService.timeoutAllExpiredTasks();
         for(AsyncTask task: timeoutTaskList) {
             log.info("Task ** {} ** timed out", task.getId());
         }

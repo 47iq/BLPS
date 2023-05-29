@@ -11,9 +11,9 @@ import java.util.List;
 @Repository
 public interface AsyncTaskRepository extends JpaRepository<AsyncTask, Long> {
 
-    @Query(value = "SELECT * FROM task WHERE status='TIMED_OUT' AND finished_at + restart_period * interval '1 second' < NOW()", nativeQuery = true)
+    @Query(value = "SELECT * FROM task WHERE status=3 AND finished_at + restart_period * interval '1 second' < NOW()", nativeQuery = true)
     List<AsyncTask> getApplicableTimedOutTasks();
 
-    @Query(value = "SELECT * FROM task WHERE status='EXECUTION' AND start + timeout * interval '1 second' > NOW()", nativeQuery = true)
+    @Query(value = "SELECT * FROM task WHERE status=1 AND start + timeout * interval '1 second' < NOW()", nativeQuery = true)
     List<AsyncTask> getAboutToTimeOutTasks();
 }

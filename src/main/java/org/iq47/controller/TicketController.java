@@ -119,8 +119,10 @@ public class TicketController {
     @GetMapping("generate_report/status/{id}")
     public ResponseEntity<?> generateReport(@PathVariable Long id) {
         try {
-            AsyncTask task = asyncTaskService.getById(id);
-            return ResponseEntity.ok().body(task);
+            Optional<AsyncTask> task = asyncTaskService.getById(id);
+            if(task.isPresent())
+                return ResponseEntity.ok().body(task.get());
+            else return ResponseEntity.notFound().build();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body(new ResponseWrapper("Something went wrong"));

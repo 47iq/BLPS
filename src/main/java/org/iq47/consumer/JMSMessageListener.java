@@ -54,7 +54,7 @@ public class JMSMessageListener implements MessageListener {
             JSONObject jo = new JSONObject(msg.getText());
             String airline = jo.getString("airline_name");
             Long taskId = jo.getLong("task_id");
-            task = asyncTaskService.getById(taskId);
+            task = asyncTaskService.getById(taskId).get();
             task.setStart(LocalDateTime.now());
             task.setStatus(AsyncTaskStatus.EXECUTION);
             asyncTaskService.save(task);
