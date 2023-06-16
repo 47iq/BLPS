@@ -12,6 +12,9 @@ import java.util.Optional;
 public interface UserTicketService {
     void exchangeTickets(UserTicket prevUserTicket, UserTicket newUserTicket, int price, User current) throws ExchangeException, ExchangeException;
 
+    void exchangeTickets(UserTicket prevUserTicket, UserTicket newUserTicket, int price, String current) throws ExchangeException, ExchangeException;
+
+
     Optional<UserTicket> getUserTicketById(long ticketId);
 
     Optional<UserTicket> save(UserTicket userTicket);
