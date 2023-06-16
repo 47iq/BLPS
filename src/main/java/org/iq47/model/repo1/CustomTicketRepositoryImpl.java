@@ -43,4 +43,16 @@ public class CustomTicketRepositoryImpl implements CustomTicketRepository {
         long count = (long) queryCount.getSingleResult();
         return new PageImpl<Ticket>(list, pageable, count);
     }
+
+    @Override
+    public List<Ticket> getTicketsByDepartureCityAndArrivalCity(Pageable pageable, City departure, City arrival, LocalDateTime depDate) {
+        Query query = em.createQuery("select a from Ticket a where a.departureCity= :departure and a.arrivalCity= :arrival and a.departureDate> :depDateMin and a.departureDate< :depDateMax");
+        query.setParameter("departure", departure);
+        query.setParameter("arrival", arrival);
+        query.setParameter("depDateMin", depDate);
+        LocalDateTime depDateMax =  depDate.plusHours(24);
+        query.setParameter("depDateMax", depDateMax);
+        List<Ticket> list = query.getResultList();
+        return list;
+    }
 }

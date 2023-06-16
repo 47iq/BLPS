@@ -54,9 +54,7 @@ public class TicketServiceImpl implements TicketService {
                 .toLocalDateTime();
 
         if (arrivalDate == null) {
-            List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCityAndArrivalDate(
-                    depCity.get(), arrCity.get(), departureDateTime
-            );
+            List<Ticket> tickets = ticketRepo.getTicketsByDepartureCityAndArrivalCity(PageRequest.of(pageNum, 20), depCity.get(), arrCity.get(), departureDateTime);
             return tickets;
         }
 
