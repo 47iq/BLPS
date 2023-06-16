@@ -26,7 +26,7 @@
       "label": "Дата вылета",
       "type": "textfield",
       "layout": {
-        "row": "Row_1kmwgvz",
+        "row": "Row_0pwzco6",
         "columns": null
       },
       "id": "Field_0fle33c",
@@ -56,7 +56,7 @@
     }
   ],
   "type": "default",
-  "id": "Form_1jgk7k7",
+  "id": "Form_2",
   "exporter": {
     "name": "Camunda Modeler",
     "version": "5.11.0"

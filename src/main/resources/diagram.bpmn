@@ -18,7 +18,7 @@
       <bpmn:incoming>Flow_1ejl8r0</bpmn:incoming>
       <bpmn:outgoing>Flow_13nq74t</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_1uxkk4k" name="Выбрать билет" camunda:formRef="Form_1jgk7k7" camunda:formRefBinding="latest">
+    <bpmn:userTask id="Activity_1uxkk4k" name="Выбрать билет" camunda:formRef="Form_2" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_13nq74t</bpmn:incoming>
       <bpmn:outgoing>Flow_0uqb3e7</bpmn:outgoing>
     </bpmn:userTask>
@@ -26,7 +26,7 @@
       <bpmn:incoming>Flow_0uqb3e7</bpmn:incoming>
       <bpmn:outgoing>Flow_1vjk66b</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_028332c" name="Выбрать билет у продавца" camunda:formRef="Form_1jgk7k7" camunda:formRefBinding="latest">
+    <bpmn:userTask id="Activity_028332c" name="Выбрать билет у продавца" camunda:formRef="Form_3" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_1vjk66b</bpmn:incoming>
       <bpmn:outgoing>Flow_18sgkdn</bpmn:outgoing>
     </bpmn:userTask>
@@ -34,11 +34,11 @@
       <bpmn:incoming>Flow_18sgkdn</bpmn:incoming>
       <bpmn:outgoing>Flow_0v7066f</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_0nhhz6j" name="Перейти по ссылке на билет" camunda:formRef="Form_1jgk7k7" camunda:formRefBinding="latest">
+    <bpmn:userTask id="Activity_0nhhz6j" name="Перейти по ссылке на билет" camunda:formRef="Form_4" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_0v7066f</bpmn:incoming>
       <bpmn:outgoing>Flow_1dz1de5</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_0qr92se" name="Выбрать города и дату" camunda:formRef="Form_1jgk7k7" camunda:formRefBinding="latest">
+    <bpmn:userTask id="Activity_0qr92se" name="Выбрать города и дату" camunda:formRef="Form_1" camunda:formRefBinding="latest">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_01xpf84</bpmn:incoming>
       <bpmn:outgoing>Flow_1ejl8r0</bpmn:outgoing>
