@@ -12,17 +12,18 @@
     },
     {
       "label": "Баланс",
-      "type": "textfield",
+      "type": "number",
       "layout": {
-        "row": "Row_0r7czj4",
+        "row": "Row_1dccdfr",
         "columns": null
       },
-      "id": "Field_139u7bn",
-      "key": "balance"
+      "id": "Field_08wnzjt",
+      "key": "balance",
+      "defaultValue": 0
     }
   ],
   "type": "default",
-  "id": "Form_0ngsh9e",
+  "id": "Form_Balance",
   "exporter": {
     "name": "Camunda Modeler",
     "version": "5.11.0"
