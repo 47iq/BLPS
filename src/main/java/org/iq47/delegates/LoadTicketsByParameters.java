@@ -1,5 +1,6 @@
 package org.iq47.delegates;
 
+import lombok.RequiredArgsConstructor;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.iq47.model.entity.Ticket;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Named("loadTicketsByParameters")
+@RequiredArgsConstructor
 public class LoadTicketsByParameters implements JavaDelegate {
 
     private SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());

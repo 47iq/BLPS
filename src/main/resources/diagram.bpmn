@@ -4,8 +4,6 @@
     <bpmn:participant id="Participant_03m1b4v" name="Поиск авиабилетов" processRef="Process_search" />
     <bpmn:participant id="Participant_1dthk4q" processRef="Process_0i217p7" />
     <bpmn:participant id="Participant_0n3b18a" processRef="Process_1qul2uh" />
-    <bpmn:participant id="Participant_05a23ss" processRef="Process_0bfib5a" />
-    <bpmn:participant id="Participant_0pn6ssr" processRef="Process_0e5s22k" />
     <bpmn:participant id="Participant_1gbf9hd" processRef="Process_0t2tg18" />
     <bpmn:participant id="Participant_1y84caw" processRef="Process_1f1tfz4" />
     <bpmn:participant id="Participant_0trfj3t" processRef="Process_0mxabks" />
@@ -133,40 +131,6 @@
     <bpmn:sequenceFlow id="Flow_1i5dcrb" sourceRef="Activity_0g4gam4" targetRef="Activity_0tovbn5" />
     <bpmn:sequenceFlow id="Flow_1m3ou9a" sourceRef="Activity_0tovbn5" targetRef="Gateway_0udbxa0" />
     <bpmn:sequenceFlow id="Flow_11izty9" sourceRef="Event_0x3xqwd" targetRef="Activity_0g4gam4" />
-  </bpmn:process>
-  <bpmn:process id="Process_0bfib5a" isExecutable="false">
-    <bpmn:startEvent id="Event_1s9u3l5">
-      <bpmn:outgoing>Flow_0sclag2</bpmn:outgoing>
-    </bpmn:startEvent>
-    <bpmn:userTask id="Activity_1nmats4" name="Заказать отчет">
-      <bpmn:incoming>Flow_0sclag2</bpmn:incoming>
-      <bpmn:outgoing>Flow_0ykkfyo</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_05yl2cc" name="Запустить генерацию отчета">
-      <bpmn:incoming>Flow_0ykkfyo</bpmn:incoming>
-      <bpmn:outgoing>Flow_1f1l4te</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:endEvent id="Event_01fspmt">
-      <bpmn:incoming>Flow_1f1l4te</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_0sclag2" sourceRef="Event_1s9u3l5" targetRef="Activity_1nmats4" />
-    <bpmn:sequenceFlow id="Flow_0ykkfyo" sourceRef="Activity_1nmats4" targetRef="Activity_05yl2cc" />
-    <bpmn:sequenceFlow id="Flow_1f1l4te" sourceRef="Activity_05yl2cc" targetRef="Event_01fspmt" />
-  </bpmn:process>
-  <bpmn:process id="Process_0e5s22k" isExecutable="false">
-    <bpmn:startEvent id="Event_0ea6unm">
-      <bpmn:outgoing>Flow_0czyao3</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_1dvihpb" />
-    </bpmn:startEvent>
-    <bpmn:serviceTask id="Activity_1m74a40" name="Сгенерировать отчет авиакомпании победа">
-      <bpmn:incoming>Flow_0czyao3</bpmn:incoming>
-      <bpmn:outgoing>Flow_1ij5htc</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:endEvent id="Event_11khcg5">
-      <bpmn:incoming>Flow_1ij5htc</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_0czyao3" sourceRef="Event_0ea6unm" targetRef="Activity_1m74a40" />
-    <bpmn:sequenceFlow id="Flow_1ij5htc" sourceRef="Activity_1m74a40" targetRef="Event_11khcg5" />
   </bpmn:process>
   <bpmn:process id="Process_0t2tg18" isExecutable="false">
     <bpmn:serviceTask id="Activity_11i0kti" name="Сохранить билет продавца">
@@ -577,56 +541,6 @@
         <di:waypoint x="800" y="470" />
         <di:waypoint x="800" y="490" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Participant_05a23ss_di" bpmnElement="Participant_05a23ss" isHorizontal="true">
-        <dc:Bounds x="125" y="670" width="585" height="250" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1s9u3l5_di" bpmnElement="Event_1s9u3l5">
-        <dc:Bounds x="182" y="782" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1nmats4_di" bpmnElement="Activity_1nmats4">
-        <dc:Bounds x="250" y="760" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_05yl2cc_di" bpmnElement="Activity_05yl2cc">
-        <dc:Bounds x="390" y="760" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_01fspmt_di" bpmnElement="Event_01fspmt">
-        <dc:Bounds x="532" y="782" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_0sclag2_di" bpmnElement="Flow_0sclag2">
-        <di:waypoint x="218" y="800" />
-        <di:waypoint x="250" y="800" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0ykkfyo_di" bpmnElement="Flow_0ykkfyo">
-        <di:waypoint x="350" y="800" />
-        <di:waypoint x="390" y="800" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1f1l4te_di" bpmnElement="Flow_1f1l4te">
-        <di:waypoint x="490" y="800" />
-        <di:waypoint x="532" y="800" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Participant_0pn6ssr_di" bpmnElement="Participant_0pn6ssr" isHorizontal="true">
-        <dc:Bounds x="710" y="670" width="870" height="250" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0ea6unm_di" bpmnElement="Event_0ea6unm">
-        <dc:Bounds x="782" y="782" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1m74a40_di" bpmnElement="Activity_1m74a40">
-        <dc:Bounds x="870" y="760" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_11khcg5_di" bpmnElement="Event_11khcg5">
-        <dc:Bounds x="1012" y="782" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_0czyao3_di" bpmnElement="Flow_0czyao3">
-        <di:waypoint x="818" y="800" />
-        <di:waypoint x="870" y="800" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1ij5htc_di" bpmnElement="Flow_1ij5htc">
-        <di:waypoint x="970" y="800" />
-        <di:waypoint x="1012" y="800" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="BPMNShape_0o1hfdc" bpmnElement="Participant_1gbf9hd" isHorizontal="true">
         <dc:Bounds x="1580" y="420" width="870" height="250" />
       </bpmndi:BPMNShape>
@@ -949,7 +863,7 @@
         <di:waypoint x="2402" y="1020" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="BPMNShape_162aiei" bpmnElement="Participant_0xagqj0" isHorizontal="true">
-        <dc:Bounds x="1430" y="1170" width="870" height="250" />
+        <dc:Bounds x="1430" y="1170" width="870" height="310" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_05avzhs" bpmnElement="Event_0kthrmc">
         <dc:Bounds x="1462" y="1262" width="36" height="36" />

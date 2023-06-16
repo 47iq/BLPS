@@ -1,5 +1,6 @@
 package org.iq47.delegates;
 
+import lombok.RequiredArgsConstructor;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.iq47.model.entity.SellerTicket;
@@ -8,6 +9,7 @@ import org.iq47.service.SellerTicketService;
 import javax.inject.Named;
 
 @Named("showTicketInfo")
+@RequiredArgsConstructor
 public class ShowTicketInfo implements JavaDelegate {
 
     private SellerTicketService sellerTicketService;

@@ -41,6 +41,7 @@ import javax.sql.DataSource;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 
 @SpringBootConfiguration
+@ComponentScan
 @EnableAutoConfiguration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "org.iq47.model.repo1",
