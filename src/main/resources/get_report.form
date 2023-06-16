@@ -1,0 +1,34 @@
+{
+  "components": [
+    {
+      "label": "Название авиакомпании",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0d3pkww",
+        "columns": null
+      },
+      "id": "Field_1d242ok",
+      "key": "airlineName"
+    },
+    {
+      "action": "submit",
+      "label": "Заказать отчет",
+      "type": "button",
+      "layout": {
+        "row": null,
+        "columns": null
+      },
+      "id": "Field_0n7nz89",
+      "key": "field_0k2qoo4"
+    }
+  ],
+  "type": "default",
+  "id": "Form_198nuhw",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.11.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 8
+}

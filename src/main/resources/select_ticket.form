@@ -1,0 +1,44 @@
+{
+  "components": [
+    {
+      "label": "Выор билета для редактирования",
+      "type": "select",
+      "layout": {
+        "row": "Row_0pvunmw",
+        "columns": null
+      },
+      "id": "Field_0svfw0b",
+      "key": "ticketId",
+      "valuesKey": "ticketsSelect"
+    },
+    {
+      "values": [
+        {
+          "label": "Удалить",
+          "value": "delete"
+        },
+        {
+          "label": "Изменить",
+          "value": "edit"
+        }
+      ],
+      "label": "Действие",
+      "type": "select",
+      "layout": {
+        "row": "Row_1bs30d3",
+        "columns": null
+      },
+      "id": "Field_1v529fw",
+      "key": "action"
+    }
+  ],
+  "type": "default",
+  "id": "Form_1eibeay",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.11.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 8
+}

@@ -1,0 +1,85 @@
+{
+  "components": [
+    {
+      "label": "Дата отправления",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1geqwmv",
+        "columns": null
+      },
+      "id": "Field_0wemupr",
+      "key": "departureDate"
+    },
+    {
+      "label": "Дата прибытия",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1fu9vkr",
+        "columns": null
+      },
+      "id": "Field_176blkq",
+      "key": "arrivalDate"
+    },
+    {
+      "label": "Название авиакомпании",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0xo2r86",
+        "columns": null
+      },
+      "id": "Field_1d9xe9d",
+      "key": "airlineName"
+    },
+    {
+      "label": "Код перелета",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0sflp38",
+        "columns": null
+      },
+      "id": "Field_1x3dxn0",
+      "key": "flightCode"
+    },
+    {
+      "values": [
+        {
+          "label": "Value",
+          "value": "value"
+        }
+      ],
+      "label": "Город отправления",
+      "type": "select",
+      "layout": {
+        "row": "Row_17e3qz6",
+        "columns": null
+      },
+      "id": "Field_0wbxvt3",
+      "key": "field_18uvzw9"
+    },
+    {
+      "values": [
+        {
+          "label": "Value",
+          "value": "value"
+        }
+      ],
+      "label": "Город прибытия",
+      "type": "select",
+      "layout": {
+        "row": "Row_0vjqlyp",
+        "columns": null
+      },
+      "id": "Field_0x09jqo",
+      "key": "field_1sf5u7k"
+    }
+  ],
+  "type": "default",
+  "id": "Form_1v0mjbb",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.2.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.11.0"
+  },
+  "schemaVersion": 8
+}
