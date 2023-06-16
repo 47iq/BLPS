@@ -41,7 +41,6 @@ public class SellerTicket {
     public String toString() {
         return "SellerTicket{" +
                 "id=" + id +
-                ", ticket=" + ticket +
                 ", price=" + price +
                 ", link='" + link + '\'' +
                 ", ticketStats=" + ticketStats +

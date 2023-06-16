@@ -61,7 +61,6 @@ public class Ticket {
     public String toString() {
         return "Ticket{" +
                 "id=" + id +
-                ", sellerTickets=" + sellerTickets +
                 ", departureDate=" + departureDate +
                 ", arrivalDate=" + arrivalDate +
                 ", airlineName='" + airlineName + '\'' +
