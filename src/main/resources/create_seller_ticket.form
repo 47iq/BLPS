@@ -1,0 +1,44 @@
+{
+  "components": [
+    {
+      "label": "Билет",
+      "type": "select",
+      "layout": {
+        "row": "Row_0ru6o6e",
+        "columns": null
+      },
+      "id": "Field_01j9fcr",
+      "key": "ticketId",
+      "valuesKey": "ticketsSelect"
+    },
+    {
+      "label": "Цена",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1y8338m",
+        "columns": null
+      },
+      "id": "Field_02nfof0",
+      "key": "price"
+    },
+    {
+      "label": "Ссылка",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1uhdry7",
+        "columns": null
+      },
+      "id": "Field_16v0xn0",
+      "key": "link"
+    }
+  ],
+  "type": "default",
+  "id": "Form_1v0mjbb",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.2.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.11.0"
+  },
+  "schemaVersion": 8
+}
