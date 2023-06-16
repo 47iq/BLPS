@@ -19,6 +19,7 @@
       <bpmn:outgoing>Flow_13nq74t</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:userTask id="Activity_1uxkk4k" name="Выбрать билет" camunda:formRef="Form_2" camunda:formRefBinding="latest">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_13nq74t</bpmn:incoming>
       <bpmn:outgoing>Flow_0uqb3e7</bpmn:outgoing>
     </bpmn:userTask>

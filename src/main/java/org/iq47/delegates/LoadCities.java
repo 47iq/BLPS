@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Named("loadCities")
 @RequiredArgsConstructor
@@ -19,7 +21,7 @@ public class LoadCities implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
         List<City> cities = cityService.getAllCities();
-
-        delegateExecution.setVariable("cities", cities);
+        Map<String, String> map = cities.stream().collect(Collectors.toMap(City::getName, City::getName));
+        delegateExecution.setVariable("cities", map);
     }
 }
