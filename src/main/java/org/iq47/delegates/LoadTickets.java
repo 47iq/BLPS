@@ -9,13 +9,12 @@ import org.iq47.service.TicketService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.camunda.spin.Spin.JSON;
 
 @Component("loadTickets")
 @AllArgsConstructor
-public class loadTickets implements JavaDelegate {
+public class LoadTickets implements JavaDelegate {
 
     private TicketService ticketService;
     @Override

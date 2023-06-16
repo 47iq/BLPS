@@ -18,16 +18,25 @@ public class SaveSellerTicket implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+        long sellerTicketId = Long.parseLong((String) delegateExecution.getVariable("sellerTicketId"));
         long ticketId = Long.parseLong((String) delegateExecution.getVariable("ticketId"));
         int price = Integer.parseInt((String) delegateExecution.getVariable("price"));
         String link = (String) delegateExecution.getVariable("link");
 
-        SellerTicket.Builder builder = SellerTicket.newBuilder();
-        SellerTicket sellerTicket = builder.setTicket(ticketService.getTicketById(ticketId).get())
-                .setLink(link)
-                .setPrice(price)
-                .build();
+        Object action = delegateExecution.getVariable("action");
+        if (action != null) {
+            SellerTicket sellerTicket = sellerTicketService.getTicketById(sellerTicketId).get();
+            sellerTicket.setLink(link);
+            sellerTicket.setPrice(price);
+            sellerTicketService.editSellerTicket(sellerTicket);
+        } else {
+            SellerTicket.Builder builder = SellerTicket.newBuilder();
+            SellerTicket sellerTicket = builder.setTicket(ticketService.getTicketById(ticketId).get())
+                    .setLink(link)
+                    .setPrice(price)
+                    .build();
 
-        sellerTicketService.saveSellerTicket(sellerTicket);
+            sellerTicketService.saveSellerTicket(sellerTicket);
+        }
     }
 }
