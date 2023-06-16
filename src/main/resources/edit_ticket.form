@@ -1,0 +1,97 @@
+{
+  "components": [
+    {
+      "label": "Дата отправления",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1geqwmv",
+        "columns": null
+      },
+      "id": "Field_0wemupr",
+      "key": "departureDate"
+    },
+    {
+      "label": "Дата прибытия",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1fu9vkr",
+        "columns": null
+      },
+      "id": "Field_176blkq",
+      "key": "arrivalDate"
+    },
+    {
+      "label": "Название авиакомпании",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0xo2r86",
+        "columns": null
+      },
+      "id": "Field_1d9xe9d",
+      "key": "airlineName"
+    },
+    {
+      "label": "Код перелета",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0sflp38",
+        "columns": null
+      },
+      "id": "Field_1x3dxn0",
+      "key": "flightCode"
+    },
+    {
+      "label": "Текущий город отправления",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1095yoq",
+        "columns": null
+      },
+      "id": "Field_1heijy1",
+      "key": "curDepartureCity",
+      "disabled": true
+    },
+    {
+      "label": "Город отправления",
+      "type": "select",
+      "layout": {
+        "row": "Row_17e3qz6",
+        "columns": null
+      },
+      "id": "Field_0wbxvt3",
+      "key": "departureCity",
+      "valuesKey": "cities"
+    },
+    {
+      "label": "Текущий город прибытия",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0vfbjow",
+        "columns": null
+      },
+      "id": "Field_1e62adu",
+      "key": "curArrivalCity",
+      "disabled": true
+    },
+    {
+      "label": "Город прибытия",
+      "type": "select",
+      "layout": {
+        "row": "Row_0vjqlyp",
+        "columns": null
+      },
+      "id": "Field_0x09jqo",
+      "key": "arrivalCity",
+      "valuesKey": "cities"
+    }
+  ],
+  "type": "default",
+  "id": "edit_ticket",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.2.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.10.0"
+  },
+  "schemaVersion": 8
+}

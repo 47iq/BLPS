@@ -1,15 +1,14 @@
 {
   "components": [
     {
-      "label": "Выор билета для редактирования",
-      "type": "select",
+      "label": "ID билета",
+      "type": "textfield",
       "layout": {
-        "row": "Row_0pvunmw",
+        "row": null,
         "columns": null
       },
-      "id": "Field_0svfw0b",
-      "key": "ticketId",
-      "valuesKey": "ticketsSelect"
+      "id": "Field_0vml5qa",
+      "key": "ticketId"
     },
     {
       "values": [
