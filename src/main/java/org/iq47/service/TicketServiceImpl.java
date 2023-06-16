@@ -104,6 +104,11 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public List<Ticket> findAllTickets() {
+        return ticketRepo.findAll();
+    }
+
+    @Override
     public boolean deleteTicket(long id) {
         if (!ticketRepo.existsById(id))
             return false;
