@@ -1,15 +1,14 @@
 {
   "components": [
     {
-      "label": "Выбор билета пользователя для редактирования",
-      "type": "select",
+      "label": "ID билета пользователя",
+      "type": "textfield",
       "layout": {
-        "row": "Row_1b1v2mz",
+        "row": "Row_1e0ylkt",
         "columns": null
       },
-      "id": "Field_05vka7n",
-      "key": "sellerTicketId",
-      "valuesKey": "sellerTicketsSelect"
+      "id": "Field_1spqnfa",
+      "key": "userTicketId"
     },
     {
       "values": [
@@ -36,7 +35,7 @@
   "id": "Form_15cv1ln",
   "exporter": {
     "name": "Camunda Modeler",
-    "version": "5.11.0"
+    "version": "5.10.0"
   },
   "executionPlatform": "Camunda Platform",
   "executionPlatformVersion": "7.19.0",

@@ -1,0 +1,44 @@
+{
+  "components": [
+    {
+      "label": "Билет продавца",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0tauicd",
+        "columns": null
+      },
+      "id": "Field_0zwlcoo",
+      "key": "sellerTicketId"
+    },
+    {
+      "label": "Номер сидения",
+      "type": "number",
+      "layout": {
+        "row": "Row_1wfez9v",
+        "columns": null
+      },
+      "id": "Field_1v0f44g",
+      "key": "seatNumber",
+      "defaultValue": 0
+    },
+    {
+      "label": "Имя пользователя",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0qsgdtn",
+        "columns": null
+      },
+      "id": "Field_12tf3e9",
+      "key": "username"
+    }
+  ],
+  "type": "default",
+  "id": "Form_Create_UserTicket",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.10.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 8
+}
