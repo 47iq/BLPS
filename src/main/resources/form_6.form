@@ -8,7 +8,7 @@
         "columns": null
       },
       "id": "Field_1w964bi",
-      "key": "field_013748g",
+      "key": "departureCity",
       "valuesKey": "cities"
     },
     {
@@ -77,10 +77,10 @@
     }
   ],
   "type": "default",
-  "id": "Form_1jgk7k7",
+  "id": "Form_6",
   "exporter": {
     "name": "Camunda Modeler",
-    "version": "5.11.0"
+    "version": "5.10.0"
   },
   "executionPlatform": "Camunda Platform",
   "executionPlatformVersion": "7.19.0",

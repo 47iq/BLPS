@@ -134,6 +134,12 @@
             <version>2.13.4.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine-plugin-spin</artifactId>
+            <version>7.19.0</version>
+        </dependency>
+
 
 
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-quartz -->

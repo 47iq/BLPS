@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0g8tifu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.11.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0g8tifu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
   <bpmn:collaboration id="Collaboration_0skjnsz">
     <bpmn:participant id="Participant_03m1b4v" name="Поиск авиабилетов" processRef="Process_search" />
     <bpmn:participant id="Participant_1dthk4q" processRef="Process_0i217p7" />
@@ -18,7 +18,7 @@
       <bpmn:incoming>Flow_1ejl8r0</bpmn:incoming>
       <bpmn:outgoing>Flow_13nq74t</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_1uxkk4k" name="Выбрать билет" camunda:formRef="Form_2" camunda:formRefBinding="latest">
+    <bpmn:userTask id="Activity_1uxkk4k" name="Выбрать билет" camunda:formRef="Form_4" camunda:formRefBinding="latest">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_13nq74t</bpmn:incoming>
       <bpmn:outgoing>Flow_0uqb3e7</bpmn:outgoing>
@@ -27,7 +27,7 @@
       <bpmn:incoming>Flow_0uqb3e7</bpmn:incoming>
       <bpmn:outgoing>Flow_1vjk66b</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_028332c" name="Выбрать билет у продавца" camunda:formRef="Form_3" camunda:formRefBinding="latest">
+    <bpmn:userTask id="Activity_028332c" name="Выбрать билет у продавца" camunda:formRef="Form_5" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_1vjk66b</bpmn:incoming>
       <bpmn:outgoing>Flow_18sgkdn</bpmn:outgoing>
     </bpmn:userTask>
@@ -35,7 +35,7 @@
       <bpmn:incoming>Flow_18sgkdn</bpmn:incoming>
       <bpmn:outgoing>Flow_0v7066f</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_0nhhz6j" name="Перейти по ссылке на билет" camunda:formRef="Form_4" camunda:formRefBinding="latest">
+    <bpmn:userTask id="Activity_0nhhz6j" name="Перейти по ссылке на билет" camunda:formRef="Form_6" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_0v7066f</bpmn:incoming>
       <bpmn:outgoing>Flow_1dz1de5</bpmn:outgoing>
     </bpmn:userTask>
@@ -44,7 +44,7 @@
       <bpmn:incoming>Flow_01xpf84</bpmn:incoming>
       <bpmn:outgoing>Flow_1ejl8r0</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0uu5mrn" name="Загрузить список городов" camunda:delegateExpression="${loadCities}">
+    <bpmn:serviceTask id="Activity_0uu5mrn" name="Загрузить список городов" camunda:delegateExpression="#{loadCities}">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_1befhey</bpmn:incoming>
       <bpmn:outgoing>Flow_01xpf84</bpmn:outgoing>
