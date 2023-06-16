@@ -33,6 +33,16 @@
       "key": "departureDate"
     },
     {
+      "label": "Найденные билеты",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_0uvrjdx",
+        "columns": null
+      },
+      "id": "Field_0y7ve1h",
+      "key": "foundTicketsText"
+    },
+    {
       "label": "Выбор билета",
       "type": "select",
       "layout": {
