@@ -43,7 +43,7 @@ public class UserTicketServiceImpl implements UserTicketService {
         userBalanceService.editUserBalance(userBalance);
     }
 
-    //@Transactional
+    @Transactional
     public void exchangeTickets(UserTicket prevUserTicket, UserTicket newUserTicket, int price, String username) throws ExchangeException {
         prevUserTicket.setUsername(null);
         userTicketRepository.save(prevUserTicket);
