@@ -2,11 +2,14 @@ package org.iq47.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.iq47.model.entity.Ticket;
 import org.iq47.model.repo1.SellerTicketRepository;
 import org.iq47.model.entity.SellerTicket;
+import org.iq47.model.repo1.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,5 +45,10 @@ public class SellerTicketServiceImpl implements SellerTicketService {
             return Optional.of(sellerTicketRepository.save(ticket));
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<SellerTicket> getSellerTicketsByTicket(Ticket ticket) {
+        return sellerTicketRepository.getAllByTicket(ticket);
     }
 }

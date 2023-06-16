@@ -1,7 +1,7 @@
 package org.iq47;
 
 //import org.iq47.security.ApiKeyFilter;
-import org.iq47.job.TicketReportJob;
+import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,16 +42,12 @@ import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 
 @SpringBootConfiguration
 @EnableAutoConfiguration
-@ComponentScan(excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern="org.iq47.controller.*"),
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern="org.iq47.job.*"),
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern="org.iq47.consumer.*"),
-})
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "org.iq47.model.repo1",
         entityManagerFactoryRef = "defaultManagerFactory",
         transactionManagerRef= "defaultTransactionManager")
 @EntityScan("org.iq47.model.entity.*")
+@EnableProcessApplication()
 public class ServingWebContentApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
@@ -90,22 +86,6 @@ public class ServingWebContentApplication extends SpringBootServletInitializer {
     public PlatformTransactionManager defaultTransactionManager(
             final @Qualifier("defaultManagerFactory") LocalContainerEntityManagerFactoryBean managerFactory) {
         return new JpaTransactionManager(managerFactory.getObject());
-    }
-
-    @Bean
-    public ConnectionFactory jmsConnectionFactory() throws NamingException {
-        InitialContext context = new InitialContext();
-        ConnectionFactory factory = (ConnectionFactory) context.lookup("java:/PizdecConnectionFactory");
-        System.out.println(factory);
-        return factory;
-    }
-
-    @Bean
-    public Queue ticketQueue() throws NamingException {
-        InitialContext context = new InitialContext();
-        Queue queue = (Queue) context.lookup("queue/ticketQueue");
-        System.out.println(queue);
-        return queue;
     }
 
 }

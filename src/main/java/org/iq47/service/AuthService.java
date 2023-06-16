@@ -1,3 +1,4 @@
+/*
 package org.iq47.service;
 
 import org.iq47.model.repo1.UserRepository;
@@ -44,3 +45,4 @@ public class AuthService implements UserDetailsService {
     }
 
 }
+*/

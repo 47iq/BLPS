@@ -12,10 +12,10 @@
     }
   ],
   "type": "default",
-  "id": "Form_1jgk7k7",
+  "id": "form_1",
   "exporter": {
     "name": "Camunda Modeler",
-    "version": "5.11.0"
+    "version": "5.10.0"
   },
   "executionPlatform": "Camunda Platform",
   "executionPlatformVersion": "7.19.0",

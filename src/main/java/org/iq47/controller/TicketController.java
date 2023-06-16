@@ -2,13 +2,11 @@ package org.iq47.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iq47.exception.TicketSaveException;
-import org.iq47.message.TicketReportMessage;
 import org.iq47.model.entity.AsyncTask;
 import org.iq47.model.entity.City;
 import org.iq47.model.entity.Ticket;
 import org.iq47.network.request.TicketRequest;
 import org.iq47.network.response.ResponseWrapper;
-import org.iq47.producer.JMSMessageSender;
 import org.iq47.service.AsyncTaskService;
 import org.iq47.service.CityService;
 import org.iq47.service.TicketService;
@@ -17,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.ZoneId;
@@ -38,19 +36,17 @@ public class TicketController {
 
     private final CityService cityService;
 
-    private final JMSMessageSender sender;
 
     @Autowired
-    public TicketController(TicketService ticketService, TicketValidator ticketValidator, AsyncTaskService asyncTaskService, CityService cityService, JMSMessageSender sender) {
+    public TicketController(TicketService ticketService, TicketValidator ticketValidator, AsyncTaskService asyncTaskService, CityService cityService) {
         this.ticketService = ticketService;
         this.ticketValidator = ticketValidator;
         this.asyncTaskService = asyncTaskService;
         this.cityService = cityService;
-        this.sender = sender;
     }
 
     @PostMapping()
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> create(@RequestBody TicketRequest req) {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);
@@ -65,7 +61,7 @@ public class TicketController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
             boolean isDeleted = ticketService.deleteTicket(id);
@@ -82,7 +78,7 @@ public class TicketController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> delete(@PathVariable long id, @RequestBody TicketRequest req) {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);
@@ -102,18 +98,6 @@ public class TicketController {
         if (item.isPresent()) {
             return ResponseEntity.ok().body(item.get());
         } else return ResponseEntity.notFound().build();
-    }
-
-
-    @PostMapping("generate_report/{airline_name}")
-    public ResponseEntity<?> generateReport(@PathVariable String airline_name) {
-        try {
-            AsyncTask task = sender.sendTicketReportMessage(new TicketReportMessage(null, airline_name));
-            return ResponseEntity.ok().body(task);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(new ResponseWrapper("Something went wrong"));
-        }
     }
 
     @GetMapping("generate_report/status/{id}")

@@ -14,4 +14,6 @@ public interface CityService {
     boolean deleteCity(String name);
 
     Optional<City> getCityByName(String cityName);
+
+    List<City> getAllCities();
 }

@@ -1,3 +1,4 @@
+/*
 package org.iq47.controller;
 
 import lombok.extern.slf4j.Slf4j;
@@ -9,12 +10,12 @@ import org.iq47.model.entity.UserTicket;
 import org.iq47.network.request.UserBalanceRequest;
 import org.iq47.network.request.UserTicketRequest;
 import org.iq47.network.response.ResponseWrapper;
-import org.iq47.service.AuthService;
+//import org.iq47.service.AuthService;
 import org.iq47.service.UserBalanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -27,14 +28,21 @@ public class UserBalanceController {
     UserBalanceService userBalanceService;
     private AuthService userService;
 
-    @Autowired
+    */
+/*@Autowired
     public UserBalanceController(UserBalanceService userBalanceService, AuthService userService) {
         this.userBalanceService = userBalanceService;
         this.userService = userService;
+    }*//*
+
+
+    @Autowired
+    public UserBalanceController(UserBalanceService userBalanceService) {
+        this.userBalanceService = userBalanceService;
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
             boolean isDeleted = userBalanceService.delete(id);
@@ -51,7 +59,7 @@ public class UserBalanceController {
     }
 
     @PostMapping()
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> create(@RequestBody UserBalanceRequest req) {
         try {
             User user = (User) userService.loadUserByUsername(req.getUsername());
@@ -117,3 +125,4 @@ public class UserBalanceController {
         return ResponseEntity.internalServerError().body(new ResponseWrapper("Something went wrong"));
     }
 }
+*/

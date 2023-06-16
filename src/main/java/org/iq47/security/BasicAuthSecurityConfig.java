@@ -1,3 +1,4 @@
+/*
 package org.iq47.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,7 @@ public class BasicAuthSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/v1/users/**").permitAll()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/v1/**").hasAnyRole("ADMIN", "USER").and().httpBasic()
-                .and().authorizeRequests().anyRequest().permitAll()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .csrf().disable();
     }
 
     @Override
@@ -47,3 +41,4 @@ public class BasicAuthSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(10);
     }
 }
+*/

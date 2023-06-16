@@ -12,7 +12,7 @@ import org.iq47.validate.SellerTicketValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -35,7 +35,7 @@ public class SellerTicketController {
     }
 
     @PostMapping()
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> create(@RequestBody SellerTicketRequest req) {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);
@@ -50,7 +50,7 @@ public class SellerTicketController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
             boolean isDeleted = sellerTicketService.deleteTicket(id);
@@ -67,7 +67,7 @@ public class SellerTicketController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> edit(@RequestBody SellerTicketRequest req, @PathVariable long id) {
         try {
             Optional<String> error = ticketValidator.getErrorMessage(req);

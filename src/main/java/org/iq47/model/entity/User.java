@@ -16,13 +16,13 @@ import javax.persistence.ManyToMany;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
+/*import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetails;*/
 
 @Data
 @NoArgsConstructor
-public class User implements UserDetails {
+public class User /* implements UserDetails*/ {
     @Id
     private Long id;
     private String username;
@@ -39,20 +39,20 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public User(String username, String password, List<SimpleGrantedAuthority> grantedAuthorities) {
+    /*public User(String username, String password, List<SimpleGrantedAuthority> grantedAuthorities) {
         this.username = username;
         this.password = password;
         this.role = grantedAuthorities.get(0).getAuthority();
-    }
+    }*/
 
-    @Override
+    /*@Override
     public Collection<SimpleGrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public boolean isAccountNonExpired() {
         return true;
     }
@@ -70,5 +70,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
+    }*/
 }

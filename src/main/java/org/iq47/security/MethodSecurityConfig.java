@@ -1,3 +1,4 @@
+/*
 package org.iq47.security;
 
 import org.springframework.context.annotation.Configuration;
@@ -9,3 +10,4 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
 }
+*/

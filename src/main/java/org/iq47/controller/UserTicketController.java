@@ -1,3 +1,4 @@
+/*
 package org.iq47.controller;
 
 import lombok.extern.slf4j.Slf4j;
@@ -155,3 +156,4 @@ public class UserTicketController {
         return ResponseEntity.internalServerError().body(new ResponseWrapper("Something went wrong"));
     }
 }
+*/
