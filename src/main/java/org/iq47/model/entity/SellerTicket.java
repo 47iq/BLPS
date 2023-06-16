@@ -37,6 +37,17 @@ public class SellerTicket {
         return new SellerTicket().new Builder();
     }
 
+    @Override
+    public String toString() {
+        return "SellerTicket{" +
+                "id=" + id +
+                ", ticket=" + ticket +
+                ", price=" + price +
+                ", link='" + link + '\'' +
+                ", ticketStats=" + ticketStats +
+                '}';
+    }
+
     public class Builder {
 
         private Builder() {

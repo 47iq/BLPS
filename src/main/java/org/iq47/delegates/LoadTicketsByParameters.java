@@ -13,9 +13,11 @@ import javax.inject.Named;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import static org.camunda.spin.Spin.JSON;
 
@@ -43,7 +45,8 @@ public class LoadTicketsByParameters implements JavaDelegate {
             json.append(elem);
         }
 
-        delegateExecution.setVariable("foundTicketsText", tickets.stream().peek(Object::toString));
+        delegateExecution.setVariable("foundTicketsText",
+                tickets.stream().map(Ticket::toString).collect(Collectors.toList()));
         delegateExecution.setVariable("foundTickets", json);
     }
 }

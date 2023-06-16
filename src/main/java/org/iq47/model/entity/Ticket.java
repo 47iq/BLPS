@@ -57,6 +57,20 @@ public class Ticket {
         return new Ticket().new Builder();
     }
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", sellerTickets=" + sellerTickets +
+                ", departureDate=" + departureDate +
+                ", arrivalDate=" + arrivalDate +
+                ", airlineName='" + airlineName + '\'' +
+                ", flightCode='" + flightCode + '\'' +
+                ", departureCity=" + departureCity +
+                ", arrivalCity=" + arrivalCity +
+                '}';
+    }
+
     public class Builder {
 
         private Builder() {

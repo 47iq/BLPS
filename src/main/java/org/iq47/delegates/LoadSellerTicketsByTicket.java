@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.camunda.spin.Spin.JSON;
 
@@ -39,6 +40,7 @@ public class LoadSellerTicketsByTicket implements JavaDelegate {
         }
 
         delegateExecution.setVariable("sellerTickets", json);
-        delegateExecution.setVariable("sellerTicketsText", sellerTickets.stream().peek(Object::toString));
+        delegateExecution.setVariable("sellerTicketsText",
+                sellerTickets.stream().map(SellerTicket::toString).collect(Collectors.toList()));
     }
 }
