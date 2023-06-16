@@ -41,12 +41,6 @@
       "key": "flightCode"
     },
     {
-      "values": [
-        {
-          "label": "Value",
-          "value": "value"
-        }
-      ],
       "label": "Город отправления",
       "type": "select",
       "layout": {
@@ -54,15 +48,10 @@
         "columns": null
       },
       "id": "Field_0wbxvt3",
-      "key": "field_18uvzw9"
+      "key": "departureCity",
+      "valuesKey": "cities"
     },
     {
-      "values": [
-        {
-          "label": "Value",
-          "value": "value"
-        }
-      ],
       "label": "Город прибытия",
       "type": "select",
       "layout": {
@@ -70,16 +59,17 @@
         "columns": null
       },
       "id": "Field_0x09jqo",
-      "key": "field_1sf5u7k"
+      "key": "arrivalCity",
+      "valuesKey": "cities"
     }
   ],
   "type": "default",
-  "id": "Form_1v0mjbb",
+  "id": "create_ticket",
   "executionPlatform": "Camunda Cloud",
   "executionPlatformVersion": "8.2.0",
   "exporter": {
     "name": "Camunda Modeler",
-    "version": "5.11.0"
+    "version": "5.10.0"
   },
   "schemaVersion": 8
 }
