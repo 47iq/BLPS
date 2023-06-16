@@ -8,7 +8,7 @@
     <bpmn:participant id="Participant_1y84caw" processRef="Process_1f1tfz4" />
     <bpmn:participant id="Participant_0trfj3t" processRef="Process_0mxabks" />
     <bpmn:participant id="Participant_01gtocm" processRef="Process_0u4x6zy" />
-    <bpmn:participant id="Participant_09lqa7x" processRef="Process_1wajc9w" />
+    <bpmn:participant id="Participant_09lqa7x" name="Обменять билет" processRef="Exchange_Tickets" />
     <bpmn:participant id="Participant_1dy8s2f" name="Создать /изменить баланс" processRef="Change_Balance" />
     <bpmn:participant id="Participant_0xagqj0" name="Удалить баланс" processRef="Delete_Balance" />
   </bpmn:collaboration>
@@ -284,46 +284,34 @@
     <bpmn:sequenceFlow id="Flow_0qilmb5" sourceRef="Activity_03b2opa" targetRef="Gateway_13d9nwz" />
     <bpmn:sequenceFlow id="Flow_1y8xa6t" sourceRef="Event_1r45ezh" targetRef="Activity_0j9pmrt" />
   </bpmn:process>
-  <bpmn:process id="Process_1wajc9w" isExecutable="false">
+  <bpmn:process id="Exchange_Tickets" isExecutable="true" camunda:historyTimeToLive="100">
     <bpmn:startEvent id="Event_0qx6xxr">
       <bpmn:outgoing>Flow_1u31fay</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_0l0f56r" sourceRef="Activity_0qc95gp" targetRef="Activity_1vg2hp0" />
-    <bpmn:sequenceFlow id="Flow_137vr58" sourceRef="Activity_1vg2hp0" targetRef="Event_1ofa2bt" />
-    <bpmn:endEvent id="Event_1ofa2bt">
-      <bpmn:incoming>Flow_137vr58</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:transaction id="Activity_1vg2hp0">
-      <bpmn:incoming>Flow_0l0f56r</bpmn:incoming>
-      <bpmn:outgoing>Flow_137vr58</bpmn:outgoing>
-      <bpmn:serviceTask id="Activity_16tk8ah" name="Освободить старый билет">
-        <bpmn:outgoing>Flow_1s11cch</bpmn:outgoing>
-      </bpmn:serviceTask>
-      <bpmn:serviceTask id="Activity_1w25rkt" name="Занять новый билет">
-        <bpmn:incoming>Flow_1s11cch</bpmn:incoming>
-        <bpmn:outgoing>Flow_08vtzfw</bpmn:outgoing>
-      </bpmn:serviceTask>
-      <bpmn:sequenceFlow id="Flow_1s11cch" sourceRef="Activity_16tk8ah" targetRef="Activity_1w25rkt" />
-      <bpmn:serviceTask id="Activity_180tzfh" name="Заплатить за обмен">
-        <bpmn:incoming>Flow_08vtzfw</bpmn:incoming>
-      </bpmn:serviceTask>
-      <bpmn:sequenceFlow id="Flow_08vtzfw" sourceRef="Activity_1w25rkt" targetRef="Activity_180tzfh" />
-    </bpmn:transaction>
-    <bpmn:sequenceFlow id="Flow_0nz0aaz" sourceRef="Activity_00d83v6" targetRef="Activity_0qc95gp" />
-    <bpmn:userTask id="Activity_0qc95gp" name="Ввести данные для обмена">
-      <bpmn:incoming>Flow_0nz0aaz</bpmn:incoming>
-      <bpmn:outgoing>Flow_0l0f56r</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_00d83v6" name="Загрузить билеты">
-      <bpmn:incoming>Flow_1l1y1nu</bpmn:incoming>
-      <bpmn:outgoing>Flow_0nz0aaz</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1u31fay" sourceRef="Event_0qx6xxr" targetRef="Activity_13tewk6" />
-    <bpmn:userTask id="Activity_13tewk6" name="Ввести имя пользователя">
+    <bpmn:sequenceFlow id="Flow_1l1y1nu" sourceRef="Activity_13tewk6" targetRef="Activity_00d83v6" />
+    <bpmn:sequenceFlow id="Flow_16mm47l" sourceRef="Activity_00d83v6" targetRef="Activity_0qc95gp" />
+    <bpmn:sequenceFlow id="Flow_05emgru" sourceRef="Activity_0cy942w" targetRef="Event_1ofa2bt" />
+    <bpmn:endEvent id="Event_1ofa2bt">
+      <bpmn:incoming>Flow_05emgru</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_0cy942w" name="Обменять билет" camunda:delegateExpression="${exchangeTickets}">
+      <bpmn:incoming>Flow_0st666a</bpmn:incoming>
+      <bpmn:outgoing>Flow_05emgru</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_13tewk6" name="Ввести имя пользователя" camunda:formRef="Form_Balance_Delete" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_1u31fay</bpmn:incoming>
       <bpmn:outgoing>Flow_1l1y1nu</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_1l1y1nu" sourceRef="Activity_13tewk6" targetRef="Activity_00d83v6" />
+    <bpmn:serviceTask id="Activity_00d83v6" name="Загрузить билеты" camunda:delegateExpression="${loadUserTickets}">
+      <bpmn:incoming>Flow_1l1y1nu</bpmn:incoming>
+      <bpmn:outgoing>Flow_16mm47l</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_0qc95gp" name="Ввести данные для обмена" camunda:formRef="Form_Exchange" camunda:formRefBinding="latest">
+      <bpmn:incoming>Flow_16mm47l</bpmn:incoming>
+      <bpmn:outgoing>Flow_0st666a</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0st666a" sourceRef="Activity_0qc95gp" targetRef="Activity_0cy942w" />
   </bpmn:process>
   <bpmn:process id="Change_Balance" isExecutable="true" camunda:historyTimeToLive="100">
     <bpmn:startEvent id="Event_0dq9dyw">
@@ -798,67 +786,49 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="BPMNShape_1efh5gp" bpmnElement="Participant_09lqa7x" isHorizontal="true">
         <dc:Bounds x="125" y="1170" width="1305" height="310" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0assxqq" bpmnElement="Event_0qx6xxr">
         <dc:Bounds x="172" y="1252" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1ofa2bt_di" bpmnElement="Event_1ofa2bt">
-        <dc:Bounds x="1272" y="1272" width="36" height="36" />
+        <dc:Bounds x="1102" y="1252" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1vg2hp0_di" bpmnElement="Activity_1vg2hp0" isExpanded="true">
-        <dc:Bounds x="770" y="1190" width="440" height="200" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_16tk8ah_di" bpmnElement="Activity_16tk8ah">
-        <dc:Bounds x="790" y="1230" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1w25rkt_di" bpmnElement="Activity_1w25rkt">
-        <dc:Bounds x="940" y="1230" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_180tzfh_di" bpmnElement="Activity_180tzfh">
-        <dc:Bounds x="1090" y="1230" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1s11cch_di" bpmnElement="Flow_1s11cch">
-        <di:waypoint x="890" y="1270" />
-        <di:waypoint x="940" y="1270" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_08vtzfw_di" bpmnElement="Flow_08vtzfw">
-        <di:waypoint x="1040" y="1270" />
-        <di:waypoint x="1090" y="1270" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="BPMNShape_1iaoxaf" bpmnElement="Activity_0qc95gp">
-        <dc:Bounds x="560" y="1230" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_00d83v6_di" bpmnElement="Activity_00d83v6">
-        <dc:Bounds x="410" y="1230" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_0cy942w_di" bpmnElement="Activity_0cy942w">
+        <dc:Bounds x="860" y="1230" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_13tewk6_di" bpmnElement="Activity_13tewk6">
         <dc:Bounds x="260" y="1230" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_0l0f56r_di" bpmnElement="Flow_0l0f56r">
-        <di:waypoint x="660" y="1270" />
-        <di:waypoint x="770" y="1270" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_137vr58_di" bpmnElement="Flow_137vr58">
-        <di:waypoint x="1210" y="1290" />
-        <di:waypoint x="1272" y="1290" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0nz0aaz_di" bpmnElement="Flow_0nz0aaz">
-        <di:waypoint x="510" y="1270" />
-        <di:waypoint x="560" y="1270" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_00d83v6_di" bpmnElement="Activity_00d83v6">
+        <dc:Bounds x="450" y="1230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1iaoxaf" bpmnElement="Activity_0qc95gp">
+        <dc:Bounds x="670" y="1230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1u31fay_di" bpmnElement="Flow_1u31fay">
         <di:waypoint x="208" y="1270" />
         <di:waypoint x="260" y="1270" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1l1y1nu_di" bpmnElement="Flow_1l1y1nu">
         <di:waypoint x="360" y="1270" />
-        <di:waypoint x="410" y="1270" />
+        <di:waypoint x="450" y="1270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16mm47l_di" bpmnElement="Flow_16mm47l">
+        <di:waypoint x="550" y="1270" />
+        <di:waypoint x="670" y="1270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0st666a_di" bpmnElement="Flow_0st666a">
+        <di:waypoint x="770" y="1270" />
+        <di:waypoint x="860" y="1270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05emgru_di" bpmnElement="Flow_05emgru">
+        <di:waypoint x="960" y="1270" />
+        <di:waypoint x="1102" y="1270" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="BPMNShape_1qd3kgk" bpmnElement="Participant_1dy8s2f" isHorizontal="true">
         <dc:Bounds x="2000" y="920" width="470" height="250" />

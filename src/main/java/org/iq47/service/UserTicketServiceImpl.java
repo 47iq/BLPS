@@ -43,6 +43,22 @@ public class UserTicketServiceImpl implements UserTicketService {
         userBalanceService.editUserBalance(userBalance);
     }
 
+    //@Transactional
+    public void exchangeTickets(UserTicket prevUserTicket, UserTicket newUserTicket, int price, String username) throws ExchangeException {
+        prevUserTicket.setUsername(null);
+        userTicketRepository.save(prevUserTicket);
+        newUserTicket.setUsername(username);
+        userTicketRepository.save(newUserTicket);
+        Optional<UserBalance> userBalanceOpt = userBalanceService.getByUsername(username);
+        if (!userBalanceOpt.isPresent())
+            throw new ExchangeException("User balance doesn't exist");
+        UserBalance userBalance = userBalanceOpt.get();
+        if (userBalance.getBalance() < price)
+            throw new ExchangeException("User doesn't have enough money for this operation");
+        userBalance.setBalance(userBalance.getBalance() - price);
+        userBalanceService.editUserBalance(userBalance);
+    }
+
     @Override
     public Optional<UserTicket> save(UserTicket userTicket) {
         UserTicket ticket1 = userTicketRepository.save(userTicket);

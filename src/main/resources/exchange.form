@@ -4,7 +4,7 @@
       "label": "Имя пользователя",
       "type": "textfield",
       "layout": {
-        "row": null,
+        "row": "Row_1imiovm",
         "columns": null
       },
       "id": "Field_1tsgx0a",
@@ -45,7 +45,7 @@
     }
   ],
   "type": "default",
-  "id": "Form_1bwncqo",
+  "id": "Form_Exchange",
   "exporter": {
     "name": "Camunda Modeler",
     "version": "5.11.0"
