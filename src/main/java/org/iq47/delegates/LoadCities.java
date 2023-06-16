@@ -27,9 +27,9 @@ public class LoadCities implements JavaDelegate {
         List<City> cities = cityService.getAllCities();
         SpinJsonNode json = JSON("[]");
         for(City city: cities) {
-            json.append("\"label\": \"" + city.getName() + "\",\"value\": \"" + city.getName() + "\"");
+            SpinJsonNode elem = JSON("{\"label\": \"" + city.getName() + "\",\"value\": \"" + city.getName() + "\"}");
+            json.append(elem);
         }
-        Map<String, String> map = cities.stream().collect(Collectors.toMap(City::getName, City::getName));
-        delegateExecution.setVariable("cities", map);
+        delegateExecution.setVariable("cities", json);
     }
 }

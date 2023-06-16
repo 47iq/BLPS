@@ -39,7 +39,7 @@
       <bpmn:incoming>Flow_0v7066f</bpmn:incoming>
       <bpmn:outgoing>Flow_1dz1de5</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_0qr92se" name="Выбрать города и дату" camunda:formRef="Form_1" camunda:formRefBinding="latest">
+    <bpmn:userTask id="Activity_0qr92se" name="Выбрать города и дату" camunda:formRef="Form_1 " camunda:formRefBinding="latest">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_01xpf84</bpmn:incoming>
       <bpmn:outgoing>Flow_1ejl8r0</bpmn:outgoing>

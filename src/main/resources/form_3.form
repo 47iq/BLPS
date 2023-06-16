@@ -9,12 +9,7 @@
       },
       "id": "Field_1w964bi",
       "key": "departureCity",
-      "values": [
-        {
-          "label": "Value",
-          "value": "value"
-        }
-      ]
+      "valuesKey": "cities"
     },
     {
       "label": "Город прибытия",
