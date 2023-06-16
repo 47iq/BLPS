@@ -1,0 +1,65 @@
+{
+  "components": [
+    {
+      "label": "Город отправления",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0xt0xht",
+        "columns": null
+      },
+      "id": "Field_0k14ixf",
+      "key": "departureCity"
+    },
+    {
+      "label": "Город прибытия",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0tj6vk7",
+        "columns": null
+      },
+      "id": "Field_1yvuli2",
+      "key": "arrivalCity"
+    },
+    {
+      "label": "Дата вылета",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1kmwgvz",
+        "columns": null
+      },
+      "id": "Field_0fle33c",
+      "key": "departureDate"
+    },
+    {
+      "label": "Выбор билета",
+      "type": "select",
+      "layout": {
+        "row": "Row_0ia3oee",
+        "columns": null
+      },
+      "id": "Field_1sf15oy",
+      "key": "ticketId",
+      "valuesKey": "ticketsSelect"
+    },
+    {
+      "label": "Выбор продавца билета",
+      "type": "select",
+      "layout": {
+        "row": "Row_0bxmqzm",
+        "columns": null
+      },
+      "id": "Field_0dxidc1",
+      "key": "sellerTicketId",
+      "valuesKey": "sellerTicketSelect"
+    }
+  ],
+  "type": "default",
+  "id": "Form_1jgk7k7",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.11.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 8
+}

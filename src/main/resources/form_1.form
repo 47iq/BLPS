@@ -1,0 +1,23 @@
+{
+  "components": [
+    {
+      "label": "Город отправления",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0xt0xht",
+        "columns": null
+      },
+      "id": "Field_0k14ixf",
+      "key": "departureCity"
+    }
+  ],
+  "type": "default",
+  "id": "Form_1jgk7k7",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.11.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 8
+}
