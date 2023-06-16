@@ -2,7 +2,7 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0g8tifu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
   <bpmn:collaboration id="Collaboration_0skjnsz">
     <bpmn:participant id="Participant_03m1b4v" name="Поиск авиабилетов" processRef="Process_search" />
-    <bpmn:participant id="Participant_1dthk4q" processRef="Process_0i217p7" />
+    <bpmn:participant id="Participant_1dthk4q" processRef="Process_create_ticket" />
     <bpmn:participant id="Participant_0n3b18a" processRef="Process_1qul2uh" />
     <bpmn:participant id="Participant_1gbf9hd" processRef="Process_0t2tg18" />
     <bpmn:participant id="Participant_1y84caw" processRef="Process_1f1tfz4" />
@@ -71,7 +71,7 @@
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_1pf5rfa" sourceRef="Event_11krnih" targetRef="Activity_0qr92se" />
   </bpmn:process>
-  <bpmn:process id="Process_0i217p7" isExecutable="false">
+  <bpmn:process id="Process_create_ticket" isExecutable="true" camunda:historyTimeToLive="100">
     <bpmn:serviceTask id="Activity_0ambszv" name="Сохранить билет" camunda:delegateExpression="#{saveTicket}">
       <bpmn:incoming>Flow_1h2yuts</bpmn:incoming>
       <bpmn:outgoing>Flow_11xyaww</bpmn:outgoing>

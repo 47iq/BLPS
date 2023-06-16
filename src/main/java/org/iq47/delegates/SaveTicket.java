@@ -1,5 +1,6 @@
 package org.iq47.delegates;
 
+import lombok.AllArgsConstructor;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.iq47.model.entity.City;
@@ -17,7 +18,12 @@ public class SaveTicket implements JavaDelegate {
     private TicketService ticketService;
     private CityService cityService;
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+    public SaveTicket(TicketService ticketService, CityService cityService) {
+        this.ticketService = ticketService;
+        this.cityService = cityService;
+    }
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
