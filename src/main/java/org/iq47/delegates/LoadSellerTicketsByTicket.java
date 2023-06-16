@@ -7,8 +7,10 @@ import org.iq47.model.entity.Ticket;
 import org.iq47.service.SellerTicketService;
 import org.iq47.service.TicketService;
 
+import javax.inject.Named;
 import java.util.List;
 
+@Named("loadSellerTickets")
 public class LoadSellerTicketsByTicket implements JavaDelegate {
 
     private SellerTicketService sellerTicketService;

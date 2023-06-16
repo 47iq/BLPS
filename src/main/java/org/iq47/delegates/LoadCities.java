@@ -16,7 +16,6 @@ public class LoadCities implements JavaDelegate {
     public void execute(DelegateExecution delegateExecution) throws Exception {
         List<City> cities = cityService.getAllCities();
 
-        // Добавить сохранение городов в допбокс
-        //delegateExecution.setVariable("");
+        delegateExecution.setVariable("cities", cities);
     }
 }

@@ -21,20 +21,13 @@ public class LoadTicketsByParameters implements JavaDelegate {
     private TicketService ticketService;
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        // fix var name
         String departureCity = (String) delegateExecution.getVariable("departureCity");
-        // fix var name
         String arrivalCity = (String) delegateExecution.getVariable("arrivalCity");
-
-        // fix var name
         Date departueDate = formatter.parse((String) delegateExecution.getVariable("departureDate"));
-        // fix var name
-        Date arrivalDate = formatter.parse((String) delegateExecution.getVariable("arrivalDate"));
-
         ZoneId zoneId = ZoneId.ofOffset("GMT", ZoneOffset.ofHours(3));
 
         //remove paging?
-        List<Ticket> tickets = ticketService.findTickets(departureCity, arrivalCity, departueDate, arrivalDate, zoneId, 1);
+        List<Ticket> tickets = ticketService.findTickets(departureCity, arrivalCity, departueDate, null, zoneId, 1);
 
         delegateExecution.setVariable("foundTickets", tickets);
     }

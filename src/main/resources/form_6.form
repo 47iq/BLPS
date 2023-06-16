@@ -2,24 +2,25 @@
   "components": [
     {
       "label": "Город отправления",
-      "type": "textfield",
+      "type": "select",
       "layout": {
-        "row": "Row_0xt0xht",
+        "row": "Row_1kmwgvz",
         "columns": null
       },
-      "id": "Field_0k14ixf",
-      "key": "departureCity",
-      "disabled": false
+      "id": "Field_1w964bi",
+      "key": "field_013748g",
+      "valuesKey": "cities"
     },
     {
       "label": "Город прибытия",
-      "type": "textfield",
+      "type": "select",
       "layout": {
-        "row": "Row_0tj6vk7",
+        "row": "Row_0uh6p4i",
         "columns": null
       },
-      "id": "Field_1yvuli2",
-      "key": "arrivalCity"
+      "id": "Field_1aca5sk",
+      "key": "arrivalCity",
+      "valuesKey": "cities"
     },
     {
       "label": "Дата вылета",
@@ -39,8 +40,8 @@
         "columns": null
       },
       "id": "Field_1sf15oy",
-      "key": "ticketId",
-      "valuesKey": "ticketsSelect"
+      "key": "selectedTicketId",
+      "valuesKey": "foundTickets"
     },
     {
       "label": "Выбор продавца билета",
@@ -50,8 +51,8 @@
         "columns": null
       },
       "id": "Field_0dxidc1",
-      "key": "sellerTicketId",
-      "valuesKey": "sellerTicketSelect"
+      "key": "selectedSellerTicket",
+      "valuesKey": "sellerTickets"
     },
     {
       "label": "Информация о билете",

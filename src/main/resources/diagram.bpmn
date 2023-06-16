@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0g8tifu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0g8tifu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.11.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
   <bpmn:collaboration id="Collaboration_0skjnsz">
-    <bpmn:participant id="Participant_03m1b4v" processRef="Process_1jeavbo" />
+    <bpmn:participant id="Participant_03m1b4v" name="Поиск авиабилетов" processRef="Process_search" />
     <bpmn:participant id="Participant_1dthk4q" processRef="Process_0i217p7" />
     <bpmn:participant id="Participant_0n3b18a" processRef="Process_1qul2uh" />
     <bpmn:participant id="Participant_05a23ss" processRef="Process_0bfib5a" />
@@ -14,37 +14,39 @@
     <bpmn:participant id="Participant_1dy8s2f" processRef="Process_0g00bby" />
     <bpmn:participant id="Participant_0xagqj0" processRef="Process_112lrma" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_1jeavbo" isExecutable="true">
-    <bpmn:serviceTask id="Activity_0uqjiap" name="Отобразить билеты по заданным параметрам" camunda:delegateExpression="loadTicketsByParameters">
+  <bpmn:process id="Process_search" isExecutable="true" camunda:historyTimeToLive="100">
+    <bpmn:laneSet id="LaneSet_134zmld" />
+    <bpmn:serviceTask id="Activity_0uqjiap" name="Отобразить билеты по заданным параметрам" camunda:delegateExpression="${loadTicketsByParameters}">
       <bpmn:incoming>Flow_1ejl8r0</bpmn:incoming>
       <bpmn:outgoing>Flow_13nq74t</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_1uxkk4k" name="Выбрать билет">
+    <bpmn:userTask id="Activity_1uxkk4k" name="Выбрать билет" camunda:formRef="Form_1jgk7k7" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_13nq74t</bpmn:incoming>
       <bpmn:outgoing>Flow_0uqb3e7</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_1moudvg" name="Отобразить продавцов и цены" camunda:delegateExpression="loadSellerTicketsByTicket">
+    <bpmn:serviceTask id="Activity_1moudvg" name="Отобразить продавцов и цены" camunda:delegateExpression="${loadSellerTickets}">
       <bpmn:incoming>Flow_0uqb3e7</bpmn:incoming>
       <bpmn:outgoing>Flow_1vjk66b</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_028332c" name="Выбрать билет у продавца">
+    <bpmn:userTask id="Activity_028332c" name="Выбрать билет у продавца" camunda:formRef="Form_1jgk7k7" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_1vjk66b</bpmn:incoming>
       <bpmn:outgoing>Flow_18sgkdn</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_18j32vd" name="Отобразить информацию о билете" camunda:delegateExpression="showTicketInfo">
+    <bpmn:serviceTask id="Activity_18j32vd" name="Отобразить информацию о билете" camunda:delegateExpression="${showTicketInfo}">
       <bpmn:incoming>Flow_18sgkdn</bpmn:incoming>
       <bpmn:outgoing>Flow_0v7066f</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_0nhhz6j" name="Перейти по ссылке на билет">
+    <bpmn:userTask id="Activity_0nhhz6j" name="Перейти по ссылке на билет" camunda:formRef="Form_1jgk7k7" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_0v7066f</bpmn:incoming>
       <bpmn:outgoing>Flow_1dz1de5</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_0qr92se" name="Выбрать города и дату" camunda:formRef="" camunda:formRefBinding="latest">
+    <bpmn:userTask id="Activity_0qr92se" name="Выбрать города и дату" camunda:formRef="Form_1jgk7k7" camunda:formRefBinding="latest">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_01xpf84</bpmn:incoming>
       <bpmn:outgoing>Flow_1ejl8r0</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0uu5mrn" name="Загрузить список городов" camunda:delegateExpression="loadCities">
+    <bpmn:serviceTask id="Activity_0uu5mrn" name="Загрузить список городов" camunda:delegateExpression="${loadCities}">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_1befhey</bpmn:incoming>
       <bpmn:outgoing>Flow_01xpf84</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -65,11 +67,11 @@
     <bpmn:sequenceFlow id="Flow_1befhey" sourceRef="StartEvent_1" targetRef="Activity_0uu5mrn" />
   </bpmn:process>
   <bpmn:process id="Process_0i217p7" isExecutable="false">
-    <bpmn:serviceTask id="Activity_0ambszv" name="Сохранить билет" camunda:delegateExpression="saveTicket">
+    <bpmn:serviceTask id="Activity_0ambszv" name="Сохранить билет">
       <bpmn:incoming>Flow_1h2yuts</bpmn:incoming>
       <bpmn:outgoing>Flow_11xyaww</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_1121ryi" name="Загрузить список городов" camunda:delegateExpression="loadCities">
+    <bpmn:serviceTask id="Activity_1121ryi" name="Загрузить список городов">
       <bpmn:incoming>Flow_0y3wqft</bpmn:incoming>
       <bpmn:outgoing>Flow_07pnf45</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -93,14 +95,14 @@
       <bpmn:incoming>Flow_17o8ztr</bpmn:incoming>
       <bpmn:outgoing>Flow_0xn94wc</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0zh1dxn" name="Сохранить билет" camunda:delegateExpression="saveTicket">
+    <bpmn:serviceTask id="Activity_0zh1dxn" name="Сохранить билет">
       <bpmn:incoming>Flow_0xn94wc</bpmn:incoming>
       <bpmn:outgoing>Flow_1uzd7l4</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="Event_17s2vw1">
       <bpmn:incoming>Flow_1uzd7l4</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_0r75o9x" name="Удалить билет" camunda:delegateExpression="deleteTicket">
+    <bpmn:serviceTask id="Activity_0r75o9x" name="Удалить билет">
       <bpmn:incoming>Flow_0xsp6fu</bpmn:incoming>
       <bpmn:outgoing>Flow_0f24lw0</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -111,7 +113,7 @@
       <bpmn:incoming>Flow_1i5dcrb</bpmn:incoming>
       <bpmn:outgoing>Flow_1m3ou9a</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0g4gam4" name="Загрузить билеты" camunda:delegateExpression="loadTickets">
+    <bpmn:serviceTask id="Activity_0g4gam4" name="Загрузить билеты">
       <bpmn:incoming>Flow_11izty9</bpmn:incoming>
       <bpmn:outgoing>Flow_1i5dcrb</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -167,11 +169,11 @@
     <bpmn:sequenceFlow id="Flow_1ij5htc" sourceRef="Activity_1m74a40" targetRef="Event_11khcg5" />
   </bpmn:process>
   <bpmn:process id="Process_0t2tg18" isExecutable="false">
-    <bpmn:serviceTask id="Activity_11i0kti" name="Сохранить билет продавца" camunda:delegateExpression="saveSellerTicket">
+    <bpmn:serviceTask id="Activity_11i0kti" name="Сохранить билет продавца">
       <bpmn:incoming>Flow_0qkz9b9</bpmn:incoming>
       <bpmn:outgoing>Flow_0e8cmj6</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_16spgu8" name="Загрузить список билетов" camunda:delegateExpression="loadTickets">
+    <bpmn:serviceTask id="Activity_16spgu8" name="Загрузить список билетов">
       <bpmn:incoming>Flow_187urm5</bpmn:incoming>
       <bpmn:outgoing>Flow_1xbsgg0</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -195,14 +197,14 @@
       <bpmn:incoming>Flow_1ksfn5g</bpmn:incoming>
       <bpmn:outgoing>Flow_1j8w761</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0a2yq8d" name="Сохранить билет продавца" camunda:delegateExpression="saveSellerTicket">
+    <bpmn:serviceTask id="Activity_0a2yq8d" name="Сохранить билет продавца">
       <bpmn:incoming>Flow_1j8w761</bpmn:incoming>
       <bpmn:outgoing>Flow_0juf96x</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="Event_1xhi8o0">
       <bpmn:incoming>Flow_0juf96x</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_1dbf8tm" name="Удалить билет продавца" camunda:delegateExpression="deleteSellerTicket">
+    <bpmn:serviceTask id="Activity_1dbf8tm" name="Удалить билет продавца">
       <bpmn:incoming>Flow_0iuis3h</bpmn:incoming>
       <bpmn:outgoing>Flow_04zbgjd</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -213,7 +215,7 @@
       <bpmn:incoming>Flow_1qkcrl4</bpmn:incoming>
       <bpmn:outgoing>Flow_0c78lx4</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0hic2qf" name="Загрузить билеты продавца" camunda:delegateExpression="loadSellerTickets">
+    <bpmn:serviceTask id="Activity_0hic2qf" name="Загрузить билеты продавца">
       <bpmn:incoming>Flow_1xi6gl8</bpmn:incoming>
       <bpmn:outgoing>Flow_1qkcrl4</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -235,11 +237,11 @@
     <bpmn:sequenceFlow id="Flow_1xi6gl8" sourceRef="Event_0i5f46f" targetRef="Activity_0hic2qf" />
   </bpmn:process>
   <bpmn:process id="Process_0mxabks" isExecutable="false">
-    <bpmn:serviceTask id="Activity_0h5kh0a" name="Сохранить билет пользователя" camunda:delegateExpression="saveUserTicket">
+    <bpmn:serviceTask id="Activity_0h5kh0a" name="Сохранить билет пользователя">
       <bpmn:incoming>Flow_1ks9pzt</bpmn:incoming>
       <bpmn:outgoing>Flow_1nz236o</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_0f1jcjj" name="Загрузить список билетов пользователя" camunda:delegateExpression="loadUserTickets">
+    <bpmn:serviceTask id="Activity_0f1jcjj" name="Загрузить список билетов пользователя">
       <bpmn:incoming>Flow_1mszzd4</bpmn:incoming>
       <bpmn:outgoing>Flow_1r5d5c1</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -263,14 +265,14 @@
       <bpmn:incoming>Flow_0vrei7v</bpmn:incoming>
       <bpmn:outgoing>Flow_0d9ttcy</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_1dapix6" name="Сохранить билет пользователя" camunda:delegateExpression="saveUserTicket">
+    <bpmn:serviceTask id="Activity_1dapix6" name="Сохранить билет пользователя">
       <bpmn:incoming>Flow_0d9ttcy</bpmn:incoming>
       <bpmn:outgoing>Flow_1renjmx</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="Event_1tfijfc">
       <bpmn:incoming>Flow_1renjmx</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_1btqacz" name="Удалить билет пользователя" camunda:delegateExpression="deleteUserTicket">
+    <bpmn:serviceTask id="Activity_1btqacz" name="Удалить билет пользователя">
       <bpmn:incoming>Flow_0v7k0le</bpmn:incoming>
       <bpmn:outgoing>Flow_1q6uvl3</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -281,7 +283,7 @@
       <bpmn:incoming>Flow_15f13ej</bpmn:incoming>
       <bpmn:outgoing>Flow_0qilmb5</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0j9pmrt" name="Загрузить билеты пользователя" camunda:delegateExpression="loadUserTickets">
+    <bpmn:serviceTask id="Activity_0j9pmrt" name="Загрузить билеты пользователя">
       <bpmn:incoming>Flow_1y8xa6t</bpmn:incoming>
       <bpmn:outgoing>Flow_15f13ej</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -314,15 +316,15 @@
     <bpmn:transaction id="Activity_1vg2hp0">
       <bpmn:incoming>Flow_0l0f56r</bpmn:incoming>
       <bpmn:outgoing>Flow_137vr58</bpmn:outgoing>
-      <bpmn:serviceTask id="Activity_16tk8ah" name="Освободить старый билет" camunda:delegateExpression="freeOldTicket">
+      <bpmn:serviceTask id="Activity_16tk8ah" name="Освободить старый билет">
         <bpmn:outgoing>Flow_1s11cch</bpmn:outgoing>
       </bpmn:serviceTask>
-      <bpmn:serviceTask id="Activity_1w25rkt" name="Занять новый билет" camunda:delegateExpression="bookNewTicket">
+      <bpmn:serviceTask id="Activity_1w25rkt" name="Занять новый билет">
         <bpmn:incoming>Flow_1s11cch</bpmn:incoming>
         <bpmn:outgoing>Flow_08vtzfw</bpmn:outgoing>
       </bpmn:serviceTask>
       <bpmn:sequenceFlow id="Flow_1s11cch" sourceRef="Activity_16tk8ah" targetRef="Activity_1w25rkt" />
-      <bpmn:serviceTask id="Activity_180tzfh" name="Заплатить за обмен" camunda:delegateExpression="payForExchange">
+      <bpmn:serviceTask id="Activity_180tzfh" name="Заплатить за обмен">
         <bpmn:incoming>Flow_08vtzfw</bpmn:incoming>
       </bpmn:serviceTask>
       <bpmn:sequenceFlow id="Flow_08vtzfw" sourceRef="Activity_1w25rkt" targetRef="Activity_180tzfh" />
@@ -332,7 +334,7 @@
       <bpmn:incoming>Flow_0nz0aaz</bpmn:incoming>
       <bpmn:outgoing>Flow_0l0f56r</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_00d83v6" name="Загрузить билеты" camunda:delegateExpression="loadTickets">
+    <bpmn:serviceTask id="Activity_00d83v6" name="Загрузить билеты">
       <bpmn:incoming>Flow_1l1y1nu</bpmn:incoming>
       <bpmn:outgoing>Flow_0nz0aaz</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -351,7 +353,7 @@
       <bpmn:incoming>Flow_1jedolx</bpmn:incoming>
       <bpmn:outgoing>Flow_12ht3nu</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0luvif2" name="Сохранить баланс пользователя" camunda:delegateExpression="saveUserBalance">
+    <bpmn:serviceTask id="Activity_0luvif2" name="Сохранить баланс пользователя">
       <bpmn:incoming>Flow_12ht3nu</bpmn:incoming>
       <bpmn:outgoing>Flow_0dqpi2t</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -372,7 +374,7 @@
       <bpmn:incoming>Flow_0qutoeo</bpmn:incoming>
       <bpmn:outgoing>Flow_0tg0osr</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0a61xoo" name="Удалить баланс" camunda:delegateExpression="deleteUserBalance">
+    <bpmn:serviceTask id="Activity_0a61xoo" name="Удалить баланс">
       <bpmn:incoming>Flow_0tg0osr</bpmn:incoming>
       <bpmn:outgoing>Flow_0ylkq97</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -384,7 +386,8 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0skjnsz">
       <bpmndi:BPMNShape id="Participant_03m1b4v_di" bpmnElement="Participant_03m1b4v" isHorizontal="true">
-        <dc:Bounds x="125" y="80" width="1695" height="338" />
+        <dc:Bounds x="125" y="80" width="1455" height="338" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0uqjiap_di" bpmnElement="Activity_0uqjiap">
         <dc:Bounds x="640" y="165" width="100" height="80" />
@@ -461,7 +464,7 @@
         <di:waypoint x="370" y="205" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1dthk4q_di" bpmnElement="Participant_1dthk4q" isHorizontal="true">
-        <dc:Bounds x="125" y="420" width="585" height="320" />
+        <dc:Bounds x="125" y="420" width="585" height="250" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0ambszv_di" bpmnElement="Activity_0ambszv">
         <dc:Bounds x="490" y="480" width="100" height="80" />

@@ -5,6 +5,9 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.iq47.model.entity.SellerTicket;
 import org.iq47.service.SellerTicketService;
 
+import javax.inject.Named;
+
+@Named("showTicketInfo")
 public class ShowTicketInfo implements JavaDelegate {
 
     private SellerTicketService sellerTicketService;
