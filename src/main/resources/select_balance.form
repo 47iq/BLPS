@@ -1,0 +1,23 @@
+{
+  "components": [
+    {
+      "label": "Имя пользователя",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0o0gye8",
+        "columns": null
+      },
+      "id": "Field_0ps6ya2",
+      "key": "username"
+    }
+  ],
+  "type": "default",
+  "id": "Form_163wh30",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.11.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 8
+}

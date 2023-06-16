@@ -1,0 +1,33 @@
+{
+  "components": [
+    {
+      "label": "Имя пользователя",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0aljwtz",
+        "columns": null
+      },
+      "id": "Field_1clo01h",
+      "key": "username"
+    },
+    {
+      "label": "Баланс",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0r7czj4",
+        "columns": null
+      },
+      "id": "Field_139u7bn",
+      "key": "balance"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0ngsh9e",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.11.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 8
+}

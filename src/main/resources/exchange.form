@@ -1,0 +1,56 @@
+{
+  "components": [
+    {
+      "label": "Имя пользователя",
+      "type": "textfield",
+      "layout": {
+        "row": null,
+        "columns": null
+      },
+      "id": "Field_1tsgx0a",
+      "key": "username"
+    },
+    {
+      "label": "Билет для обмена",
+      "type": "select",
+      "layout": {
+        "row": "Row_0l2yd4c",
+        "columns": null
+      },
+      "id": "Field_05donra",
+      "key": "oldTicketId",
+      "valuesKey": "userTicketsSelect"
+    },
+    {
+      "label": "Желаемый билет",
+      "type": "select",
+      "layout": {
+        "row": "Row_1wx9fow",
+        "columns": null
+      },
+      "id": "Field_0kyvy89",
+      "key": "newTicketId",
+      "valuesKey": "newTicketsSelect"
+    },
+    {
+      "label": "Стоимость обмена",
+      "type": "number",
+      "layout": {
+        "row": "Row_0ny7jj5",
+        "columns": null
+      },
+      "id": "Field_06ybvqw",
+      "key": "cost",
+      "defaultValue": 0
+    }
+  ],
+  "type": "default",
+  "id": "Form_1bwncqo",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.11.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 8
+}
