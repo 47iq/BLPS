@@ -7,6 +7,7 @@ import org.iq47.model.entity.SellerTicket;
 import org.iq47.model.entity.Ticket;
 import org.iq47.service.SellerTicketService;
 import org.iq47.service.TicketService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
 import java.util.List;
@@ -15,8 +16,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LoadSellerTicketsByTicket implements JavaDelegate {
 
+    @Autowired
     private SellerTicketService sellerTicketService;
 
+    @Autowired
     private TicketService ticketService;
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {

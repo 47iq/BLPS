@@ -5,6 +5,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.iq47.model.entity.Ticket;
 import org.iq47.service.TicketService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ public class LoadTicketsByParameters implements JavaDelegate {
 
     private SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
 
+    @Autowired
     private TicketService ticketService;
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
