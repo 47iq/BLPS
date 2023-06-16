@@ -42,6 +42,7 @@
     <bpmn:userTask id="Activity_0qr92se" name="Выбрать города и дату" camunda:formRef="Form_1" camunda:formRefBinding="latest">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_01xpf84</bpmn:incoming>
+      <bpmn:incoming>Flow_1pf5rfa</bpmn:incoming>
       <bpmn:outgoing>Flow_1ejl8r0</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:serviceTask id="Activity_0uu5mrn" name="Загрузить список городов" camunda:delegateExpression="#{loadCities}">
@@ -64,6 +65,11 @@
     <bpmn:sequenceFlow id="Flow_1dz1de5" sourceRef="Activity_0nhhz6j" targetRef="Event_0gqar4v" />
     <bpmn:sequenceFlow id="Flow_01xpf84" sourceRef="Activity_0uu5mrn" targetRef="Activity_0qr92se" />
     <bpmn:sequenceFlow id="Flow_1befhey" sourceRef="StartEvent_1" targetRef="Activity_0uu5mrn" />
+    <bpmn:boundaryEvent id="Event_11krnih" attachedToRef="Activity_0uqjiap">
+      <bpmn:outgoing>Flow_1pf5rfa</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_07du7s7" />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_1pf5rfa" sourceRef="Event_11krnih" targetRef="Activity_0qr92se" />
   </bpmn:process>
   <bpmn:process id="Process_0i217p7" isExecutable="false">
     <bpmn:serviceTask id="Activity_0ambszv" name="Сохранить билет">
@@ -392,6 +398,9 @@
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="292" y="187" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_11krnih_di" bpmnElement="Event_11krnih">
+        <dc:Bounds x="702" y="227" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ejl8r0_di" bpmnElement="Flow_1ejl8r0">
         <di:waypoint x="600" y="205" />
         <di:waypoint x="640" y="205" />
@@ -427,6 +436,12 @@
       <bpmndi:BPMNEdge id="Flow_1befhey_di" bpmnElement="Flow_1befhey">
         <di:waypoint x="328" y="205" />
         <di:waypoint x="370" y="205" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pf5rfa_di" bpmnElement="Flow_1pf5rfa">
+        <di:waypoint x="720" y="263" />
+        <di:waypoint x="720" y="283" />
+        <di:waypoint x="570" y="283" />
+        <di:waypoint x="570" y="245" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1dthk4q_di" bpmnElement="Participant_1dthk4q" isHorizontal="true">
         <dc:Bounds x="125" y="420" width="585" height="250" />

@@ -21,6 +21,6 @@ public class ShowTicketInfo implements JavaDelegate {
 
         SellerTicket sellerTicket = sellerTicketService.getTicketById(sellerTicketId).get();
 
-        delegateExecution.setVariable("sellerTicket", sellerTicket);
+        delegateExecution.setVariable("sellerTicket", sellerTicket.toString());
     }
 }
