@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0g8tifu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0g8tifu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.11.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
   <bpmn:collaboration id="Collaboration_0skjnsz">
     <bpmn:participant id="Participant_03m1b4v" name="Поиск авиабилетов" processRef="Process_search" />
     <bpmn:participant id="Participant_1dthk4q" name="Создание билета" processRef="Process_create_ticket" />
     <bpmn:participant id="Participant_0n3b18a" name="Изменение или удаление билета" processRef="Process_change_or_delete_ticket" />
     <bpmn:participant id="Participant_1gbf9hd" name="Создание билета продавца" processRef="Process_create_seller_ticket" />
     <bpmn:participant id="Participant_1y84caw" name="Изменение или удаление билета продавца" processRef="Process_edit_or_delete_seller_ticket" />
-    <bpmn:participant id="Participant_0trfj3t" processRef="Process_0mxabks" />
+    <bpmn:participant id="Participant_0trfj3t" name="Создать билет пользователя" processRef="Create_UserTicket" />
     <bpmn:participant id="Participant_01gtocm" processRef="Process_0u4x6zy" />
     <bpmn:participant id="Participant_09lqa7x" name="Обменять билет" processRef="Exchange_Tickets" />
     <bpmn:participant id="Participant_1dy8s2f" name="Создать /изменить баланс" processRef="Change_Balance" />
@@ -215,16 +215,16 @@
       <bpmn:outgoing>Flow_1j8w761</bpmn:outgoing>
     </bpmn:userTask>
   </bpmn:process>
-  <bpmn:process id="Process_0mxabks" isExecutable="false" camunda:candidateStarterGroups="admin">
-    <bpmn:serviceTask id="Activity_0h5kh0a" name="Сохранить билет пользователя">
+  <bpmn:process id="Create_UserTicket" isExecutable="true" camunda:historyTimeToLive="100"  camunda:candidateStarterGroups="admin">
+    <bpmn:serviceTask id="Activity_0h5kh0a" name="Сохранить билет пользователя" camunda:delegateExpression="${saveUserTicket}">
       <bpmn:incoming>Flow_1ks9pzt</bpmn:incoming>
       <bpmn:outgoing>Flow_1nz236o</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_0f1jcjj" name="Загрузить список билетов пользователя">
+    <bpmn:serviceTask id="Activity_0f1jcjj" name="Загрузить список билетов продавца" camunda:delegateExpression="${loadAllSellerTickets}">
       <bpmn:incoming>Flow_1mszzd4</bpmn:incoming>
       <bpmn:outgoing>Flow_1r5d5c1</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_0ltyb52" name="Ввести данные билета пользователя">
+    <bpmn:userTask id="Activity_0ltyb52" name="Ввести данные билета пользователя" camunda:formRef="Form_Create_UserTicket" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_1r5d5c1</bpmn:incoming>
       <bpmn:outgoing>Flow_1ks9pzt</bpmn:outgoing>
     </bpmn:userTask>
@@ -663,6 +663,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="BPMNShape_04uib7c" bpmnElement="Participant_0trfj3t" isHorizontal="true">
         <dc:Bounds x="125" y="920" width="870" height="250" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1pb9u8z" bpmnElement="Activity_0h5kh0a">
         <dc:Bounds x="490" y="980" width="100" height="80" />
