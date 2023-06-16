@@ -3,7 +3,7 @@
   <bpmn:collaboration id="Collaboration_0skjnsz">
     <bpmn:participant id="Participant_03m1b4v" name="Поиск авиабилетов" processRef="Process_search" />
     <bpmn:participant id="Participant_1dthk4q" processRef="Process_create_ticket" />
-    <bpmn:participant id="Participant_0n3b18a" processRef="Process_1qul2uh" />
+    <bpmn:participant id="Participant_0n3b18a" processRef="Process_change_or_delete_ticket" />
     <bpmn:participant id="Participant_1gbf9hd" processRef="Process_0t2tg18" />
     <bpmn:participant id="Participant_1y84caw" processRef="Process_1f1tfz4" />
     <bpmn:participant id="Participant_0trfj3t" processRef="Process_0mxabks" />
