@@ -76,6 +76,11 @@
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0ghqhe8" sourceRef="StartEvent_1" targetRef="Activity_1u3n38j" />
     <bpmn:serviceTask id="Activity_13vayff" name="Авторизация пользователя" camunda:delegateExpression="${loginUser}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="role">user</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0ziovog</bpmn:incoming>
       <bpmn:outgoing>Flow_11rjr2d</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -106,6 +111,11 @@
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_00fuwpn" sourceRef="Event_0h2mepz" targetRef="Activity_0kmqcir" />
     <bpmn:serviceTask id="Activity_1x4eyko" name="Авторизация пользователя" camunda:delegateExpression="${loginUser}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="role">admin</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_17vk0ey</bpmn:incoming>
       <bpmn:outgoing>Flow_1giuu2v</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -173,6 +183,11 @@
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_1cqps3i" sourceRef="Event_0x3xqwd" targetRef="Activity_0asm2ra" />
     <bpmn:serviceTask id="Activity_03nslvv" name="Авторизация пользователя" camunda:delegateExpression="${loginUser}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="role">admin</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1kqio1p</bpmn:incoming>
       <bpmn:outgoing>Flow_1ao0eu8</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -207,6 +222,11 @@
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_17pka27" sourceRef="Event_0xfap47" targetRef="Activity_1i0tyip" />
     <bpmn:serviceTask id="Activity_0n1g6x2" name="Авторизация пользователя" camunda:delegateExpression="${loginUser}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="role">admin</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1vd4pqn</bpmn:incoming>
       <bpmn:outgoing>Flow_08ra1sm</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -294,6 +314,11 @@
       <bpmn:outgoing>Flow_1f2aqil</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:serviceTask id="Activity_1u37y9z" name="Авторизация пользователя" camunda:delegateExpression="${loginUser}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="role">admin</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1f2aqil</bpmn:incoming>
       <bpmn:outgoing>Flow_07x09t6</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -354,6 +379,11 @@
     <bpmn:sequenceFlow id="Flow_0h1eicb" sourceRef="Activity_0aotikv" targetRef="Activity_0v3lnzf" />
     <bpmn:sequenceFlow id="Flow_1ioggkb" sourceRef="Activity_0v3lnzf" targetRef="Activity_03b2opa" />
     <bpmn:serviceTask id="Activity_0v3lnzf" name="Авторизация пользователя" camunda:delegateExpression="${loginUser}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="role">admin</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0h1eicb</bpmn:incoming>
       <bpmn:outgoing>Flow_1ioggkb</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -391,6 +421,11 @@
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0irdhvg" sourceRef="Event_0qx6xxr" targetRef="Activity_0kwddzh" />
     <bpmn:serviceTask id="Activity_0t4mcns" name="Авторизация пользователя" camunda:delegateExpression="${loginUser}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="role">admin</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_15kcmwb</bpmn:incoming>
       <bpmn:outgoing>Flow_0p7havc</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -416,6 +451,11 @@
     <bpmn:sequenceFlow id="Flow_0dqpi2t" sourceRef="Activity_0luvif2" targetRef="Event_0zpqum7" />
     <bpmn:sequenceFlow id="Flow_07ueg9z" sourceRef="Event_0dq9dyw" targetRef="Activity_1p4fyw7" />
     <bpmn:serviceTask id="Activity_0qmolts" name="Авторизация пользователя" camunda:delegateExpression="${loginUser}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="role">admin</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0ai3bzr</bpmn:incoming>
       <bpmn:outgoing>Flow_012a9kw</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -449,6 +489,11 @@
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_16yknjq" sourceRef="Event_0kthrmc" targetRef="Activity_18de97l" />
     <bpmn:serviceTask id="Activity_1qrjh10" name="Авторизация пользователя" camunda:delegateExpression="${loginUser}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="role">admin</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1y5hwbq</bpmn:incoming>
       <bpmn:outgoing>Flow_13z49f5</bpmn:outgoing>
     </bpmn:serviceTask>
