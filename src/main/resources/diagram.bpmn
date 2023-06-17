@@ -349,7 +349,7 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1q6uvl3" sourceRef="Activity_1btqacz" targetRef="Event_0y22sxx" />
     <bpmn:sequenceFlow id="Flow_0qilmb5" sourceRef="Activity_03b2opa" targetRef="Gateway_13d9nwz" />
-    <bpmn:userTask id="Activity_0d7qeg5" name="Изменить данные" camunda:formRef="edit_user_ticket" camunda:formRefBinding="latest">
+    <bpmn:userTask id="Activity_0d7qeg5" name="Изменить данные" camunda:formRef="edit_userticket" camunda:formRefBinding="latest">
       <bpmn:incoming>Flow_0mcpjd3</bpmn:incoming>
       <bpmn:outgoing>Flow_0d9ttcy</bpmn:outgoing>
     </bpmn:userTask>
